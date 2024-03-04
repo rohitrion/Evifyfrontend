@@ -53,7 +53,7 @@ const CustomLabel = ({ viewBox, value }) => {
   return (
     <main className="main-container">
       <div className="main-title">
-        <h3 style={{color:'black'}}> DASHBOARD</h3>
+        {/* <h3 style={{color:'black'}}> DASHBOARD</h3> */}
       </div>
 
       {/* First Row */}

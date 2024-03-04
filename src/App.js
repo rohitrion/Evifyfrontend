@@ -11,6 +11,8 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { auth } from './Component/firebase';
 import Reset from './Component/Reset';
 import File from './Component/Dashbord/File';
+import Import from './Component/Dashbord/Import';
+import Test from './Test';
 function App() {
   const [username, setUsername] = useState('');
   const [log, setLog] = useState(false);
@@ -59,6 +61,8 @@ function App() {
         <Route path='/register' element={<Signup />} />
         <Route path='/reset' element={<Reset />} />
           <Route path='/file' element={<File />} />  
+          <Route path='/new' element={<Import />}  />
+          <Route path='/test' element={<Test />}  />
      </Routes>
     </div>
   );
