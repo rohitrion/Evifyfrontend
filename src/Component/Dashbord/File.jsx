@@ -4,8 +4,11 @@ import axios from 'axios';
 import { saveAs } from 'file-saver';
 import Form from './Form';
 import { Circles } from 'react-loader-spinner'
+import Salary from './Salary';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { Num, TextState } from '../Recoil';
 
-const File = () => {
+const File = ({ currentStep, onNext }) => {
 
   const [selectedCity, setSelectedCity] = useState(null);
 
@@ -16,6 +19,20 @@ const File = () => {
   const [sucess, setsucess] = useState(false);
 
   const [loading, setloding] = useState(false)
+
+  const [sal, setsal] = useRecoilState(TextState)
+
+
+
+
+
+
+
+
+  const [num, setnum] = useRecoilState(Num)
+
+  console.log(num)
+
 
   const handleFileChange = (event) => {
     const selectedfile = event.target.files[0]
@@ -29,11 +46,12 @@ const File = () => {
 
     try {
       setloding(true)
+
       const formData = new FormData();
       formData.append('file', file);
 
       // Replace 'your-api-endpoint' with the actual endpoint of your API
-      const response = await axios.post("https://2e55-2405-201-2008-7273-501d-e21a-d46b-565f.ngrok-free.app/uploadfile", formData, {
+      const response = await axios.post("https://cbb9-2405-201-2008-7273-9f84-2516-1625-cbc.ngrok-free.app/uploadfile", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
 
@@ -42,6 +60,7 @@ const File = () => {
 
       console.log('File uploaded successfully', response.data);
       setsucess(true)
+   
     } catch (error) {
       console.error('Error uploading file', error);
       console.log('Response data:', error.response.data);
@@ -49,6 +68,7 @@ const File = () => {
       console.log('Response headers:', error.response.headers);
     } finally {
       setloding(false); // Set loading to false regardless of success or error
+
     }
   };
 
@@ -59,7 +79,7 @@ const File = () => {
   const handleDownload = async () => {
     try {
       const url =
-        "https://2e55-2405-201-2008-7273-501d-e21a-d46b-565f.ngrok-free.app/surat/samplefile";
+        "https://cbb9-2405-201-2008-7273-9f84-2516-1625-cbc.ngrok-free.app/surat/samplefile";
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", "download.xlsx");
@@ -89,6 +109,8 @@ const File = () => {
   return (
     <>
 
+
+
       {loading && (
         <div className="flex items-center justify-center fixed top-0 left-0 w-full h-full bg-opacity-30 bg-gray-300">
           <div className="ml-40">
@@ -105,22 +127,20 @@ const File = () => {
         </div>
       )}
 
-      <div className="flex items-center justify-center pl-[80px] mb-60 ml-96">
-        <main className="bg-white p-8 rounded shadow-lg w-120 lg:w-144">
 
 
 
+      {
+        sucess && num === 1 ? (
+          <Form />
+        ) : sucess && num === 2 ? (
+          <Salary />
+        ) : (
+          <>
+            <div className="flex items-center justify-center pl-[80px] mb-60 ml-96">
+              <main className="bg-white p-8 rounded shadow-lg w-120 lg:w-144">
 
-          {
-            sucess ? (
-              <Form />
-            ) : (
-              <>
                 <div className="text-center mb-6">
-
-
-
-
                   <h3 className="text-3xl font-bold">File Upload</h3>
                 </div>
 
@@ -146,13 +166,8 @@ const File = () => {
                 </div>
 
                 <div className="flex justify-end">
-                  {/* <button
-        className="bg-blue-500 text-black px-5 py-0.5 mr-2"  
-      >
-        City
-      </button> */}
                   <select
-                    className=" px-4 py-0.5 mr-2 bg-[#EFEFEF] shadow-lg rounded-lg  text-black "
+                    className="px-4 py-0.5 mr-2 bg-[#EFEFEF] shadow-lg rounded-lg  text-black "
                     value={selectedCity1}
                     onChange={handleCityChange1}
                   >
@@ -174,10 +189,15 @@ const File = () => {
                     Next
                   </button>
                 </div>
-              </>)}
-        </main>
 
-      </div>
+              </main>
+
+            </div>
+          </>)}
+
+
+
+
     </>
   );
 };

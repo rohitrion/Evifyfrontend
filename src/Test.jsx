@@ -1,106 +1,40 @@
-// import React from 'react';
-// import axios from 'axios';
-// import { saveAs } from 'file-saver';
-
-// const FileDownloadExample = () => {
-//   const downloadExcelFile = async () => {
-//     try {
-//       // Replace with the JSONPlaceholder API endpoint that returns a binary file
-//       const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1', {
-//         responseType: 'blob',
-//       });
-
-//       // Save the file using file-saver
-//       saveAs(response.data, 'example.xlsx');
-//     } catch (error) {
-//       console.error('Error downloading file:', error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={downloadExcelFile}>Download Excel File</button>
-//     </div>
-//   );
-// };
-
-// export default FileDownloadExample;
-
-
-// import React from 'react';
-// import axios from 'axios';
-// import { saveAs } from 'file-saver';
-
-// const Test = () => {
-//   const handleDownload = async () => {
-//     try {
-//       // Assuming you want to download an Excel file from the provided API endpoint
-//       const url = 'https://3662-2405-201-2008-7273-493-2c78-4cbf-fb90.ngrok-free.app/surat/samplefile';
-
-//       const response = await axios.get(url, { responseType: 'blob' });
-
-//       // Log content type and size for debugging
-//       console.log(response.data)
-//       console.log('Content Type:', response.headers['content-type']);
-//       console.log('File Size:', response.data.size);
-
-//       if (response && response.data) {
-//         saveAs(response.data, 'downloaded_file.xlsx');
-//       } else {
-//         console.error('Empty or invalid response from the server');
-//       }
-//     } catch (error) {
-//       console.error('Error downloading file:', error.message);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <div>
-//         {/* Place any additional UI elements or information here */}
-//       </div>
-//       <div>
-//         <button onClick={handleDownload} type="button" className="btn btn-primary">
-//           Download
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Test;
-
-
-import React from "react";
+import React, { useState } from 'react';
 
 const Test = () => {
-  const handleDownload = async () => {
-    try {
-      const url =
-        "https://3662-2405-201-2008-7273-493-2c78-4cbf-fb90.ngrok-free.app/surat/samplefile";
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "download.xlsx");
+  // Step 2: Set up state for input values
+  const [inputValues, setInputValues] = useState({
+    input1: 0,
+    input2: 0,
+    // ... input3 to input13
+    input14: 0,
+  });
 
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error("Error downloading file:", error.message);
-    }
+  // Step 3: Define event handler to update state on input change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    // Convert the input value to a number
+    // const numericValue = parseInt(value, 10) || 0;
+    setInputValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  // Step 4: Display values in the console
+  const logValues = () => {
+    console.log(inputValues);
   };
 
   return (
     <div>
-      <div>
-        <button
-          onClick={handleDownload}
-          type="button"
-          className="btn btn-primary"
-        >
-          Download
-        </button>
-      </div>
+      {/* Step 1: Create 14 number input fields with onChange event */}
+      <input type="number" name="input1" value={inputValues.input1} onChange={handleInputChange} />
+      <input type="number" name="input2" value={inputValues.input2} onChange={handleInputChange} />
+      {/* ... input3 to input13 */}
+      <input type="number" name="input14" value={inputValues.input14} onChange={handleInputChange} />
+
+      {/* Button to log values */}
+      <button onClick={logValues}>Log Values</button>
     </div>
   );
 };

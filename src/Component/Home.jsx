@@ -9,6 +9,8 @@ import { useState } from 'react';
 import File from './Dashbord/File';
 import Import from './Dashbord/Import'
 import Inventory from './Sidebar/Inventory'
+import { useRecoilState } from 'recoil'
+import { Num } from './Recoil'
 
 function Home({ name, log }) {
 
@@ -17,18 +19,32 @@ function Home({ name, log }) {
 
   const [selectedContent, setSelectedContent] = useState('Dashboard');
 
+  const [currentFileUploadStep, setCurrentFileUploadStep] = useState(1);
+
+  const [num,setnum] =useRecoilState(Num)
+
   const handleSidebarItemClick = (content) => {
     setSelectedContent(content);
+    setCurrentFileUploadStep(1);
+    setnum(1)
   };
  
-     
+
+  const handleFileUploadNext = () => {
+    // setCurrentFileUploadStep(currentFileUploadStep + 1);
+  
+  };
 
  
   const contentComponents = {
     Dashboard: <Main />,
-    "File-upload": <File />,
+    "File-upload": <File   
+    currentStep={num}
+    onNext={handleFileUploadNext}
+    />,
     "File-Import": <Import />,
     Inventory:<Inventory/>
+
   };
 
 
