@@ -6,7 +6,7 @@ import Form from './Form';
 import { Circles } from 'react-loader-spinner'
 import Salary from './Salary';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Num, TextState } from '../Recoil';
+import { BaseURLState, GloablFile, Num, TextState } from '../Recoil';
 
 const File = ({ currentStep, onNext }) => {
 
@@ -22,8 +22,10 @@ const File = ({ currentStep, onNext }) => {
 
   const [sal, setsal] = useRecoilState(TextState)
 
+ const [Gfile,GsetFile]=useRecoilState(GloablFile)
 
 
+  const baseurl= useRecoilValue(BaseURLState)
 
 
 
@@ -32,12 +34,15 @@ const File = ({ currentStep, onNext }) => {
   const [num, setnum] = useRecoilState(Num)
 
   console.log(num)
+ 
+ console.log(Gfile+"data")
 
 
   const handleFileChange = (event) => {
     const selectedfile = event.target.files[0]
     console.log(selectedfile)
     setfile(selectedfile)
+    GsetFile(selectedfile)
   }
 
 
@@ -51,7 +56,7 @@ const File = ({ currentStep, onNext }) => {
       formData.append('file', file);
 
       // Replace 'your-api-endpoint' with the actual endpoint of your API
-      const response = await axios.post("https://cbb9-2405-201-2008-7273-9f84-2516-1625-cbc.ngrok-free.app/uploadfile", formData, {
+      const response = await axios.post(`${baseurl}/uploadfile`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
 
@@ -79,7 +84,7 @@ const File = ({ currentStep, onNext }) => {
   const handleDownload = async () => {
     try {
       const url =
-        "https://cbb9-2405-201-2008-7273-9f84-2516-1625-cbc.ngrok-free.app/surat/samplefile";
+        `${baseurl}/surat/samplefile`;
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", "download.xlsx");
