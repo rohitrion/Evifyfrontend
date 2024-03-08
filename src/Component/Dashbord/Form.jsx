@@ -37,7 +37,7 @@ const Form = () => {
 
         <div className="flex items-center gap-[38px] justify-between w-96 bg-gray-200 p-3 rounded  ">
           <span className="text-xl font-bold">Swiggy</span>
-          <button className="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+          <button   onClick={()=>handleclick(3)}  className="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
             Update Structure
           </button>
 

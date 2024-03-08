@@ -24,5 +24,11 @@ export const TextState = atom({
 
   export const BaseURLState = atom({
     key: 'baseURLState',
-    default: 'https://ae1e-2405-201-2008-7273-b38f-1847-3e42-ed7c.ngrok-free.app',
+    default: 'https://d52f-2405-201-2008-7273-ca31-1bf2-fa05-f712.ngrok-free.app',
   });
+
+ 
+  export const Response=atom({
+    key:"file",
+    default:""
+  })

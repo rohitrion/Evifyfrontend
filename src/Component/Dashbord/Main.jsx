@@ -56,9 +56,9 @@ const CustomLabel = ({ viewBox, value }) => {
         {/* <h3 style={{color:'black'}}> DASHBOARD</h3> */}
       </div>
 
-      {/* First Row */}
-      <div className="chart-row" style={{ textAlign: 'center' }}>
-        {/* Bar Chart */}
+
+      {/* <div className="chart-row" style={{ textAlign: 'center' }}>
+     
         <div className="chart-container">
           <h4 style={{color:'black'}} >Rider vs Month</h4>
           <ResponsiveContainer className="chart-container" width="100%" height={300}>
@@ -74,7 +74,7 @@ const CustomLabel = ({ viewBox, value }) => {
         </ResponsiveContainer>
         </div>
 
-        {/* Pie Chart 1 */}
+
         <div className="chart-container">
           <h4 style={{color:'black'}}  >Rider vs Month</h4>
           <ResponsiveContainer width="100%" height={300}>
@@ -87,11 +87,11 @@ const CustomLabel = ({ viewBox, value }) => {
             </PieChart>
           </ResponsiveContainer>
         </div>
-      </div>
+      </div> */}
 
-      {/* Second Row */}
-      <div className="chart-row" style={{ textAlign: 'center' }}>
-        {/* Bar Chart */}
+ 
+      {/* <div className="chart-row" style={{ textAlign: 'center' }}>
+       
         <div className="chart-container">
         <h4 style={{color:'black'}}  >Rider vs Month</h4>
         <ResponsiveContainer className="chart-container" width="100%" height={300}>
@@ -107,7 +107,7 @@ const CustomLabel = ({ viewBox, value }) => {
         </ResponsiveContainer>
         </div>
 
-        {/* Pie Chart 2 */}
+ 
         <div className="chart-container">
         <h4 style={{color:'black'}}  >Rider vs Month</h4>
         <ResponsiveContainer width="100%" height={300}>
@@ -135,7 +135,7 @@ const CustomLabel = ({ viewBox, value }) => {
       </PieChart>
     </ResponsiveContainer>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 };
