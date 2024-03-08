@@ -16,10 +16,6 @@ const Form = () => {
   }
 
 
-
-  // /download_salary_file/{file_key}
-
-
   const handleDownload = async () => {
     try {
       const url =
@@ -38,9 +34,6 @@ const Form = () => {
 
 
 
-
-
-
   return (
     <div className="flex items-center justify-center pl-[80px] mb-60 ml-96">
       <main className="bg-white p-8 rounded shadow-lg w-120 lg:w-144">
@@ -53,7 +46,7 @@ const Form = () => {
             <h3 className="text-3xl font-bold   ">Salary Structure of Surat </h3>
 
             <div className="flex items-center gap-[38px] justify-between w-96 bg-gray-200 p-3 rounded ">
-              <span className="text-xl font-bold">Zomato</span>
+              <span className="text-xl font-bold">ZOMATO</span>
 
               <button onClick={() => handleclick(2)} className="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                 Update Structure
@@ -63,7 +56,7 @@ const Form = () => {
             </div>
 
             <div className="flex items-center gap-[38px] justify-between w-96 bg-gray-200 p-3 rounded  ">
-              <span className="text-xl font-bold">Swiggy</span>
+              <span className="text-xl font-bold">SWIGGY</span>
               <button onClick={() => handleclick(3)} className="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                 Update Structure
               </button>
@@ -74,13 +67,40 @@ const Form = () => {
 
 
             <div className="flex items-center gap-[38px] justify-between w-96 bg-gray-200 p-3 rounded ">
-              <span className="text-xl font-bold">Big Basket</span>
-              <button className="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+              <span className="text-xl font-bold" >BB-NOW</span>
+              <button onClick={() => handleclick(4)} className="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                 Update Structure
               </button>
 
 
             </div>
+
+
+
+            <div className="flex items-center gap-[38px] justify-between w-96 bg-gray-200 p-3 rounded ">
+              <span className="text-xl font-bold" >FLIPKART</span>
+              <button onClick={() => handleclick(5)} className="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                Update Structure
+              </button>
+
+
+            </div>
+ 
+ 
+
+
+            <div className="flex items-center gap-[38px] justify-between w-96 bg-gray-200 p-3 rounded ">
+              <span className="text-xl font-bold" >ECOM</span>
+              <button onClick={() => handleclick(6)} className="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                Update Structure
+              </button>
+
+
+            </div>
+ 
+ 
+
+
 
             <div className='flex gap-16  mt-3  justify-between' >
 
