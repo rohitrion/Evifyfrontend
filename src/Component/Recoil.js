@@ -32,3 +32,20 @@ export const TextState = atom({
     key:"file",
     default:""
   })
+
+
+
+
+
+
+  // export const Response=atom({
+  //   key:"file",
+  //   default:""
+  // })
+
+
+
+  export const  Finalresponse=atom ({
+    key:"final",
+    default:""
+  })

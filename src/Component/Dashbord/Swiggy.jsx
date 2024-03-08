@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { BaseURLState, GloablFile, Num, Response } from '../Recoil';
+import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
 
 
 const Swiggy = () => {
@@ -17,6 +17,8 @@ const Swiggy = () => {
     const [num, setnum] = useRecoilState(Num)
 
     const [res, setres] = useRecoilState(Response);
+    
+    const[final,setfinal]=useRecoilState(Finalresponse)
 
 
     const [rentmodal, setRentModal] = useState({
@@ -97,6 +99,8 @@ const Swiggy = () => {
             console.log('Data sent successfully', response.data);
             setnum(1)
             console.log("api12 successfully ");
+             setfinal(response.data);
+             
         } catch (error) {
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
