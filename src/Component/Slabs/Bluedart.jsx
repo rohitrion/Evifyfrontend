@@ -24,13 +24,30 @@ const Bluedart = () => {
 
     const [rentmodal, setRentModal] = useState({
 
-        average_order: 13,
-        average_amount: 400,
-        from_order: 1,
-        to_order: 14,
-        order_amount2: 30,
-        order_grether_than: 15,
-        order_amount3: 35,
+        from_order_document: 1,
+        to_order_document: 44,
+        first_amount_document: 5,
+        second_condition_from_document: 45,
+        second_condition_to_document: 64,
+        second_condition_amount_document: 6,
+        third_condition_from_document: 65,
+        third_condition_to_document: 79,
+        third_condtion_amount_document: 7,
+        order_greater_than_document: 80,
+        order_amount_document: 7.5,
+        from_order_parcel: 1,
+        to_order_parcel: 20,
+        first_amount_parcel: 10,
+        second_condition_from_parcel: 21,
+        second_condition_to_parcel: 35,
+        second_condition_amount_parcel: 12,
+        third_condition_from_parcel: 36,
+        third_condition_to_parcel: 45,
+        third_condtion_amount_parcel: 13,
+        order_greater_than_parcel: 46,
+        order_amount_parcel: 13.5,
+
+
     });
 
     const [file, setfile] = useRecoilState(GloablFile)
@@ -68,7 +85,7 @@ const Bluedart = () => {
             formData.append('file', file);
             console.log(formData)
 
-            const response = await axios.post(`${baseurl}/surat/bbnow/structure1/${final.file_id}/${final.file_name}`, formData, {
+            const response = await axios.post(`${baseurl}/surat/bluedart/structure/${final.file_id}/${final.file_name}`, formData, {
 
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -96,14 +113,14 @@ const Bluedart = () => {
         <div className="flex items-center justify-center mt-2 pl-[190px] mb-40 ml-16">
 
             <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
-                <h3 className="text-3xl text-center pb-2 font-bold">BB-NOW</h3>
+                <h3 className="text-3xl text-center pb-2 font-bold">BLUEDART BIKER</h3>
                 <div className='border-4 bg-slate-100 p-[50px] '>
 
                     <div>
 
 
 
-                        <h3 className="text-3xl text-center pt-2 mt-2 font-bold">SALARY</h3>
+                        <h3 className="text-3xl text-center pt-2 mt-2 font-bold">DOCUMENT</h3>
                         <input
                             type="checkbox"
                             checked={rentmodal.include_bonus}
@@ -125,22 +142,22 @@ const Bluedart = () => {
                                         <input
                                             type="text"
                                             className='text-center'
-                                            value={rentmodal.from_order}
-                                            onChange={(e) => handleInputChange('from_order', e.target.value)}
+                                            value={rentmodal.from_order_document}
+                                            onChange={(e) => handleInputChange('from_order_document', e.target.value)}
                                         />
                                     </td>
                                     <td className="border border-gray-300 p-2">
                                         <input
                                             type="text"
-                                            value={rentmodal.to_order}
-                                            onChange={(e) => handleInputChange('to_order', e.target.value)}
+                                            value={rentmodal.to_order_document}
+                                            onChange={(e) => handleInputChange('to_order_document', e.target.value)}
                                         />
                                     </td>
                                     <td className="border border-gray-300 p-2">
                                         <input
                                             type="text"
-                                            value={rentmodal.order_amount2}
-                                            onChange={(e) => handleInputChange('order_amount2', e.target.value)}
+                                            value={rentmodal.first_amount_document}
+                                            onChange={(e) => handleInputChange('first_amount_document', e.target.value)}
                                         />
                                     </td>
 
@@ -150,49 +167,183 @@ const Bluedart = () => {
                                 <tr>
                                     <td className="border border-gray-300 p-2">
                                         <input
-                                            type="text" placeholder='AVG_GRATHER_THEN' className='text-center' readOnly
-                                            value={"AVG_GRATHER_THEN"}
-                                            onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
+                                            type="text" placeholder='AVG_GRATHER_THEN' className='text-center'
+                                            value={rentmodal.second_condition_from_document}
+                                            onChange={(e) => handleInputChange('second_condition_from_document', 'vehicleChargesOrderFulltime', e.target.value)}
                                         />
                                     </td>
                                     <td className="border border-gray-300 p-2">
                                         <input
                                             type="text"
-                                            value={rentmodal.order_grether_than}
-                                            onChange={(e) => handleInputChange('order_grether_than', e.target.value)}
+                                            value={rentmodal.second_condition_to_document}
+                                            onChange={(e) => handleInputChange('  second_condition_to_document', e.target.value)}
                                         />
                                     </td>
                                     <td className="border border-gray-300 p-2">
                                         <input
                                             type="text"
-                                            value={rentmodal.order_amount3}
-                                            onChange={(e) => handleInputChange('order_amount3', e.target.value)}
+                                            value={rentmodal.second_condition_amount_document}
+                                            onChange={(e) => handleInputChange('second_condition_amount_document', e.target.value)}
                                         />
                                     </td>
 
 
                                 </tr>
+
+                                <tr>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text" placeholder='AVERAGE_LESS_THEN' className='text-center'
+                                            value={rentmodal.third_condition_from_document}
+                                            onChange={(e) => handleInputChange('third_condition_from_document', 'vehicleChargesOrderFulltime', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.third_condition_to_document}
+                                            onChange={(e) => handleInputChange(' third_condition_to_document', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.third_condtion_amount_document}
+                                            onChange={(e) => handleInputChange('third_condtion_amount_document', e.target.value)}
+                                        />
+                                    </td>
+
+
+                                </tr>
+
+
+
+
+
+
 
                                 <tr>
                                     <td className="border border-gray-300 p-2">
                                         <input
                                             type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
-                                            value={"AVERAGE_LESS_THEN"}
-                                            onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
+                                            value={"AVG_GRATHER_THEN"}
+                                            onChange={(e) => handleInputChange('third_condition_from_document', 'vehicleChargesOrderFulltime', e.target.value)}
                                         />
                                     </td>
                                     <td className="border border-gray-300 p-2">
                                         <input
                                             type="text"
-                                            value={rentmodal.average_order}
-                                            onChange={(e) => handleInputChange('average_order', e.target.value)}
+                                            value={rentmodal.order_greater_than_document}
+                                            onChange={(e) => handleInputChange(' order_greater_than_document', e.target.value)}
                                         />
                                     </td>
                                     <td className="border border-gray-300 p-2">
                                         <input
                                             type="text"
-                                            value={rentmodal.average_amount}
-                                            onChange={(e) => handleInputChange('average_amount', e.target.value)}
+                                            value={rentmodal.order_amount_document}
+                                            onChange={(e) => handleInputChange('order_amount_document', e.target.value)}
+                                        />
+                                    </td>
+
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+
+
+                        <h3 className="text-3xl text-center pt-4 mt-8 font-bold">PARCEL</h3>
+
+                        <table className="min-w-full border border-gray-300 mt-2 text-center">
+
+                            <thead>
+                                <tr>
+                                    <th className="border border-gray-300 p-2"> ORDERS TO</th>
+                                    <th className="border border-gray-300 p-2">ORDERS FROM</th>
+                                    <th className="border border-gray-300 p-2">MON-SUN</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            className='text-center'
+                                            value={rentmodal.from_order_parcel}
+                                            onChange={(e) => handleInputChange('from_order_parcel', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.to_order_parcel}
+                                            onChange={(e) => handleInputChange('to_order_parcel', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.first_amount_parcel}
+                                            onChange={(e) => handleInputChange('first_amount_parcel', e.target.value)}
+                                        />
+                                    </td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text" placeholder='AVG_GRATHER_THEN' className='text-center'
+                                            value={rentmodal.second_condition_from_parcel}
+                                            onChange={(e) => handleInputChange('second_condition_from_parcel', 'vehicleChargesOrderFulltime', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.second_condition_to_parcel}
+                                            onChange={(e) => handleInputChange('  second_condition_to_parcel', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.second_condition_amount_parcel}
+                                            onChange={(e) => handleInputChange('second_condition_amount_parcel', e.target.value)}
+                                        />
+                                    </td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text" placeholder='AVERAGE_LESS_THEN' className='text-center'
+                                            value={rentmodal.third_condition_from_parcel}
+                                            onChange={(e) => handleInputChange('third_condition_from_parcel', 'vehicleChargesOrderFulltime', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.third_condition_to_parcel}
+                                            onChange={(e) => handleInputChange(' third_condition_to_parcel', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.third_condtion_amount_parcel}
+                                            onChange={(e) => handleInputChange('third_condtion_amount_parcel', e.target.value)}
                                         />
                                     </td>
 
@@ -200,8 +351,51 @@ const Bluedart = () => {
                                 </tr>
 
 
+
+
+
+
+
+                                <tr>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
+                                            value={"AVG_GRATHER_THEN"}
+                                            onChange={(e) => handleInputChange('third_condition_from_document', 'vehicleChargesOrderFulltime', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.order_greater_than_parcel}
+                                            onChange={(e) => handleInputChange(' order_greater_than_parcel', e.target.value)}
+                                        />
+                                    </td>
+                                    <td className="border border-gray-300 p-2">
+                                        <input
+                                            type="text"
+                                            value={rentmodal.order_amount_parcel}
+                                            onChange={(e) => handleInputChange('order_amount_parcel', e.target.value)}
+                                        />
+                                    </td>
+
+
+                                </tr>
+
                             </tbody>
                         </table>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                         <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>

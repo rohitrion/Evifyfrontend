@@ -25,8 +25,8 @@ function Home({ name, log }) {
 
   const handleSidebarItemClick = (content) => {
     setSelectedContent(content);
-    setCurrentFileUploadStep(1);
-    setnum(1)
+    // setCurrentFileUploadStep(1);
+     setnum(1)
   };
  
 
@@ -40,7 +40,7 @@ function Home({ name, log }) {
     Dashboard: <Main />,
     "File-upload": <File   
     currentStep={num}
-    onNext={handleFileUploadNext}
+    // onNext={handleFileUploadNext}
     />,
     "File-Import": <Import />,
     Inventory:<Inventory/>
