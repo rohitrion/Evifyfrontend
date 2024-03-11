@@ -1,12 +1,8 @@
 
-
-
-
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { BaseURLState, GloablFile, Num, Response } from '../Recoil';
+import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
 
 
 const Ahzomato = () => {
@@ -16,7 +12,10 @@ const Ahzomato = () => {
 
   const [num, setnum] = useRecoilState(Num)
 
-const [res,setres]=useRecoilState(Response)
+  const [res, setres] = useRecoilState(Response)
+
+  const [final, setfinal] = useRecoilState(Finalresponse)
+
 
   const [rentmodal, setRentModal] = useState({
     include_slab: false,
@@ -81,12 +80,13 @@ const [res,setres]=useRecoilState(Response)
       Object.entries(rentmodal).forEach(([key, value]) => {
         formData.append(key, value);
       });
-  
+
 
       formData.append('file', file);
       console.log(formData)
 
-      const response = await axios.post(`${baseurl}/surat/zomato/structure3?`, formData, {
+
+      const response = await axios.post(`${baseurl}/ahmedabad/zomato/v2/structure1?`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -96,9 +96,9 @@ const [res,setres]=useRecoilState(Response)
       // console.log('Data sent successfully', JSON.stringify(response.data));
       setnum(1)
       setres(response.data)
-      
-      console.log(res+"the response"+ setres)
-    console.log(res+"the data ")
+      setfinal(response.data)
+      console.log(res + "the response" + setres)
+      console.log(res + "the data ")
       console.log("api12 successfully ");
     } catch (error) {
       console.error('Error sending data', error);

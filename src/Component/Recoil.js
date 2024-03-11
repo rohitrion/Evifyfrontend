@@ -16,10 +16,10 @@ export const TextState = atom({
 
 
 
-  // export const  NewNum = atom({
-  //   key : "id",
-  //   default :0
-  // })
+  export const  NewNum = atom({
+    key : "id",
+    default :0
+  })
 
 
  
@@ -38,7 +38,7 @@ export const TextState = atom({
 
   export const BaseURLState = atom({
     key: 'baseURLState',
-    default: 'https://bdf8-2405-201-2008-7273-138f-16e0-91cd-319e.ngrok-free.app',
+    default: 'https://227c-2405-201-2008-7273-3df6-4588-4516-3d38.ngrok-free.app',
   });
 
  

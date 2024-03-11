@@ -14,6 +14,7 @@ import ECOM from '../Slabs/ECOM';
 import Bluedart from '../Slabs/Bluedart';
 import Ahemdabad from '../Slabs/Ahemdabad';
 import Ahzomato from '../Slabs/Ahzomato';
+import Ahblinkit from '../Slabs/Ahblinkit';
 
 const File = ({ currentStep, onNext }) => {
 
@@ -36,7 +37,7 @@ const File = ({ currentStep, onNext }) => {
   const baseurl = useRecoilValue(BaseURLState)
 
 
-
+ const[error,seterror]=useState();
 
 
   const [num, setnum] = useRecoilState(Num)
@@ -64,7 +65,7 @@ const File = ({ currentStep, onNext }) => {
       formData.append('file', file);
 
       // Replace 'your-api-endpoint' with the actual endpoint of your API
-      const response = await axios.post(`${baseurl}/uploadfile`, formData, {
+      const response = await axios.post(`${baseurl}/uploadfile/${selectedCity}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
 
@@ -77,6 +78,7 @@ const File = ({ currentStep, onNext }) => {
 
       // renderCityComponent();
     } catch (error) {
+      seterror()
       console.error('Error uploading file', error);
       console.log('Response data:', error.response.data);
       console.log('Response status:', error.response.status);
@@ -168,10 +170,10 @@ const File = ({ currentStep, onNext }) => {
         </div>
       )}
 
-      
 
 
-        {/* { num === 8 && <Ahzomato />} */}
+
+      {/* { num === 8 && <Ahzomato />} */}
 
 
       {
@@ -179,10 +181,15 @@ const File = ({ currentStep, onNext }) => {
         sucess && selectedCity == "ahmedabad" ? (
           <Ahemdabad />
         ) :
-       
-        
-        sucess &&  num === 8  ? (
+
+
+          sucess && num === 8 ? (
             <Ahzomato />
+
+          ) : sucess && num === 9 ? (
+            <Ahblinkit />
+
+
           ) : sucess && num === 1 ? (
             <Form />
           ) : sucess && num === 2 ? (
