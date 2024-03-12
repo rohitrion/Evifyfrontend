@@ -1,12 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import Form from './Form';
 import { Circles } from 'react-loader-spinner'
 import Salary from './Salary';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { BaseURLState, Dz, GloablFile, Num, TextState } from '../Recoil';
+import { BaseURLState, Dz, Error, GloablFile, Num, TextState } from '../Recoil';
 import Swiggy from './Swiggy';
 import BBnow from '../Slabs/BBnow';
 import Flipkart from '../Slabs/Flipkart';
@@ -37,7 +37,7 @@ const File = ({ currentStep, onNext }) => {
   const baseurl = useRecoilValue(BaseURLState)
 
 
- const[error,seterror]=useState();
+  const [error, seterror] = useRecoilState(Error);
 
 
   const [num, setnum] = useRecoilState(Num)
@@ -78,7 +78,7 @@ const File = ({ currentStep, onNext }) => {
 
       // renderCityComponent();
     } catch (error) {
-      seterror()
+      handleError(error.response.data.detail);
       console.error('Error uploading file', error);
       console.log('Response data:', error.response.data);
       console.log('Response status:', error.response.status);
@@ -93,7 +93,14 @@ const File = ({ currentStep, onNext }) => {
   };
 
 
+  const handleError = (errorMessage) => {
+    seterror(errorMessage);
 
+    // Clear the error after 1 minute
+    setTimeout(() => {
+      seterror('');
+    }, 3000);
+  };
 
 
   const handleDownload = async () => {
@@ -144,7 +151,6 @@ const File = ({ currentStep, onNext }) => {
 
 
   console.log(num, "the number ")
-
 
 
 
@@ -208,7 +214,7 @@ const File = ({ currentStep, onNext }) => {
 
             (
               <>
-                {/* {renderAdditionalComponent()} */}
+
                 <div className="flex items-center justify-center pl-[80px] mb-60 ml-96">
                   <main className="bg-white p-8 rounded shadow-lg w-120 lg:w-144">
 
@@ -236,6 +242,17 @@ const File = ({ currentStep, onNext }) => {
                         <input type="file" className="w-full" onChange={handleFileChange} />
                       </div>
                     </div>
+
+
+                    {
+                      error ? <div class="p-4 mb-4 text-lg text-center text-red-800 mb-6 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                        <b><span class="font-medium">{error}</span></b>
+                      </div> : ""
+
+
+                    }
+
+
 
                     <div className="flex justify-end">
                       <select

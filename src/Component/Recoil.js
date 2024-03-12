@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 
 
+
 export const TextState = atom({
     key: 'textState', // unique ID (with respect to other atoms/selectors)
     default: false, // default value (aka initial value)
@@ -26,8 +27,6 @@ export const TextState = atom({
 
 
 
-
-
  
   export const GloablFile=atom({
     key : "F",
@@ -38,7 +37,7 @@ export const TextState = atom({
 
   export const BaseURLState = atom({
     key: 'baseURLState',
-    default: 'https://227c-2405-201-2008-7273-3df6-4588-4516-3d38.ngrok-free.app',
+    default: 'https://1b05-2405-201-2008-7273-99a4-205-be78-d049.ngrok-free.app',
   });
 
  
@@ -52,10 +51,10 @@ export const TextState = atom({
 
 
 
-  // export const Response=atom({
-  //   key:"file",
-  //   default:""
-  // })
+  export const Error=atom({
+    key:"error",
+    default:""
+  })
 
 
 
@@ -63,3 +62,21 @@ export const TextState = atom({
     key:"final",
     default:""
   })
+
+
+
+
+
+
+
+
+
+
+
+  export const AuthState = atom({
+    key: 'authState',
+    default: {
+      isAuthenticated: false,
+      user: null,
+    },
+  });

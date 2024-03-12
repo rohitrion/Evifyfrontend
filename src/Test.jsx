@@ -1,80 +1,72 @@
+// src/components/LoginForm.js
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const Test = () => {
-  const [formData, setFormData] = useState([
-    { id: 1, label: 'Input 1', value: '' },
-    { id: 2, label: 'Input 2', value: '' },
-    // Add more items as needed
-  ]);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
-  const [file, setFile] = useState(null);
-
-  const handleCheckboxChange = (itemId) => {
-    setSelectedCheckboxes((prevSelectedCheckboxes) => {
-      if (prevSelectedCheckboxes.includes(itemId)) {
-        return prevSelectedCheckboxes.filter((id) => id !== itemId);
-      } else {
-        return [...prevSelectedCheckboxes, itemId];
-      }
-    });
-  };
-
-  const handleInputChange = (itemId, value) => {
-    setFormData((prevFormData) =>
-      prevFormData.map((item) => (item.id === itemId ? { ...item, value } : item))
-    );
-  };
-
-  const handleFileChange = (e) => {
-    // Handle file input change
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-  };
-
-  const handlePostApi = async () => {
-    // Create an array with data from selected checkboxes
-    const selectedData = formData
-      .filter((item) => selectedCheckboxes.includes(item.id))
-      .map(({ id, value }) => ({ id, value }));
-
-    try {
-      // Make your POST API request using the selected data
-      const response = await axios.post('your-api-endpoint', {
-        selectedData,
-        file,
-      });
-
-      // Handle the response as needed
-      console.log(response.data);
-    } catch (error) {
-      // Handle API request error
-      console.error('Error submitting data:', error);
-    }
+  const handleLogin = () => {
+    // Implement your login logic here
+    console.log('Email:', email);
+    console.log('Password:', password);
   };
 
   return (
-    <form>
-      {formData.map((item) => (
-        <div key={item.id}>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-md mx-auto mt-10 p-8 rounded-md shadow-md bg-gradient-to-r from-yellow-300 to-yellow-500 text-gray-800 relative"
+    >
+      <div className="text-3xl font-bold mb-6 text-yellow-800">EVIFY</div>
+      <form>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mb-4"
+        >
+          <label htmlFor="email" className="block text-sm font-medium text-gray-600">
+            Email address
+          </label>
           <input
-            type="text"
-            value={item.value}
-            onChange={(e) => handleInputChange(item.id, e.target.value)}
-            placeholder={item.label}
+            type="email"
+            id="email"
+            className="mt-1 p-2 w-full border-none rounded-md bg-white text-gray-800"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mb-6"
+        >
+          <label htmlFor="password" className="block text-sm font-medium text-gray-600">
+            Password
+          </label>
           <input
-            type="checkbox"
-            checked={selectedCheckboxes.includes(item.id)}
-            onChange={() => handleCheckboxChange(item.id)}
+            type="password"
+            id="password"
+            className="mt-1 p-2 w-full border-none rounded-md bg-white text-gray-800"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-      ))}
-      <input type="file" onChange={handleFileChange} />
-      <button type="button" onClick={handlePostApi}>
-        Submit
-      </button>
-    </form>
+        </motion.div>
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.05, backgroundColor: '#FFB603' }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full py-2 px-4 bg-yellow-500 text-white rounded-md focus:outline-none focus:ring focus:border-yellow-400"
+          onClick={handleLogin}
+        >
+          Log in
+        </motion.button>
+      </form>
+    </motion.div>
   );
 };
 

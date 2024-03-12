@@ -68,10 +68,10 @@ function Home({ name, log }) {
 
   }
 
-  if (!log) {
-    navigate('/');
-    return null;
-  }
+  // if (!log) {
+  //   navigate('/');
+  //   return null;
+  // }
 
   return (
     <>
