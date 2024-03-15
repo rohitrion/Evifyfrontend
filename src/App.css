@@ -10,7 +10,6 @@ body {
   background-color: #1d2634;
   color: #9e9ea4;
   font-family: 'Montserrat', sans-serif;
-  
 }
 
 
@@ -111,7 +110,7 @@ margin-left: 16px;
 }
 
 .sidebar-list-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(7, 1, 1, 0.2);
   cursor: pointer;
 }
 
@@ -335,4 +334,21 @@ margin-left: 16px;
   gap: 15px;
   justify-items: center;
   align-items: center;
+}
+
+
+
+/* Custom CSS */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Style the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: #f5f5f5; /* Change the color as desired */
+}
+
+/* Style the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Change the color as desired */
 }

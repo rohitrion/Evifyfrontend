@@ -28,7 +28,7 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
 
                 </li>
 
-                <li className='sidebar-list-item s-col' onClick={() => onSidebarItemClick(' File-Import')}>
+                <li className='sidebar-list-item s-col' onClick={() => onSidebarItemClick('File-Import')}>
 
 
                     <BsFillGrid3X3GapFill className='icon' /> File Import

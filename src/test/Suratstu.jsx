@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { BaseURLState, Dz, Finalresponse, GloablFile, NewNum, Num, Refresh, TextState } from '../Recoil'
 
-const Form = ({setsucess}) => {
+const Suratstu = ({setsucess}) => {
 
   const [show, setshow] = useRecoilState(TextState)
   const [num, setnum] = useRecoilState(Num)
@@ -15,7 +15,7 @@ const Form = ({setsucess}) => {
 const [gfile ,setgfile]=useRecoilState(GloablFile)
 const [refresh,setrefresh]=useRecoilValue(Refresh)
   
-const navigate = useNavigate()
+
   function handleclick(val) {
      setnum(val)
   
@@ -25,7 +25,7 @@ const navigate = useNavigate()
   
   const handleprev=()=>{
     // setgfile(null +  'file is empty ')
-    // setnum(0)
+    setnum(0)
     setgfile(0)
     setsucess(false)
     console.log(gfile)
@@ -144,4 +144,4 @@ const navigate = useNavigate()
   )
 }
 
-export default Form
+export default Suratstu

@@ -7,7 +7,7 @@ import Main from './Dashbord/Main'
 import '../App.css'
 import { useState } from 'react';
 import File from './Dashbord/File';
-import Import from './Dashbord/Import'
+import Import from './File-import/Import'
 import Inventory from './Sidebar/Inventory'
 import { useRecoilState } from 'recoil'
 import { Num } from './Recoil'

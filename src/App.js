@@ -10,13 +10,13 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { auth } from './Component/firebase';
 import Reset from './Component/Reset';
 import File from './Component/Dashbord/File';
-import Import from './Component/Dashbord/Import';
-import Test from './Test';
+import Import from './Component/File-import/Import';
 import Login from './Component/Login';
 import ProtectedRoute from './Component/login/Auth';
 import { useRecoilState } from 'recoil';
 import { AuthState } from './Component/Recoil';
 import Loginn from './Component/Login';
+import Test from './test/Test';
 
 function App() {
   const [username, setUsername] = useState('');
@@ -84,9 +84,10 @@ function App() {
         <Route path='/data' element={auth.isAuthenticated ? <Home name={username} log={log} /> : <Login/>} />
         <Route path="/register" element={<Signup />} />
         <Route path="/reset" element={<Reset />} />
-        <Route path="/file" element={auth.isAuthenticated ? <File name={username} log={log} /> : ""} />
+        <Route path="/file" element={auth.isAuthenticated ? <File name={username} log={log} /> :  <Login/>} />
         <Route path="/new" element={<Import />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/test" element={<Test/>} />
+        <Route path="/file-upload"  />
          <Route />
       </Routes>
 

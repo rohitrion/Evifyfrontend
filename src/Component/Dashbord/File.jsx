@@ -6,7 +6,7 @@ import Form from './Form';
 import { Circles } from 'react-loader-spinner'
 import Salary from './Salary';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { BaseURLState, Dz, Error, GloablFile, Num, TextState } from '../Recoil';
+import { BaseURLState, Dz, Error, GloablFile, Num, Refresh, TextState } from '../Recoil';
 import Swiggy from './Swiggy';
 import BBnow from '../Slabs/BBnow';
 import Flipkart from '../Slabs/Flipkart';
@@ -15,7 +15,8 @@ import Bluedart from '../Slabs/Bluedart';
 import Ahemdabad from '../Slabs/Ahemdabad';
 import Ahzomato from '../Slabs/Ahzomato';
 import Ahblinkit from '../Slabs/Ahblinkit';
-
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 const File = ({ currentStep, onNext }) => {
 
   const [selectedCity, setSelectedCity] = useState(null);
@@ -39,9 +40,10 @@ const File = ({ currentStep, onNext }) => {
 
   const [error, seterror] = useRecoilState(Error);
 
-
   const [num, setnum] = useRecoilState(Num)
 
+
+  const [refresh, setrefresh] = useRecoilState(Refresh)
   // console.log(num)
 
   console.log(Gfile + "data")
@@ -54,15 +56,18 @@ const File = ({ currentStep, onNext }) => {
     GsetFile(selectedfile)
   }
 
-
+  const navigate = useNavigate
 
   const handleUpload = async () => {
 
     try {
-      setloding(true)
 
+      setloding(true)
+      if (!Gfile) {
+        throw new Error('No file selected.');
+      }
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', Gfile);
 
       // Replace 'your-api-endpoint' with the actual endpoint of your API
       const response = await axios.post(`${baseurl}/uploadfile/${selectedCity}`, formData, {
@@ -75,7 +80,7 @@ const File = ({ currentStep, onNext }) => {
       console.log('File uploaded successfully', response.data);
       setsucess(true)
 
-
+      // toast.success('File uploaded successfully!');
       // renderCityComponent();
     } catch (error) {
       handleError(error.response.data.detail);
@@ -85,6 +90,14 @@ const File = ({ currentStep, onNext }) => {
       console.log('Response headers:', error.response.headers);
     } finally {
       setloding(false); // Set loading to false regardless of success or error
+
+      if (selectedCity === "surat") {
+        setnum(1)
+      }
+
+      if (selectedCity === "ahmedabad") {
+        setnum(15)
+      }
 
     }
 
@@ -152,8 +165,7 @@ const File = ({ currentStep, onNext }) => {
 
   console.log(num, "the number ")
 
-
-
+  console.log(selectedCity, "city")
 
   return (
     <>
@@ -183,9 +195,8 @@ const File = ({ currentStep, onNext }) => {
 
 
       {
-
-        sucess && selectedCity == "ahmedabad" ? (
-          <Ahemdabad />
+        selectedCity === "ahmedabad" && num === 15 && sucess ? (
+          <Ahemdabad setsucess={setsucess} />
         ) :
 
 
@@ -196,8 +207,8 @@ const File = ({ currentStep, onNext }) => {
             <Ahblinkit />
 
 
-          ) : sucess && num === 1 ? (
-            <Form />
+          ) : sucess && num == 1 && selectedCity === "surat" ? (
+            <Form setsucess={setsucess} />
           ) : sucess && num === 2 ? (
             <Salary />
           ) : sucess && num === 3 ? (
@@ -214,6 +225,7 @@ const File = ({ currentStep, onNext }) => {
 
             (
               <>
+
 
                 <div className="flex items-center justify-center pl-[80px] mb-60 ml-96">
                   <main className="bg-white p-8 rounded shadow-lg w-120 lg:w-144">

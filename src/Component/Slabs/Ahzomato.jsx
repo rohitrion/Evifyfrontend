@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
-
+import { Circles } from 'react-loader-spinner'
 
 const Ahzomato = () => {
 
@@ -16,7 +16,7 @@ const Ahzomato = () => {
 
   const [final, setfinal] = useRecoilState(Finalresponse)
 
-
+  const [loading, setloding] = useState(false)
   const [rentmodal, setRentModal] = useState({
     include_slab: false,
     zomato_first_order_start: 1,
@@ -71,6 +71,7 @@ const Ahzomato = () => {
 
   const handleUpload2 = async () => {
     try {
+      setloding(true)
       const formData = new FormData();
 
 
@@ -94,7 +95,7 @@ const Ahzomato = () => {
 
       console.log('Data sent successfully', response.data);
       // console.log('Data sent successfully', JSON.stringify(response.data));
-      setnum(1)
+      setnum(15)
       setres(response.data)
       setfinal(response.data)
       console.log(res + "the response" + setres)
@@ -105,6 +106,8 @@ const Ahzomato = () => {
       console.log('Response data:', error.response.data);
       console.log('Response status:', error.response.status);
       console.log('Response headers:', error.response.headers);
+    }finally{
+      setloding(false)
     }
   };
 
@@ -112,7 +115,23 @@ const Ahzomato = () => {
 
   return (
 
+    <>
 
+            {loading && (
+                <div className="flex items-center justify-center fixed top-0 left-0 w-full h-full bg-opacity-60 bg-gray-300">
+                    <div className="ml-40">
+                        <Circles
+                            height="80"
+                            width="80"
+                            color="#4fa94d"
+                            ariaLabel="circles-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            visible={true}
+                        />
+                    </div>
+                </div>
+            )}
     <div className="flex items-center justify-center mt-2 pl-[190px] mb-40 ml-2">
 
       <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
@@ -566,6 +585,8 @@ const Ahzomato = () => {
         </div>
       </main>
     </div>
+
+    </>
   );
 };
 

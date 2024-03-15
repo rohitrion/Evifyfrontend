@@ -9,7 +9,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
-
+import { Circles } from 'react-loader-spinner'
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
 
 
@@ -24,6 +24,7 @@ const Ahecom = () => {
 
     const [final, setfinal] = useRecoilState(Finalresponse)
 
+    const [loading, setloding] = useState(false)
 
     const [rentmodal, setRentModal] = useState({
 
@@ -58,6 +59,7 @@ const Ahecom = () => {
 
     const handleUpload2 = async () => {
         try {
+            setloding(true)
             const formData = new FormData();
 
 
@@ -81,7 +83,7 @@ const Ahecom = () => {
             });
 
             console.log('Data sent successfully', response.data);
-            setnum(1)
+            setnum(15)
             console.log("api12 successfully ");
             setfinal(response.data);
 
@@ -90,6 +92,8 @@ const Ahecom = () => {
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
             console.log('Response headers:', error.response.headers);
+        }finally{
+            setloding(false)
         }
     };
 
@@ -97,6 +101,23 @@ const Ahecom = () => {
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     return (
 
+        <>
+
+        {loading && (
+            <div className="flex items-center justify-center fixed top-0 left-0 w-full h-full bg-opacity-60 bg-gray-300">
+                <div className="ml-40">
+                    <Circles
+                        height="80"
+                        width="80"
+                        color="#4fa94d"
+                        ariaLabel="circles-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
+            </div>
+        )}
 
         <div className="flex items-center justify-center mt-2 pl-[190px] mb-40 ml-16">
 
@@ -209,6 +230,7 @@ const Ahecom = () => {
                 </div>
             </main>
         </div>
+        </>
     );
 };
 
