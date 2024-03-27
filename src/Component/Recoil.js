@@ -14,22 +14,22 @@ export const Num = atom({
   default: ''
 })
 
-
-
-
+                                                                                                                                                                                                                               
 
 
 
 export const GloablFile = atom({
   key: "F",
   default: ''
-})
+})   
 
 
 
 export const BaseURLState = atom({
   key: 'baseURLState',
-  default: 'https://b32d-2405-201-2008-7273-6bfb-a14a-64fb-d6aa.ngrok-free.app',
+  default: 'http://54.237.210.197:8000',
+  // default: 'https://3355-2405-201-2008-7273-149-b7e5-3a5-a5a2.ngrok-free.app'
+ 
 });
 
 

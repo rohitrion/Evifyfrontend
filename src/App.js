@@ -47,7 +47,7 @@ function App() {
   //         setUsername('');
   //         setLog(false);
   //         localStorage.removeItem('user');
-  //         navigate('/');
+  //         navigate('/'); 
   //       }
   //       setAuthCheckComplete(true);
   //     });

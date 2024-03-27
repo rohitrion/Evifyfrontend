@@ -10,7 +10,7 @@ import { Circles } from 'react-loader-spinner'
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
 
 
-const BBnow = () => {
+const Ahbigbasket = () => {
 
 
     const baseurl = useRecoilValue(BaseURLState);
@@ -74,7 +74,7 @@ const BBnow = () => {
             console.log(formData)
             // /ahmedabad/bbnow/structure1/{file_id}/{file_name}
             // Get Salary
-            const response = await axios.post(`${baseurl}/ahmedabad/bbnow/structure1/${final.file_id}/${final.file_name}`, formData, {
+            const response = await axios.post(`${baseurl}/ahmedabad/bigbasket/structure1/${final.file_id}/${final.file_name}`, formData, {
 
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -98,6 +98,9 @@ const BBnow = () => {
 
 
     console.log(res.file_id + "the data from zomatao" + res.file_name)
+    function handleclick(val) {
+        setnum(val)
+      }
     return (
 
 
@@ -116,16 +119,16 @@ const BBnow = () => {
                         visible={true}
                     />
                 </div>
-            </div>
+            </div> 
         )}
 
-        <div className="flex items-center justify-center mt-2 pl-[190px] mb-40 ml-16">
+        <div className="flex items-center justify-center mt-2 ">
 
             <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
-                <h3 className="text-3xl text-center pb-2 font-bold">Flipkart</h3>
+                <h3 className="text-3xl text-center pb-2 font-bold">BIGBASKET</h3>
                 <div className='border-4 bg-slate-100 p-[50px] '>
 
-                    <div>
+                <div className="overflow-x-auto    " style={{ maxHeight: '400px', overflowX: 'hidden' ,scrollbarWidth: 'none', msOverflowStyle: 'none'}}> 
 
 
 
@@ -293,7 +296,11 @@ const BBnow = () => {
 
 
 
-                        <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                          
+                        <div className='flex justify-between '>
+                                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                                <button onClick={() => handleclick(15)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+                            </div>
                     </div>
 
 
@@ -304,4 +311,4 @@ const BBnow = () => {
     );
 };
 
-export default BBnow;
+export default Ahbigbasket;

@@ -112,7 +112,7 @@ const BBnow = () => {
                     </div>
                 </div>
             )}
-            <div className="flex items-center justify-center mt-2 pl-[190px] mb-40 ml-16">
+            <div className="flex items-center justify-center   ">
 
                 <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
                     <h3 className="text-3xl text-center pb-2 font-bold">BB-NOW</h3>

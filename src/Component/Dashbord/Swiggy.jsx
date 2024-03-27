@@ -135,22 +135,22 @@ const Swiggy = () => {
       </div>
     )}
     
-        <div className="flex items-center justify-center mt-2 pl-[190px] mb-40 ml-2">
+        <div className="flex items-center justify-center ">
 
-            <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
-                <h3 className="text-3xl text-center pb-2 font-bold">Swiggy</h3>
-                <div className='border-4 bg-slate-100 p-[50px] '>
+            <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 ">
+                <h3 className="text-3xl text-center  font-bold">Swiggy</h3>
+                <div className='border-4 bg-slate-100 p-[50px]  mb-4  '>
 
-                    <h3 className="text-3xl text-center pb-9 font-bold">Slab Sturcture</h3>
-                    <div>
-
+          
+                    <div className="overflow-x-auto    " style={{ maxHeight: '400px', overflowX: 'hidden' ,scrollbarWidth: 'none', msOverflowStyle: 'none'}}> 
+                    <h3 className="text-3xl text-center pb-6 font-bold">Slab Sturcture</h3>
 
                         <input
                             type="checkbox"
                             checked={rentmodal.include_slab}
                             onChange={() => handleCheckboxChange('include_slab')}
                         />
-                        <table className="min-w-full border border-gray-300 text-center ">
+                        <table className="min-w-full border border-gray-300 text-center  ">
                             <thead >
                                 <tr className='text-center'>
                                     <th className="border border-gray-300 p-2">ORDER-TO</th>

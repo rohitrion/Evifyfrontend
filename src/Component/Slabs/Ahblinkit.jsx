@@ -92,6 +92,11 @@ const Flipkart = () => {
 
     console.log(final)
     console.log(final.file_id + "the data from zomatao ahmdbad" + final.file_name)
+    
+    function handleclick(val) {
+        setnum(val)
+      }
+    
     return (
 
         <>
@@ -111,7 +116,7 @@ const Flipkart = () => {
                 </div>
             </div>
         )}
-        <div className="flex items-center justify-center mt-2 pl-[190px] mb-40 ml-16">
+        <div className="flex items-center justify-center mt-2 ">
 
             <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
                 <h3 className="text-3xl text-center pb-2 font-bold">BLINKIT</h3>
@@ -191,7 +196,11 @@ const Flipkart = () => {
                         </table>
 
 
-                        <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                       
+                        <div className='flex justify-between '>
+                                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                                <button onClick={() => handleclick(15)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+                            </div>
                     </div>
 
 
