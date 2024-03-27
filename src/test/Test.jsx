@@ -1,52 +1,39 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
-const RandomDataComponent = () => {
-  const [randomData, setRandomData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchRandomData = async () => {
-      try {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts?_limit=50");
-        setRandomData(response.data);
-      } catch (error) {
-        console.error("Error fetching random data:", error.message);
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      // Perform API call
+      const response = await axios.get('https://api.example.com/data');
+      // Check if the response is successful
+      if (response.status === 200) {
+        // Display success message using react-hot-toast
+        toast.success('Data fetched successfully');
+      } else {
+        // Display error message if the response is not successful
+        toast.error('Failed to fetch data');
       }
-    };
-
-    fetchRandomData();
-  }, []); // Empty dependency array to ensure useEffect runs only once
-
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
+    } catch (error) {
+      // Display error message if there's an error during the API call
+      toast.error('Error fetching data');
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  const filteredData = randomData.filter((post) =>
-    post.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div>
-      <h2>Random Data:</h2>
-      <input
-        type="text"
-        placeholder="Search posts..."
-        value={searchQuery}
-        onChange={handleSearch}
-      />
-      {filteredData.length > 0 ? (
-        filteredData.map((post) => (
-          <div key={post.id}>
-            <p>Title: {post.title}</p>
-            <p>Body: {post.body}</p>
-          </div>
-        ))
-      ) : (
-        <p>No matching posts found.</p>
-      )}
+      <button onClick={fetchData} disabled={isLoading}>
+        {isLoading ? 'Loading...' : 'Fetch Data'}
+      </button>
+      <Toaster />
     </div>
   );
 };
 
-export default RandomDataComponent;
+export default App;

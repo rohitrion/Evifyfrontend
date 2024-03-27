@@ -2,10 +2,9 @@ import React, { useRef, useState } from 'react';
 import Rawdata from './Rawdata';
 import { useRecoilState } from 'recoil';
 import { Search } from '../Recoil';
-// import RowData from './data_component/rowData';
 
 const Import = () => {
-  const fileInputRef = useRef(null);
+
   const [tab, setTab] = useState("rawfiles");
 
   const[input,setinput]=useRecoilState(Search)
@@ -19,11 +18,11 @@ const Import = () => {
   return (
 
     <div className='' >
-      <div className="main  ml-[56px]  ">
+      <div className="main  ml-[56px]   ">
     
         <div className="flex flex-col m-4 ">
-          <div className="flex items-center  space-x-4">
-            <input type="text" className="border rounded px-4 py-2 w-full" placeholder="Search"   value={input}  onChange={(e)=>setinput(e.target.value)}  />
+          <div className="flex items-center     space-x-4">
+            <input type="text" className="border rounded px-4 py-2 w-4/5" placeholder="Search"   value={input}  onChange={(e)=>setinput(e.target.value)}  />
           
           </div>
           <div className='' >
@@ -50,7 +49,9 @@ const Import = () => {
 
             </ul>
           </div>
+        <div className='w-4/5'>
           <Rawdata activetab={tab} />
+          </div>
         </div>
       </div>
     </div>
