@@ -68,7 +68,11 @@ const Login = () => {
     }
   };
 
-
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && values.email_id !== "" && values.password !== "" ) {
+      handleSubmit();
+    }
+  };
 
   return (
 
@@ -132,9 +136,9 @@ const Login = () => {
 
         <div className='d-flex flex-column justify-content-center item-center h-custom-2 pt-4 md:w-4/5  sm:w-32 ss:w-32  '>
           <h3 className="fw-normal mb-3 ps-5 pb-3" style={{ letterSpacing: '1px' }}>Log in</h3>
-          <MDBInput wrapperClass='mb-4 mx-5 input-width' label='Email address' id='formControlLg' type='email' size="lg " className='md:w-12'  
+          <MDBInput wrapperClass='mb-4 mx-5 input-width' label='Email address' id='formControlLg' type='email' size="lg " className='md:w-12'    onKeyDown={handleKeyPress}
             onChange={(e) => setValues((prev) => ({ ...prev, email_id: e.target.value }))} />
-          <MDBInput wrapperClass='mb-4 mx-5 input-width' label='Password' id='formControlL' type='password' size="lg"
+          <MDBInput wrapperClass='mb-4 mx-5 input-width' label='Password' id='formControlL' type='password' size="lg"   onKeyDown={handleKeyPress}
             onChange={(e) => setValues((prev) => ({ ...prev, password: e.target.value }))} />
 
           <div className='d-flex flex-row justify-content-center mb-4'>
