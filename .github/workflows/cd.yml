@@ -11,9 +11,11 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Delete Old docker container
+        run: sudo docker rm -f frontenc_container || true
+      - name: Remove Docker Image
+        run: sudo docker rmi evify/frontend_logistic:latest || true
       - name: Pull docker image
         run: sudo docker pull evify/frontend_logistic:latest
-      - name: Delete old docker container
-        run: sudo docker rm -f frontend_container || true
       - name: Run Docker Container
         run: sudo docker run -d -p 80:3000 --name frontend_container  evify/frontend_logistic
