@@ -8,7 +8,8 @@ import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
 import { Circles } from 'react-loader-spinner'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Swiggy = () => {
 
 
@@ -103,6 +104,7 @@ const Swiggy = () => {
              setfinal(response.data);
              
         } catch (error) {
+            toast.error("add proper values")
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -118,7 +120,7 @@ const Swiggy = () => {
 
 
         <>
-
+      
     {loading && (
       <div className="flex items-center justify-center fixed top-0 left-0 w-full h-full bg-opacity-60 bg-gray-300">
         <div className="ml-40">
@@ -311,7 +313,7 @@ const Swiggy = () => {
                                         <input
                                             type="text"
                                             value={rentmodal.fulltime_greter_than_order}
-                                            onChange={(e) => handleInputChange(' fulltime_greter_than_order', e.target.value)}
+                                            onChange={(e) => handleInputChange('fulltime_greter_than_order', e.target.value)}
                                         />
                                     </td>
                                     <td className="border border-gray-300 p-2">
@@ -537,7 +539,7 @@ const Swiggy = () => {
 
 
 
-
+                        <ToastContainer />
                         <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
                     </div>
 

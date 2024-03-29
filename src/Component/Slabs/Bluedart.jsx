@@ -9,7 +9,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
 
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Bluedart = () => {
 
 
@@ -70,6 +71,8 @@ const Bluedart = () => {
     };
 
     const handleUpload2 = async () => {
+
+
         try {
             setloding(true)
             const formData = new FormData();
@@ -99,6 +102,7 @@ const Bluedart = () => {
             setfinal(response.data);
 
         } catch (error) {
+            toast.error("Add proper values , select chekbox")
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -187,14 +191,14 @@ const Bluedart = () => {
                                             <input
                                                 type="text" placeholder='AVG_GRATHER_THEN' className='text-center'
                                                 value={rentmodal.second_condition_from_document}
-                                                onChange={(e) => handleInputChange('second_condition_from_document', 'vehicleChargesOrderFulltime', e.target.value)}
+                                                onChange={(e) => handleInputChange('second_condition_from_document', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
                                                 type="text"
                                                 value={rentmodal.second_condition_to_document}
-                                                onChange={(e) => handleInputChange('  second_condition_to_document', e.target.value)}
+                                                onChange={(e) => handleInputChange('second_condition_to_document', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
@@ -213,14 +217,14 @@ const Bluedart = () => {
                                             <input
                                                 type="text" placeholder='AVERAGE_LESS_THEN' className='text-center'
                                                 value={rentmodal.third_condition_from_document}
-                                                onChange={(e) => handleInputChange('third_condition_from_document', 'vehicleChargesOrderFulltime', e.target.value)}
+                                                onChange={(e) => handleInputChange('third_condition_from_document', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
                                                 type="text"
                                                 value={rentmodal.third_condition_to_document}
-                                                onChange={(e) => handleInputChange(' third_condition_to_document', e.target.value)}
+                                                onChange={(e) => handleInputChange('third_condition_to_document', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
@@ -245,14 +249,14 @@ const Bluedart = () => {
                                             <input
                                                 type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
                                                 value={"AVG_GRATHER_THEN"}
-                                                onChange={(e) => handleInputChange('third_condition_from_document', 'vehicleChargesOrderFulltime', e.target.value)}
+                                                onChange={(e) => handleInputChange('third_condition_from_document', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
                                                 type="text"
                                                 value={rentmodal.order_greater_than_document}
-                                                onChange={(e) => handleInputChange(' order_greater_than_document', e.target.value)}
+                                                onChange={(e) => handleInputChange('order_greater_than_document', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
@@ -321,14 +325,14 @@ const Bluedart = () => {
                                             <input
                                                 type="text" placeholder='AVG_GRATHER_THEN' className='text-center'
                                                 value={rentmodal.second_condition_from_parcel}
-                                                onChange={(e) => handleInputChange('second_condition_from_parcel', 'vehicleChargesOrderFulltime', e.target.value)}
+                                                onChange={(e) => handleInputChange('second_condition_from_parcel',  e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
                                                 type="text"
                                                 value={rentmodal.second_condition_to_parcel}
-                                                onChange={(e) => handleInputChange('  second_condition_to_parcel', e.target.value)}
+                                                onChange={(e) => handleInputChange('second_condition_to_parcel', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
@@ -347,14 +351,14 @@ const Bluedart = () => {
                                             <input
                                                 type="text" placeholder='AVERAGE_LESS_THEN' className='text-center'
                                                 value={rentmodal.third_condition_from_parcel}
-                                                onChange={(e) => handleInputChange('third_condition_from_parcel', 'vehicleChargesOrderFulltime', e.target.value)}
+                                                onChange={(e) => handleInputChange('third_condition_from_parcel', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
                                                 type="text"
                                                 value={rentmodal.third_condition_to_parcel}
-                                                onChange={(e) => handleInputChange(' third_condition_to_parcel', e.target.value)}
+                                                onChange={(e) => handleInputChange('third_condition_to_parcel', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
@@ -379,14 +383,14 @@ const Bluedart = () => {
                                             <input
                                                 type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
                                                 value={"AVG_GRATHER_THEN"}
-                                                onChange={(e) => handleInputChange('third_condition_from_document', 'vehicleChargesOrderFulltime', e.target.value)}
+                                                onChange={(e) => handleInputChange('third_condition_from_document',  e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
                                                 type="text"
                                                 value={rentmodal.order_greater_than_parcel}
-                                                onChange={(e) => handleInputChange(' order_greater_than_parcel', e.target.value)}
+                                                onChange={(e) => handleInputChange('order_greater_than_parcel', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
@@ -415,7 +419,7 @@ const Bluedart = () => {
 
 
 
-
+                            <ToastContainer />
                             <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
                         </div>
 

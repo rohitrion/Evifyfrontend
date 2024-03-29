@@ -64,19 +64,6 @@ function App() {
 
     <div className='app'>
 
-      {/* <Routes>
-        <Route path='/' element={<CustomLoginPage/>} /> */}
-      {/* <Route path='/data' element={log ? <Home name={username} log={log} /> : ""} /> */}
-      {/* <Route path='/register' element={<Signup />} />
-        <Route path='/reset' element={<Reset />} />
-          <Route path='/file' element={<File />} />  
-          <Route path='/new' element={<Import />}  />
-          <Route path='/test' element={<Test />}  />
-     </Routes> */}
-
-
-
-
 
 
       <Routes>

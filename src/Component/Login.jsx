@@ -164,7 +164,7 @@ const Login = () => {
             )}
           </MDBBtn>
           <p className="small mb-5 pb-lg-3 ms-5">
-            <Link to='/reset' className="text-muted"><b>Forgot password ?</b></Link>
+            <Link  className="text-muted"><b>Forgot password ?</b></Link>
           </p>
         </div>
       </MDBCol>

@@ -8,7 +8,8 @@ import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Ahbbnow = () => {
 
@@ -82,6 +83,7 @@ const Ahbbnow = () => {
             setfinal(response.data);
 
         } catch (error) {
+            toast.error("add proper values")
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -160,7 +162,7 @@ const Ahbbnow = () => {
                                         <input
                                             type="text"
                                             value={rentmodal.first_amount}
-                                            onChange={(e) => handleInputChange('order_amount2', e.target.value)}
+                                            onChange={(e) => handleInputChange('first_amount', e.target.value)}
                                         />
                                     </td>
 
@@ -199,7 +201,7 @@ const Ahbbnow = () => {
                         </table>
 
 
-                    
+                        <ToastContainer />
                         <div className='flex justify-between '>
                                 <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
                                 <button onClick={() => handleclick(15)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>

@@ -8,7 +8,8 @@ import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
-
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 const ECOM = () => {
 
@@ -83,6 +84,7 @@ const ECOM = () => {
             setfinal(response.data);
 
         } catch (error) {
+            toast.error("Add proper values , select chekbox")
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -222,7 +224,7 @@ const ECOM = () => {
                             </tbody>
                         </table>
 
-
+                        <ToastContainer />
                         <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
                     </div>
 

@@ -11,6 +11,8 @@ import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Ahecom = () => {
@@ -81,13 +83,14 @@ const Ahecom = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
+            setfinal(response.data);
             console.log('Data sent successfully', response.data);
             setnum(15)
             console.log("api12 successfully ");
-            setfinal(response.data);
+       
 
         } catch (error) {
+            toast.error("add proper values")
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -226,7 +229,7 @@ const Ahecom = () => {
                             </tbody>
                         </table>
 
-
+                        <ToastContainer />
                         <div className='flex justify-between '>
                                 <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
                                 <button onClick={() => handleclick(15)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>

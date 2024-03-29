@@ -104,7 +104,7 @@ const Salary = () => {
       // console.log('Data sent successfully', JSON.stringify(response.data));
       setres(response.data)
       setfinal(response.data)
-      toast.success("Wow so easy !")
+
       setnum(1)
 
 
@@ -118,7 +118,7 @@ const Salary = () => {
       console.log('Response status:', error.response.status);
       console.log('Response headers:', error.response.headers);
     } finally {
-      toast.success("Wow so easy !")
+   
       setloding(false); // Set loading to false regardless of success or error
 
     }
@@ -160,7 +160,7 @@ const Salary = () => {
 
 {error ?
 
-  <div>{error.response.status}</div> : ""
+  <div className='bg-red-800 text-white font-sans text-2xl  text-center  '>{"select chekbox , add proper values "}</div> : ""
 }
 
               <input
@@ -372,7 +372,7 @@ const Salary = () => {
                       <input
                         type="text"
                         value={rentmodal.fulltime_greter_than_order}
-                        onChange={(e) => handleInputChange(' fulltime_greter_than_order', e.target.value)}
+                        onChange={(e) => handleInputChange('fulltime_greter_than_order',e.target.value)}
                       />
                     </td>
                     <td className="border border-gray-300 p-2">

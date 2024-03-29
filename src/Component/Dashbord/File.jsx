@@ -1,5 +1,5 @@
 
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import Form from './Form';
@@ -89,7 +89,7 @@ const File = ({ currentStep, onNext }) => {
       // renderCityComponent();
     } catch (error) {
       handleError(error.response.data.detail);
-     
+
       console.error('Error uploading file', error);
       console.log('Response data:', error.response.data);
       console.log('Response status:', error.response.status);
@@ -123,6 +123,12 @@ const File = ({ currentStep, onNext }) => {
 
 
   const handleDownload = async () => {
+
+    if (selectedCity1 == null || selectedCity1 == "select") {
+
+      return;
+
+    }
     try {
       const url =
         `${baseurl}/surat/samplefile/${selectedCity1}`;
@@ -181,7 +187,7 @@ const File = ({ currentStep, onNext }) => {
       )}
 
 
-        
+
 
       {/* { num === 8 && <Ahzomato />} */}
 
@@ -269,11 +275,11 @@ const File = ({ currentStep, onNext }) => {
 
 
                             }
-                         
 
 
 
-                       
+
+
 
 
                             <div className="flex justify-end">

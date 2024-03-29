@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
 import { Circles } from 'react-loader-spinner'
-
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 const Ahzomato = () => {
 
 
@@ -15,7 +16,7 @@ const Ahzomato = () => {
   const [res, setres] = useRecoilState(Response)
  const [error,seterror]=useState()
   const [final, setfinal] = useRecoilState(Finalresponse)
-
+ 
   const [loading, setloding] = useState(false)
   const [rentmodal, setRentModal] = useState({
     include_slab: false,
@@ -102,6 +103,7 @@ const Ahzomato = () => {
       console.log(res + "the data ")
       console.log("api12 successfully ");
     } catch (error) {
+      toast.error("Add proper values")
       seterror(error)
       console.error('Error sending data', error);
       console.log('Response data:', error.response.data);
@@ -144,9 +146,7 @@ const Ahzomato = () => {
           <div className='border-4 bg-slate-100 p-[50px] '>
           <div className="overflow-x-auto    " style={{ maxHeight: '500px', overflowX: 'hidden' ,scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             <h3 className="text-3xl text-center pb-9 font-bold">Slab Sturcture</h3>
-            {
-              error? <div>{error.response.status}</div>:""
-            }
+     
             <div>
 
 
@@ -359,7 +359,7 @@ const Ahzomato = () => {
                       <input
                         type="text"
                         value={rentmodal.fulltime_greter_than_order}
-                        onChange={(e) => handleInputChange(' fulltime_greter_than_order', e.target.value)}
+                        onChange={(e) => handleInputChange('fulltime_greter_than_order', e.target.value)}
                       />
                     </td>
                     <td className="border border-gray-300 p-2">
@@ -582,7 +582,7 @@ const Ahzomato = () => {
                 </tbody>
               </table>
 
-
+              <ToastContainer />
 
             
              <div className='flex justify-between '>
