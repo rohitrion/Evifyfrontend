@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Delete Old docker container
-        run: sudo docker rm -f frontenc_container || true
+        run: sudo docker rm -f frontend_container || true
       - name: Remove Docker Image
         run: sudo docker rmi evify/frontend_logistic:latest || true
       - name: Pull docker image
