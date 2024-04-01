@@ -52,7 +52,7 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
                     <BsListCheck className='icon' /> Invoice Data
 
                 </li>
-                <li className='sidebar-list-item s-col'>
+                {/* <li className='sidebar-list-item s-col'>
 
                     <BsMenuButtonWideFill className='icon' /> Client Data
 
@@ -71,7 +71,7 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
 
                     <BsMenuButtonWideFill className='icon' /> Employee Data
 
-                </li>
+                </li> */}
 
                 <li className='sidebar-list-item s-col'>
 
