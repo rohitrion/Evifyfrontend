@@ -13,7 +13,7 @@ const Rawtabs = ({ activetab, item, val, data, setdata }) => {
   const [globalurl, setglobalurl] = useRecoilState(BaseURLState)
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useRecoilState(Search);
-  
+
 
   const [loading, setloading] = useState(false)
 
@@ -27,26 +27,26 @@ const Rawtabs = ({ activetab, item, val, data, setdata }) => {
       if (activetab === "rawfiles") {
         url = `${globalurl}/download_raw_file/${encodeURIComponent(file_key)}`;
       } else if (activetab === "salayfiles") {
-        url = `${globalurl}/download_salary_file/${encodeURIComponent(file_key)}`;
+        url = `${globalurl}/download_salary_file_format/${encodeURIComponent(file_key)}`;
       }
 
-    //   const response = await axios.get(url, { responseType: "blob" });
+      //   const response = await axios.get(url, { responseType: "blob" });
 
-    //   if (response && response.data) {
-    //     saveAs(new Blob([response.data]), file_name);
-    //   } else {
-    //     console.error("Empty or invalid response from the server");
-    //   }
-    // } catch (error) {
-    //   console.error("Error downloading file:", error.message);
-    // }
-
-
+      //   if (response && response.data) {
+      //     saveAs(new Blob([response.data]), file_name);
+      //   } else {
+      //     console.error("Empty or invalid response from the server");
+      //   }
+      // } catch (error) {
+      //   console.error("Error downloading file:", error.message);
+      // }
 
 
-   
-      const urls =url
-        // `${baseurl}/surat/samplefile/${selectedCity1}`;
+
+
+
+      const urls = url
+      // `${baseurl}/surat/samplefile/${selectedCity1}`;
       const link = document.createElement("a");
       link.href = urls;
       link.setAttribute("download", "download.xlsx");
@@ -66,8 +66,8 @@ const Rawtabs = ({ activetab, item, val, data, setdata }) => {
 
 
 
-    
-  
+
+
 
 
 

@@ -89,7 +89,7 @@ const Bluedart = () => {
             formData.append('file', file);
             console.log(formData)
 
-            const response = await axios.post(`${baseurl}/surat/bluedart/structure/${final.file_id}/${final.file_name}`, formData, {
+            const response = await axios.post(`${baseurl}/surat/bluedart/biker/structure/${final.file_id}/${final.file_name}`, formData, {
 
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -112,7 +112,10 @@ const Bluedart = () => {
         }
     };
 
-
+    function handleclick(val) {
+        setnum(val)
+      }
+    
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     return (
 
@@ -139,7 +142,7 @@ const Bluedart = () => {
                     <h3 className="text-3xl text-center pb-2 font-bold">BLUEDART BIKER</h3>
                     <div className='border-4 bg-slate-100 p-[50px]'>
 
-                        <div className="overflow-x-auto    " style={{ maxHeight: '400px', overflowX: 'hidden' ,scrollbarWidth: 'none', msOverflowStyle: 'none'}}> {/* Set max height and enable vertical scrolling */}
+                        <div className="overflow-x-auto    " style={{ maxHeight: '400px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}> {/* Set max height and enable vertical scrolling */}
 
 
                             <h3 className="text-3xl text-center  font-bold">DOCUMENT</h3>
@@ -325,7 +328,7 @@ const Bluedart = () => {
                                             <input
                                                 type="text" placeholder='AVG_GRATHER_THEN' className='text-center'
                                                 value={rentmodal.second_condition_from_parcel}
-                                                onChange={(e) => handleInputChange('second_condition_from_parcel',  e.target.value)}
+                                                onChange={(e) => handleInputChange('second_condition_from_parcel', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
@@ -383,7 +386,7 @@ const Bluedart = () => {
                                             <input
                                                 type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
                                                 value={"AVG_GRATHER_THEN"}
-                                                onChange={(e) => handleInputChange('third_condition_from_document',  e.target.value)}
+                                                onChange={(e) => handleInputChange('third_condition_from_document', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
@@ -420,7 +423,10 @@ const Bluedart = () => {
 
 
                             <ToastContainer />
-                            <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                            <div className='flex justify-between '>
+                                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+                            </div>
                         </div>
 
 

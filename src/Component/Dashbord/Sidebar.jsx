@@ -35,11 +35,18 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
 
 
                 </li>
-                <li className='sidebar-list-item s-col' onClick={() => onSidebarItemClick('Inventory')}>
+                <li className='sidebar-list-item s-col' onClick={() => onSidebarItemClick('Inventory-in')}>
 
-                    <BsPeopleFill className='icon' />Inventory
+                    <BsPeopleFill className='icon' />Inventory-In
 
                 </li>
+
+                <li className='sidebar-list-item s-col' onClick={() => onSidebarItemClick('Inventory-out')}>
+
+                    <BsPeopleFill className='icon' />Inventory-Out
+
+                </li>
+
                 <li className='sidebar-list-item s-col' >
 
                     <BsListCheck className='icon' /> Invoice Data

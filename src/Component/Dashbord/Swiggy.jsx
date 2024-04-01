@@ -115,7 +115,14 @@ const Swiggy = () => {
     };
 
 
-    console.log(res.file_id + "the data from zomatao" + res.file_name)
+     console.log(res.file_id + "the data from zomatao" + res.file_name)
+
+
+     function handleclick(val) {
+        setnum(val)
+      }
+    
+
     return (
 
 
@@ -540,7 +547,10 @@ const Swiggy = () => {
 
 
                         <ToastContainer />
-                        <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                        <div className='flex justify-between '>
+                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+              </div>
                     </div>
 
 

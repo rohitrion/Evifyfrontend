@@ -11,6 +11,7 @@ import Import from './File-import/Import'
 import Inventory from './Sidebar/Inventory'
 import { useRecoilState } from 'recoil'
 import { Num } from './Recoil'
+import Inout from './Sidebar/Inout'
 
 function Home({ name, log }) {
 
@@ -26,7 +27,7 @@ function Home({ name, log }) {
   const handleSidebarItemClick = (content) => {
     setSelectedContent(content);
     // setCurrentFileUploadStep(1);
-     setnum(1)
+     setnum(0)
   };
  
 
@@ -43,8 +44,8 @@ function Home({ name, log }) {
     // onNext={handleFileUploadNext}
     />,
     "File-Import": <Import />,
-    Inventory:<Inventory/>
-
+    "Inventory-in":<Inventory/>,
+    "Inventory-out": <Inout/>
   };
 
 

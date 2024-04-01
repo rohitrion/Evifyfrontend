@@ -1,39 +1,48 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import { BaseURLState } from '../Component/Recoil';
+import { useRecoilState } from 'recoil';
 
-const App = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const ImageUploadComponent = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState('');
+  const [baseurl, setbaseurl] = useRecoilState(BaseURLState)
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      // Perform API call
-      const response = await axios.get('https://api.example.com/data');
-      // Check if the response is successful
-      if (response.status === 200) {
-        // Display success message using react-hot-toast
-        toast.success('Data fetched successfully');
-      } else {
-        // Display error message if the response is not successful
-        toast.error('Failed to fetch data');
-      }
-    } catch (error) {
-      // Display error message if there's an error during the API call
-      toast.error('Error fetching data');
-    } finally {
-      setIsLoading(false);
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      setUploadStatus('Please select a file.');
+      return;
     }
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    try {
+      const response = await axios.post(`${baseurl}/inventories/upload/image`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      setUploadStatus('Upload successful!');
+      console.log('Response:', response);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      setUploadStatus('Upload failed. Please try again.');
+    }
+    
   };
 
   return (
     <div>
-      <button onClick={fetchData} disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Fetch Data'}
-      </button>
-      <Toaster />
+      <h1>Image Upload</h1>
+      <input type="file"  onChange={handleFileChange} />
+      <button className='text-black' onClick={handleUpload}>Upload</button>
+      <p>{uploadStatus}</p>
     </div>
   );
 };
 
-export default App;
+export default ImageUploadComponent;

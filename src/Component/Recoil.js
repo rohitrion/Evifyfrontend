@@ -27,8 +27,8 @@ export const GloablFile = atom({
 
 export const BaseURLState = atom({
   key: 'baseURLState',
-  default: 'http://54.237.210.197:8000',
-  // default: 'https://3355-2405-201-2008-7273-149-b7e5-3a5-a5a2.ngrok-free.app'
+  // default: 'http://54.237.210.197:8000',
+  default: 'https://23a5-2405-201-2008-7273-9d83-ebbe-6172-f841.ngrok-free.app'
  
 });
 
@@ -78,7 +78,7 @@ export const Refresh = atom({
 export const AuthState = atom({
   key: 'authState',
   default: {
-    isAuthenticated: false,
+    isAuthenticated: true,
     user: null,
   },
 });

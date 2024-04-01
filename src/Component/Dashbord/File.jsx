@@ -21,6 +21,8 @@ import Ahbbnow from '../Slabs/Ahbbnow';
 import Ahflipkart from '../Slabs/Ahflipkart';
 import Ahecom from '../Slabs/Ahecom';
 import Ahbigbasket from '../Slabs/Ahbigbasket';
+import BluedartVan from '../Slabs/BluedartVan';
+import Uptownfresh from '../Slabs/Uptownfresh';
 const File = ({ currentStep, onNext }) => {
 
   const [selectedCity, setSelectedCity] = useState(null);
@@ -233,84 +235,95 @@ const File = ({ currentStep, onNext }) => {
                   sucess && num === 13 ? (
                     <Ahbigbasket />
                   )
+
+
                     :
-                    (
-                      <>
+                    sucess && num === 17 ? (
+                      <BluedartVan />
+                    )
+
+                      :
+                      sucess && num === 18 ? (
+                        <Uptownfresh />
+                      )
+                        :
+                        (
+                          <>
 
 
-                        <div className="flex items-center justify-center  file  w-auto   ">
-                          <main className="bg-white p-8 rounded shadow-lg w-120  ">
+                            <div className="flex items-center justify-center  file  w-auto   ">
+                              <main className="bg-white p-8 rounded shadow-lg w-120  ">
 
-                            <div className="text-center mb-6">
-                              <h3 className="text-3xl font-bold">File Upload</h3>
+                                <div className="text-center mb-6">
+                                  <h3 className="text-3xl font-bold">File Upload</h3>
+                                </div>
+
+                                <div className="mb-6">
+                                  <label className="block mb-2">CITY:</label>
+                                  <select
+                                    className="w-full border p-3"
+                                    value={selectedCity}
+                                    onChange={handleCityChange}
+                                  >
+                                    <option value="select">select </option>
+                                    <option value="ahmedabad">Ahmedabad</option>
+                                    <option value="surat">Surat</option>
+                                    <option value="otherCity">Other City</option>
+                                  </select>
+                                </div>
+
+                                <div className="mb-6">
+                                  <label className="block mb-2">FILE UPLOAD SECTION:</label>
+                                  <div className="border p-4">
+                                    <input type="file" className="w-full" onChange={handleFileChange} />
+                                  </div>
+                                </div>
+
+
+
+                                {
+                                  error ? <div class="p-4 mb-4 text-lg text-center text-red-800 mb-6 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                    <b><span class="font-medium">{error}</span></b>
+                                  </div> : ""
+
+
+                                }
+
+
+
+
+
+
+
+                                <div className="flex justify-end">
+                                  <select
+                                    className="px-4 py-0.5 mr-2 bg-[#EFEFEF] shadow-lg rounded-lg  text-black "
+                                    value={selectedCity1}
+                                    onChange={handleCityChange1}
+                                  >
+                                    <option value="select">select </option>
+                                    <option value="ahmedabad">Ahmedabad</option>
+                                    <option value="surat">Surat</option>
+                                    <option value="otherCity">Other City</option>
+                                  </select>
+                                  <button
+                                    className="bg-[#EFEFEF]  text-black px-5 py-0.5 mr-2 shadow-lg  rounded-lg"
+                                    onClick={handleDownload}
+                                  >
+                                    Sample File
+                                  </button>
+                                  <button
+                                    className="bg-[#EFEFEF]  text-black px-5 py-0.5 rounded-lg"
+                                    onClick={handleUpload}
+                                  >
+                                    Next
+                                  </button>
+                                </div>
+
+                              </main>
+
                             </div>
-
-                            <div className="mb-6">
-                              <label className="block mb-2">CITY:</label>
-                              <select
-                                className="w-full border p-3"
-                                value={selectedCity}
-                                onChange={handleCityChange}
-                              >
-                                <option value="select">select </option>
-                                <option value="ahmedabad">Ahmedabad</option>
-                                <option value="surat">Surat</option>
-                                <option value="otherCity">Other City</option>
-                              </select>
-                            </div>
-
-                            <div className="mb-6">
-                              <label className="block mb-2">FILE UPLOAD SECTION:</label>
-                              <div className="border p-4">
-                                <input type="file" className="w-full" onChange={handleFileChange} />
-                              </div>
-                            </div>
-
-
-
-                            {
-                              error ? <div class="p-4 mb-4 text-lg text-center text-red-800 mb-6 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                                <b><span class="font-medium">{error}</span></b>
-                              </div> : ""
-
-
-                            }
-
-
-
-
-
-
-
-                            <div className="flex justify-end">
-                              <select
-                                className="px-4 py-0.5 mr-2 bg-[#EFEFEF] shadow-lg rounded-lg  text-black "
-                                value={selectedCity1}
-                                onChange={handleCityChange1}
-                              >
-                                <option value="select">select </option>
-                                <option value="ahmedabad">Ahmedabad</option>
-                                <option value="surat">Surat</option>
-                                <option value="otherCity">Other City</option>
-                              </select>
-                              <button
-                                className="bg-[#EFEFEF]  text-black px-5 py-0.5 mr-2 shadow-lg  rounded-lg"
-                                onClick={handleDownload}
-                              >
-                                Sample File
-                              </button>
-                              <button
-                                className="bg-[#EFEFEF]  text-black px-5 py-0.5 rounded-lg"
-                                onClick={handleUpload}
-                              >
-                                Next
-                              </button>
-                            </div>
-
-                          </main>
-
-                        </div>
-                      </>)}
+                          </>)}
 
 
 

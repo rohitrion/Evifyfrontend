@@ -94,7 +94,10 @@ const Flipkart = () => {
         }
     };
 
-
+    function handleclick(val) {
+        setnum(val)
+      }
+    
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     return (
 
@@ -224,7 +227,10 @@ const Flipkart = () => {
                             </table>
 
                             <ToastContainer />
-                            <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                            <div className='flex justify-between '>
+                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+              </div>
                         </div>
 
 

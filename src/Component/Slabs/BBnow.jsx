@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
-import { ToastContainer, toast } from 'react-toastify'; 
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const BBnow = () => {
 
@@ -92,7 +92,10 @@ const BBnow = () => {
         }
     };
 
-
+    function handleclick(val) {
+        setnum(val)
+      }
+    
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     return (
 
@@ -224,7 +227,10 @@ const BBnow = () => {
                             </table>
 
                             <ToastContainer />
-                            <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                            <div className='flex justify-between '>
+                                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+                            </div>
                         </div>
 
 

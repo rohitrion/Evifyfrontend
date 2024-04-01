@@ -110,7 +110,7 @@ const Salary = () => {
 
       console.log(res + "the response" + setres)
       console.log(res + "the data ")
-      console.log("api12 successfully ");
+      console.log("api12 successfully ");  
     } catch (error) {
       seterror(error)
       console.error('Error sending data', error);
@@ -125,6 +125,11 @@ const Salary = () => {
   };
 
 
+  function handleclick(val) {
+    setnum(val)
+  }
+
+   
 
   return (
 
@@ -599,7 +604,16 @@ const Salary = () => {
 
 
 
-              <button type='submit' onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+              {/* <button type='submit' onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button> */}
+
+
+
+
+              <div className='flex justify-between '>
+                                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+                            </div>
+
             </div>
 
 
