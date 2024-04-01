@@ -110,7 +110,7 @@ const Salary = () => {
 
       console.log(res + "the response" + setres)
       console.log(res + "the data ")
-      console.log("api12 successfully ");  
+      console.log("api12 successfully ");
     } catch (error) {
       seterror(error)
       console.error('Error sending data', error);
@@ -118,7 +118,7 @@ const Salary = () => {
       console.log('Response status:', error.response.status);
       console.log('Response headers:', error.response.headers);
     } finally {
-   
+
       setloding(false); // Set loading to false regardless of success or error
 
     }
@@ -129,7 +129,7 @@ const Salary = () => {
     setnum(val)
   }
 
-   
+
 
   return (
 
@@ -150,7 +150,7 @@ const Salary = () => {
           </div>
         </div>
       )}
-{/* lg:h-3/6  xl:h-5/6 overflow-y-auto */}
+      {/* lg:h-3/6  xl:h-5/6 overflow-y-auto */}
 
       <div className="flex items-center justify-center mt-2     ">
         <ToastContainer />
@@ -159,14 +159,14 @@ const Salary = () => {
           <h3 className="text-3xl text-center pb-2 font-bold">Zomato</h3>
           <div className='border-4 bg-slate-100 p-[50px] mb-3 '>
 
-       
-            <div className="overflow-x-auto    " style={{ maxHeight: '500px', overflowX: 'hidden' ,scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-            <h3 className="text-3xl text-center pb-9 font-bold">Slab Sturcture</h3>
 
-{error ?
+            <div className="overflow-x-auto    " style={{ maxHeight: '500px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <h3 className="text-3xl text-center pb-9 font-bold">Slab Sturcture</h3>
 
-  <div className='bg-red-800 text-white font-sans text-2xl  text-center  '>{"select chekbox , add proper values "}</div> : ""
-}
+              {error ?
+
+                <div className='bg-red-800 text-white font-sans text-2xl  text-center  '>{"select chekbox , add proper values "}</div> : ""
+              }
 
               <input
                 type="checkbox"
@@ -187,7 +187,8 @@ const Salary = () => {
 
                     <td className="border border-gray-300 p-2 text-center">
                       <input
-                        type="text"
+                        type="number"
+                        min={0}
                         value={rentmodal.zomato_first_order_start}
                         placeholder='ordeTO'
                         onChange={(e) => handleInputChange('zomato_first_order_start', e.target.value)}
@@ -234,7 +235,7 @@ const Salary = () => {
 
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_second_order_end}
                         onChange={(e) => handleInputChange('zomato_second_order_end', e.target.value)}
                       />
@@ -297,51 +298,7 @@ const Salary = () => {
                     </td>
                   </tr>
 
-                  {/* <tr>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="checkbox"
-                      checked={rentmodal.slab}
-                      onChange={() => handleCheckboxChange('slab')}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_first_order_start}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_first_order_start', e.target.value)}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_first_order_end}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_first_order_end', e.target.value)}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_first_order_amount}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_first_order_amount', e.target.value)}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_order_greter_than}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_order_greter_than', e.target.value)}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_second_order_amount}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_second_order_amount', e.target.value)}
-                    />
-                  </td>
-                </tr>  */}
-                  {/* ... Repeat for other input fields */}
+  
                 </tbody>
               </table>
 
@@ -377,7 +334,7 @@ const Salary = () => {
                       <input
                         type="text"
                         value={rentmodal.fulltime_greter_than_order}
-                        onChange={(e) => handleInputChange('fulltime_greter_than_order',e.target.value)}
+                        onChange={(e) => handleInputChange('fulltime_greter_than_order', e.target.value)}
                       />
                     </td>
                     <td className="border border-gray-300 p-2">
@@ -582,7 +539,7 @@ const Salary = () => {
                   <tr>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.bad_orders}
                         onChange={(e) => handleInputChange('bad_orders', e.target.value)}
                       />
@@ -590,7 +547,7 @@ const Salary = () => {
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                      type="number"
                         value={rentmodal.bad_orders_amount}
                         onChange={(e) => handleInputChange('bad_orders_amount', e.target.value)}
                       />
@@ -604,15 +561,15 @@ const Salary = () => {
 
 
 
-              {/* <button type='submit' onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button> */}
+           
 
 
 
 
               <div className='flex justify-between '>
-                                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
-                                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
-                            </div>
+                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+              </div>
 
             </div>
 

@@ -32,7 +32,7 @@ const Ahemdabad = ({ setsucess }) => {
 
     const handleDownload = async () => {
         try {
-            const url = `${baseurl}/download_salary_file/${final.file_key}`;
+            const url = `${baseurl}/download_salary_file_format/${final.file_key}`;
             const link = document.createElement("a");
             link.href = url;
             link.setAttribute("download", "download.xlsx");
