@@ -90,7 +90,7 @@ const Ahecom = () => {
 
 
         } catch (error) {
-            toast.error("add proper values")
+            toast.error(error.response.data.detail)
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -105,6 +105,13 @@ const Ahecom = () => {
     function handleclick(val) {
         setnum(val)
     }
+
+    const handleInputKeyDown = (e) => {
+        // Prevent the default action if the key pressed is '-' or '+'
+        if (e.key === '-' || e.key === '+' || e.key === 'e') {
+            e.preventDefault();
+        }
+    };
 
     return (
 
@@ -130,16 +137,16 @@ const Ahecom = () => {
 
                 <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
                     <h3 className="text-3xl text-center pb-2 font-bold">ECOM</h3>
-           
+
                     <div className='border-4 bg-slate-100 p-[50px] '>
 
                         <div>
 
-                        <input
-                        type="checkbox"
-                        checked={rentmodal.include_bonus}
-                        onChange={() => handleCheckboxChange('include_bonus')}
-                    />
+                            <input
+                                type="checkbox"
+                                checked={rentmodal.include_bonus}
+                                onChange={() => handleCheckboxChange('include_bonus')}
+                            />
                             <table className="min-w-full border border-gray-300 mt-2 text-center">
 
                                 <thead>
@@ -154,24 +161,34 @@ const Ahecom = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
-                                                className='text-center'
+                                                type="number"
+
                                                 value={rentmodal.from_order}
                                                 onChange={(e) => handleInputChange('from_order', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.to_order}
                                                 onChange={(e) => handleInputChange('to_order', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.first_amount}
                                                 onChange={(e) => handleInputChange('first_amount', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -181,23 +198,32 @@ const Ahecom = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVG_GRATHER_THEN' className='text-center'
+                                                type="number" placeholder='AVG_GRATHER_THEN'
                                                 value={rentmodal.second_from_order}
                                                 onChange={(e) => handleInputChange('second_from_order', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.second_to_order}
                                                 onChange={(e) => handleInputChange('second_to_order', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.second_amount}
                                                 onChange={(e) => handleInputChange('second_amount', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -207,23 +233,29 @@ const Ahecom = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
+                                                type="number" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
                                                 value={"AVERAGE_GRATHER_THEN"}
                                                 onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.order_greter_than}
                                                 onChange={(e) => handleInputChange('order_greter_than', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.order_amount}
                                                 onChange={(e) => handleInputChange('order_amount', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 

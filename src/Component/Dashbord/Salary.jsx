@@ -37,11 +37,11 @@ const Salary = () => {
     zomato_third_week_amount: 30,
     zomato_third_weekend_amount: 32,
     include_vahicle_charges: false,
-    fulltime_average: 20,
-    fulltime_greter_than_order: 20,
+    fulltime_average: 21,
+    fulltime_greter_than_order: 21,
     vahicle_charges_fulltime: 100,
     partime_average: 11,
-    partime_greter_than_order: 12,
+    partime_greter_than_order: 11,
     vahicle_charges_partime: 70,
     include_bonus: false,
     bonus_order_fulltime: 700,
@@ -117,6 +117,7 @@ const Salary = () => {
       console.log('Response data:', error.response.data);
       console.log('Response status:', error.response.status);
       console.log('Response headers:', error.response.headers);
+      toast.error(error.response.data.detail)
     } finally {
 
       setloding(false); // Set loading to false regardless of success or error
@@ -129,7 +130,12 @@ const Salary = () => {
     setnum(val)
   }
 
-
+  const handleInputKeyDown = (e) => {
+    // Prevent the default action if the key pressed is '-' or '+'
+    if (e.key === '-' || e.key === '+' || e.key === 'e') {
+      e.preventDefault();
+    }
+  };
 
   return (
 
@@ -163,11 +169,7 @@ const Salary = () => {
             <div className="overflow-x-auto    " style={{ maxHeight: '500px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <h3 className="text-3xl text-center pb-9 font-bold">Slab Sturcture</h3>
 
-              {error ?
-
-                <div className='bg-red-800 text-white font-sans text-2xl  text-center  '>{"select chekbox , add proper values "}</div> : ""
-              }
-
+          
               <input
                 type="checkbox"
                 checked={rentmodal.include_slab}
@@ -192,31 +194,42 @@ const Salary = () => {
                         value={rentmodal.zomato_first_order_start}
                         placeholder='ordeTO'
                         onChange={(e) => handleInputChange('zomato_first_order_start', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                         className='text-center'
                       />
 
                     </td>
 
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_first_order_end}
                         onChange={(e) => handleInputChange('zomato_first_order_end', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
 
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_first_week_amount}
                         onChange={(e) => handleInputChange('zomato_first_week_amount', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
 
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_first_weekend_amount}
                         onChange={(e) => handleInputChange('zomato_first_weekend_amount', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                   </tr>
@@ -224,10 +237,13 @@ const Salary = () => {
 
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_second_order_start}
                         onChange={(e) => handleInputChange('zomato_second_order_start', e.target.value)}
                         placeholder='ordeTO'
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
 
                       />
 
@@ -238,22 +254,32 @@ const Salary = () => {
                         type="number"
                         value={rentmodal.zomato_second_order_end}
                         onChange={(e) => handleInputChange('zomato_second_order_end', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
+
                       />
 
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_second_week_amount}
                         onChange={(e) => handleInputChange('zomato_second_week_amount', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
 
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_second_weekend_amount}
                         onChange={(e) => handleInputChange('zomato_second_weekend_amount', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                   </tr>
@@ -263,7 +289,7 @@ const Salary = () => {
 
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={null}
                         className='text-center'
                         placeholder='ORDERTO >='
@@ -275,36 +301,45 @@ const Salary = () => {
 
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_order_greter_than}
                         onChange={(e) => handleInputChange('zomato_order_greter_than', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
 
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_third_week_amount}
                         onChange={(e) => handleInputChange('zomato_third_week_amount', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
 
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.zomato_third_weekend_amount}
                         onChange={(e) => handleInputChange('zomato_third_weekend_amount', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                   </tr>
 
-  
+
                 </tbody>
               </table>
 
 
 
-              <h3 className="text-3xl text-center pt-4 font-bold">Rent Sturcture</h3>
+              <h3 className="text-3xl text-center pt-4 mt-4  font-bold">Rent Sturcture</h3>
               <input
                 type="checkbox"
                 checked={rentmodal.include_vahicle_charges}
@@ -332,23 +367,32 @@ const Salary = () => {
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.fulltime_greter_than_order}
                         onChange={(e) => handleInputChange('fulltime_greter_than_order', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.fulltime_average}
                         onChange={(e) => handleInputChange('fulltime_average', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.vahicle_charges_fulltime}
                         onChange={(e) => handleInputChange('vahicle_charges_fulltime', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
 
@@ -364,23 +408,32 @@ const Salary = () => {
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.partime_greter_than_order}
                         onChange={(e) => handleInputChange('partime_greter_than_order', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        className='text-center'
+                        min={0}
                       />
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.partime_average}
                         onChange={(e) => handleInputChange('partime_average', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.vahicle_charges_partime}
                         onChange={(e) => handleInputChange('vahicle_charges_partime', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
 
@@ -396,7 +449,7 @@ const Salary = () => {
 
 
 
-              <h3 className="text-3xl text-center pt-4 font-bold">MONTHLY-BONUS</h3>
+              <h3 className="text-3xl text-center pt-4 mt-4 font-bold">MONTHLY-BONUS</h3>
               <input
                 type="checkbox"
                 checked={rentmodal.include_bonus}
@@ -424,16 +477,22 @@ const Salary = () => {
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.bonus_order_fulltime}
                         onChange={(e) => handleInputChange('bonus_order_fulltime', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.bonus_amount_fulltime}
                         onChange={(e) => handleInputChange('bonus_amount_fulltime', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
 
@@ -441,25 +500,31 @@ const Salary = () => {
                   </tr>
                   {/* ... Repeat for other input fields */}
                   <tr>
-                    <td className="border border-gray-300 p-2">
+                  <td className="border border-gray-300 p-2">
                       <input
                         type="text" placeholder='PART-TIME' className='text-center' readOnly
-                        value={"PART_TIME"}
+                        value={'PART_TIME'}
                         onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
                       />
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.bonus_order_partime}
                         onChange={(e) => handleInputChange('bonus_order_partime', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.bonus_amount_partime}
                         onChange={(e) => handleInputChange('bonus_amount_partime', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
 
@@ -475,7 +540,7 @@ const Salary = () => {
 
 
 
-              <h3 className="text-3xl text-center pt-4 font-bold">Rejection ORDER</h3>
+              <h3 className="text-3xl text-center pt-4 mt-4  font-bold">Rejection ORDER</h3>
               <input
                 type="checkbox"
                 checked={rentmodal.include_rejection}
@@ -494,17 +559,23 @@ const Salary = () => {
                   <tr>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.rejection_orders}
                         onChange={(e) => handleInputChange('rejection_orders', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
 
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                        type="text"
+                        type="number"
                         value={rentmodal.rejection_amount}
                         onChange={(e) => handleInputChange('rejection_amount', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                   </tr>
@@ -520,7 +591,7 @@ const Salary = () => {
 
 
 
-              <h3 className="text-3xl text-center pt-4 font-bold">BAD ORDER</h3>
+              <h3 className="text-3xl text-center pt-4 mt-4  font-bold">BAD ORDER</h3>
               <input
                 type="checkbox"
                 checked={rentmodal.include_bad_order}
@@ -542,14 +613,20 @@ const Salary = () => {
                         type="number"
                         value={rentmodal.bad_orders}
                         onChange={(e) => handleInputChange('bad_orders', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
 
                     </td>
                     <td className="border border-gray-300 p-2">
                       <input
-                      type="number"
+                        type="number"
                         value={rentmodal.bad_orders_amount}
                         onChange={(e) => handleInputChange('bad_orders_amount', e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        min={0}
+                        className='text-center'
                       />
                     </td>
                   </tr>
@@ -561,7 +638,7 @@ const Salary = () => {
 
 
 
-           
+
 
 
 

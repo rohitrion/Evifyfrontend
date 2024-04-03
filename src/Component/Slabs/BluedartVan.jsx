@@ -79,7 +79,7 @@ const BluedartVan = () => {
             setfinal(response.data);
 
         } catch (error) {
-            toast.error("Add proper values , select chekbox")
+            toast.error(error.response.data.detail)
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -91,8 +91,16 @@ const BluedartVan = () => {
 
     function handleclick(val) {
         setnum(val)
-      }
-    
+    }
+
+
+    const handleInputKeyDown = (e) => {
+        // Prevent the default action if the key pressed is '-' or '+'
+        if (e.key === '-' || e.key === '+' || e.key === 'e') {
+            e.preventDefault();
+        }
+    };
+
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     return (
 
@@ -141,18 +149,23 @@ const BluedartVan = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
-                                                className='text-center'
+                                                type="number"
+
                                                 value={rentmodal.fixed_salary}
                                                 onChange={(e) => handleInputChange('fixed_salary', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.days}
-                                                className='text-center'
                                                 onChange={(e) => handleInputChange('days', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -161,16 +174,14 @@ const BluedartVan = () => {
 
 
 
-
-
                                 </tbody>
                             </table>
 
                             <ToastContainer />
                             <div className='flex justify-between '>
-                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
-                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
-              </div>
+                                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+                            </div>
                         </div>
 
 

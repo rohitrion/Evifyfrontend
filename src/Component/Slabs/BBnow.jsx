@@ -82,7 +82,7 @@ const BBnow = () => {
             setfinal(response.data);
 
         } catch (error) {
-            toast.error("Add proper values")
+            toast.error(error.response.data.detail)
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -94,8 +94,15 @@ const BBnow = () => {
 
     function handleclick(val) {
         setnum(val)
-      }
-    
+    }
+
+    const handleInputKeyDown = (e) => {
+        // Prevent the default action if the key pressed is '-' or '+'
+        if (e.key === '-' || e.key === '+' || e.key === 'e') {
+            e.preventDefault();
+        }
+    };
+
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     return (
 
@@ -126,7 +133,7 @@ const BBnow = () => {
 
 
 
-                            <h3 className="text-3xl text-center pt-2 mt-2 font-bold">SALARY</h3>
+                            <h3 className="text-3xl text-center font-bold">SALARY</h3>
                             <input
                                 type="checkbox"
                                 checked={rentmodal.include_bonus}
@@ -146,24 +153,32 @@ const BBnow = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 className='text-center'
                                                 value={rentmodal.from_order}
                                                 onChange={(e) => handleInputChange('from_order', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.to_order}
                                                 onChange={(e) => handleInputChange('to_order', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                                className='text-center'
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.order_amount2}
                                                 onChange={(e) => handleInputChange('order_amount2', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                                className='text-center'
                                             />
                                         </td>
 
@@ -173,23 +188,29 @@ const BBnow = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVG_GRATHER_THEN' className='text-center' readOnly
+                                                type="number" placeholder='AVG_GRATHER_THEN' className='number-center' readOnly
                                                 value={"AVG_GRATHER_THEN"}
                                                 onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.order_grether_than}
                                                 onChange={(e) => handleInputChange('order_grether_than', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                                className='text-center'
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.order_amount3}
                                                 onChange={(e) => handleInputChange('order_amount3', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                                className='text-center'
                                             />
                                         </td>
 
@@ -199,23 +220,31 @@ const BBnow = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
+                                                type="number" placeholder='AVERAGE_LESS_THEN' className='number-center' readOnly
                                                 value={"AVERAGE_LESS_THEN"}
                                                 onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.average_order}
                                                 onChange={(e) => handleInputChange('average_order', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                                className='text-center'
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.average_amount}
                                                 onChange={(e) => handleInputChange('average_amount', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                                className='text-center'
                                             />
                                         </td>
 

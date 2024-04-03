@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
 import { Circles } from 'react-loader-spinner'
-import { ToastContainer, toast } from 'react-toastify'; 
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Ahzomato = () => {
 
@@ -14,9 +14,9 @@ const Ahzomato = () => {
   const [num, setnum] = useRecoilState(Num)
 
   const [res, setres] = useRecoilState(Response)
- const [error,seterror]=useState()
+  const [error, seterror] = useState()
   const [final, setfinal] = useRecoilState(Finalresponse)
- 
+
   const [loading, setloding] = useState(false)
   const [rentmodal, setRentModal] = useState({
     include_slab: false,
@@ -103,7 +103,7 @@ const Ahzomato = () => {
       console.log(res + "the data ")
       console.log("api12 successfully ");
     } catch (error) {
-      toast.error("Add proper values")
+      toast.error(error.response.data.detail)
       seterror(error)
       console.error('Error sending data', error);
       console.log('Response data:', error.response.data);
@@ -119,6 +119,12 @@ const Ahzomato = () => {
     setnum(val)
   }
 
+  const handleInputKeyDown = (e) => {
+    // Prevent the default action if the key pressed is '-' or '+'
+    if (e.key === '-' || e.key === '+' || e.key === 'e') {
+      e.preventDefault();
+    }
+  };
 
   return (
 
@@ -144,455 +150,490 @@ const Ahzomato = () => {
         <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144  ">
           <h3 className="text-3xl text-center pb-2 font-bold">AHEBDABAD Zomato</h3>
           <div className='border-4 bg-slate-100 p-[50px] '>
-          <div className="overflow-x-auto    " style={{ maxHeight: '500px', overflowX: 'hidden' ,scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-            <h3 className="text-3xl text-center pb-9 font-bold">Slab Sturcture</h3>
-     
-            <div>
-
-
-              <input
-                type="checkbox"
-                checked={rentmodal.include_slab}
-                onChange={() => handleCheckboxChange('include_slab')}
-              />
-              <table className="min-w-full border border-gray-300 text-center ">
-                <thead >
-                  <tr className='text-center'>
-                    <th className="border border-gray-300 p-2">ORDER-TO</th>
-                    <th className="border border-gray-300 p-2"> ORDER-FROM</th>
-                    <th className="border border-gray-300 p-2">MON-FRI </th>
-                    <th className="border border-gray-300 p-2">SAT-SUN </th>
-                  </tr>
-                </thead>
-                <tbody className='text-center'>
-                  <tr>
-
-                    <td className="border border-gray-300 p-2 text-center">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_first_order_start}
-                        placeholder='ordeTO'
-                        onChange={(e) => handleInputChange('zomato_first_order_start', e.target.value)}
-                      />
-
-                    </td>
-
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_first_order_end}
-                        onChange={(e) => handleInputChange('zomato_first_order_end', e.target.value)}
-                      />
-
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_first_week_amount}
-                        onChange={(e) => handleInputChange('zomato_first_week_amount', e.target.value)}
-                      />
-
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_first_weekend_amount}
-                        onChange={(e) => handleInputChange('zomato_first_weekend_amount', e.target.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_second_order_start}
-                        onChange={(e) => handleInputChange('zomato_second_order_start', e.target.value)}
-                        placeholder='ordeTO'
-
-                      />
-
-                    </td>
-
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_second_order_end}
-                        onChange={(e) => handleInputChange('zomato_second_order_end', e.target.value)}
-                      />
-
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_second_week_amount}
-                        onChange={(e) => handleInputChange('zomato_second_week_amount', e.target.value)}
-                      />
-
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_second_weekend_amount}
-                        onChange={(e) => handleInputChange('zomato_second_weekend_amount', e.target.value)}
-                      />
-                    </td>
-                  </tr>
-
-
-                  <tr>
-
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={null}
-                        className='text-center'
-                        placeholder='ORDERTO >='
-                        readOnly
-                        onChange={(e) => handleInputChange('bonusorder', 'bonus_order_partime', e.target.value)}
-                      />
-
-                    </td>
-
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_order_greter_than}
-                        onChange={(e) => handleInputChange('zomato_order_greter_than', e.target.value)}
-                      />
-
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_third_week_amount}
-                        onChange={(e) => handleInputChange('zomato_third_week_amount', e.target.value)}
-                      />
-
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.zomato_third_weekend_amount}
-                        onChange={(e) => handleInputChange('zomato_third_weekend_amount', e.target.value)}
-                      />
-                    </td>
-                  </tr>
-
-                  {/* <tr>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="checkbox"
-                      checked={rentmodal.slab}
-                      onChange={() => handleCheckboxChange('slab')}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_first_order_start}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_first_order_start', e.target.value)}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_first_order_end}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_first_order_end', e.target.value)}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_first_order_amount}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_first_order_amount', e.target.value)}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_order_greter_than}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_order_greter_than', e.target.value)}
-                    />
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <input
-                      type="text"
-                      value={rentmodal.zomatoFirstOrder.zomato_second_order_amount}
-                      onChange={(e) => handleInputChange('zomatoFirstOrder', 'zomato_second_order_amount', e.target.value)}
-                    />
-                  </td>
-                </tr>  */}
-                  {/* ... Repeat for other input fields */}
-                </tbody>
-              </table>
-
-
-
-              <h3 className="text-3xl text-center pt-4 font-bold">Rent Sturcture</h3>
-              <input
-                type="checkbox"
-                checked={rentmodal.include_vahicle_charges}
-                onChange={() => handleCheckboxChange('include_vahicle_charges')}
-              />
-              <table className="min-w-full border border-gray-300 mt-4 text-center">
-
-                <thead>
-                  <tr>
-                    <th className="border border-gray-300 p-2"> WORK-TYPE</th>
-                    <th className="border border-gray-300 p-2">ORDER</th>
-                    <th className="border border-gray-300 p-2">AVG</th>
-                    <th className="border border-gray-300 p-2">BIKE-RANT</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        placeholder='FULL-TIME' className='text-center' readOnly
-                        value={"FULL TIME"}
-                        onChange={(e) => handleInputChange(e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.fulltime_greter_than_order}
-                        onChange={(e) => handleInputChange('fulltime_greter_than_order', e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.fulltime_average}
-                        onChange={(e) => handleInputChange('fulltime_average', e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.vahicle_charges_fulltime}
-                        onChange={(e) => handleInputChange('vahicle_charges_fulltime', e.target.value)}
-                      />
-                    </td>
-
-                  </tr>
-                  {/* ... Repeat for other input fields */}
-                  <tr>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text" placeholder='PART-TIME' className='text-center' readOnly
-                        value={'PART_TIME'}
-                        onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.partime_greter_than_order}
-                        onChange={(e) => handleInputChange('partime_greter_than_order', e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.partime_average}
-                        onChange={(e) => handleInputChange('partime_average', e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.vahicle_charges_partime}
-                        onChange={(e) => handleInputChange('vahicle_charges_partime', e.target.value)}
-                      />
-                    </td>
-
-                  </tr>
-                </tbody>
-              </table>
-
-
-
-
-
-
-
-
-
-              <h3 className="text-3xl text-center pt-4 font-bold">MONTHLY-BONUS</h3>
-              <input
-                type="checkbox"
-                checked={rentmodal.include_bonus}
-                onChange={() => handleCheckboxChange('include_bonus')}
-              />
-              <table className="min-w-full border border-gray-300 mt-4 text-center">
-
-                <thead>
-                  <tr>
-                    <th className="border border-gray-300 p-2"> WORK-TYPE</th>
-                    <th className="border border-gray-300 p-2">ORDER</th>
-                    <th className="border border-gray-300 p-2">INCENTIVE</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        placeholder='FULL-TIME' className='text-center' readOnly
-                        value={"FULL_TIME"}
-                        onChange={(e) => handleInputChange('bonusorder', 'vehicleChargesOrderFulltime', e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.bonus_order_fulltime}
-                        onChange={(e) => handleInputChange('bonus_order_fulltime', e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.bonus_amount_fulltime}
-                        onChange={(e) => handleInputChange('bonus_amount_fulltime', e.target.value)}
-                      />
-                    </td>
-
-
-                  </tr>
-                  {/* ... Repeat for other input fields */}
-                  <tr>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text" placeholder='PART-TIME' className='text-center' readOnly
-                        value={"PART_TIME"}
-                        onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.bonus_order_partime}
-                        onChange={(e) => handleInputChange('bonus_order_partime', e.target.value)}
-                      />
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.bonus_amount_partime}
-                        onChange={(e) => handleInputChange('bonus_amount_partime', e.target.value)}
-                      />
-                    </td>
-
-
-                  </tr>
-                </tbody>
-              </table>
-
-
-
-
-
-
-
-
-              <h3 className="text-3xl text-center pt-4 font-bold">Rejection ORDER</h3>
-              <input
-                type="checkbox"
-                checked={rentmodal.include_rejection}
-                onChange={() => handleCheckboxChange('include_rejection')}
-              />
-              <table className="min-w-full border border-gray-300 mt-4 text-center">
-
-                <thead>
-                  <tr>
-                    <th className="border border-gray-300 p-2">ORDER-GRETHER-THAN-EQUAL-TO</th>
-                    <th className="border border-gray-300 p-2">AMOUNT</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.rejection_orders}
-                        onChange={(e) => handleInputChange('rejection_orders', e.target.value)}
-                      />
-
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.rejection_amount}
-                        onChange={(e) => handleInputChange('rejection_amount', e.target.value)}
-                      />
-                    </td>
-                  </tr>
-                  {/* ... Repeat for other input fields */}
-                </tbody>
-              </table>
-
-
-
-
-
-
-
-
-
-              <h3 className="text-3xl text-center pt-4 font-bold">BAD ORDER</h3>
-              <input
-                type="checkbox"
-                checked={rentmodal.include_bad_order}
-                onChange={() => handleCheckboxChange('include_bad_order')}
-              />
-              <table className="min-w-full border border-gray-300 mt-4 text-center">
-
-                <thead>
-                  <tr>
-                    <th className="border border-gray-300 p-2">ORDER-GRETHER-THAN-EQUAL-TO</th>
-                    <th className="border border-gray-300 p-2">AMOUNT</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.bad_orders}
-                        onChange={(e) => handleInputChange('bad_orders', e.target.value)}
-                      />
-
-                    </td>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text"
-                        value={rentmodal.bad_orders_amount}
-                        onChange={(e) => handleInputChange('bad_orders_amount', e.target.value)}
-                      />
-                    </td>
-                  </tr>
-
-                </tbody>
-              </table>
-
-              <ToastContainer />
-
-            
-             <div className='flex justify-between '>
-              <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
-              <button onClick={() => handleclick(15)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+            <div className="overflow-x-auto    " style={{ maxHeight: '500px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <h3 className="text-3xl text-center pb-9 font-bold">Slab Sturcture</h3>
+
+              <div>
+
+
+                <input
+                  type="checkbox"
+                  checked={rentmodal.include_slab}
+                  onChange={() => handleCheckboxChange('include_slab')}
+                />
+                <table className="min-w-full border border-gray-300 text-center ">
+                  <thead >
+                    <tr className='number-center'>
+                      <th className="border border-gray-300 p-2">ORDER-TO</th>
+                      <th className="border border-gray-300 p-2"> ORDER-FROM</th>
+                      <th className="border border-gray-300 p-2">MON-FRI </th>
+                      <th className="border border-gray-300 p-2">SAT-SUN </th>
+                    </tr>
+                  </thead>
+                  <tbody className='text-center'>
+                    <tr>
+
+                      <td className="border border-gray-300 p-2 text-center">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_first_order_start}
+                          placeholder='ordeTO'
+                          onChange={(e) => handleInputChange('zomato_first_order_start', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_first_order_end}
+                          onChange={(e) => handleInputChange('zomato_first_order_end', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_first_week_amount}
+                          onChange={(e) => handleInputChange('zomato_first_week_amount', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_first_weekend_amount}
+                          onChange={(e) => handleInputChange('zomato_first_weekend_amount', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_second_order_start}
+                          onChange={(e) => handleInputChange('zomato_second_order_start', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                          placeholder='ordeTO'
+
+                        />
+
+                      </td>
+
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_second_order_end}
+                          onChange={(e) => handleInputChange('zomato_second_order_end', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_second_week_amount}
+                          onChange={(e) => handleInputChange('zomato_second_week_amount', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_second_weekend_amount}
+                          onChange={(e) => handleInputChange('zomato_second_weekend_amount', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                    </tr>
+
+
+                    <tr>
+
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={null}
+
+                          placeholder='ORDERTO >='
+                          readOnly
+                          onChange={(e) => handleInputChange('bonusorder', 'bonus_order_partime', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_order_greter_than}
+                          onChange={(e) => handleInputChange('zomato_order_greter_than', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_third_week_amount}
+                          onChange={(e) => handleInputChange('zomato_third_week_amount', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.zomato_third_weekend_amount}
+                          onChange={(e) => handleInputChange('zomato_third_weekend_amount', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+
+
+
+                <h3 className="text-3xl text-center pt-4 font-bold">Rent Sturcture</h3>
+                <input
+                  type="checkbox"
+                  checked={rentmodal.include_vahicle_charges}
+                  onChange={() => handleCheckboxChange('include_vahicle_charges')}
+                />
+                <table className="min-w-full border border-gray-300 mt-4 text-center">
+
+                  <thead>
+                    <tr>
+                      <th className="border border-gray-300 p-2"> WORK-TYPE</th>
+                      <th className="border border-gray-300 p-2">ORDER</th>
+                      <th className="border border-gray-300 p-2">AVG</th>
+                      <th className="border border-gray-300 p-2">BIKE-RANT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          placeholder='FULL-TIME' className='text-center' readOnly
+                          value={"FULL TIME"}
+                          onChange={(e) => handleInputChange(e.target.value)}
+
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.fulltime_greter_than_order}
+                          onChange={(e) => handleInputChange('fulltime_greter_than_order', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.fulltime_average}
+                          onChange={(e) => handleInputChange('fulltime_average', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.vahicle_charges_fulltime}
+                          onChange={(e) => handleInputChange('vahicle_charges_fulltime', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+
+                    </tr>
+                    {/* ... Repeat for other input fields */}
+                    <tr>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number" placeholder='PART-TIME' className='text-center' readOnly
+                          value={'PART_TIME'}
+                          onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.partime_greter_than_order}
+                          onChange={(e) => handleInputChange('partime_greter_than_order', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.partime_average}
+                          onChange={(e) => handleInputChange('partime_average', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.vahicle_charges_partime}
+                          onChange={(e) => handleInputChange('vahicle_charges_partime', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+
+
+
+
+
+
+
+
+
+                <h3 className="text-3xl text-center pt-4 font-bold">MONTHLY-BONUS</h3>
+                <input
+                  type="checkbox"
+                  checked={rentmodal.include_bonus}
+                  onChange={() => handleCheckboxChange('include_bonus')}
+                />
+                <table className="min-w-full border border-gray-300 mt-4 text-center">
+
+                  <thead>
+                    <tr>
+                      <th className="border border-gray-300 p-2"> WORK-TYPE</th>
+                      <th className="border border-gray-300 p-2">ORDER</th>
+                      <th className="border border-gray-300 p-2">INCENTIVE</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          placeholder='FULL-TIME' className='text-center' readOnly
+                          value={"FULL_TIME"}
+                          onChange={(e) => handleInputChange('bonusorder', 'vehicleChargesOrderFulltime', e.target.value)}
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.bonus_order_fulltime}
+                          onChange={(e) => handleInputChange('bonus_order_fulltime', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.bonus_amount_fulltime}
+                          onChange={(e) => handleInputChange('bonus_amount_fulltime', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+
+
+                    </tr>
+                    {/* ... Repeat for other input fields */}
+                    <tr>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number" placeholder='PART-TIME' className='text-center' readOnly
+                          value={"PART_TIME"}
+                          onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.bonus_order_partime}
+                          onChange={(e) => handleInputChange('bonus_order_partime', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.bonus_amount_partime}
+                          onChange={(e) => handleInputChange('bonus_amount_partime', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+
+
+                    </tr>
+                  </tbody>
+                </table>
+
+
+
+
+
+
+
+
+                <h3 className="text-3xl text-center pt-4 font-bold">Rejection ORDER</h3>
+                <input
+                  type="checkbox"
+                  checked={rentmodal.include_rejection}
+                  onChange={() => handleCheckboxChange('include_rejection')}
+                />
+                <table className="min-w-full border border-gray-300 mt-4 text-center">
+
+                  <thead>
+                    <tr>
+                      <th className="border border-gray-300 p-2">ORDER-GRETHER-THAN-EQUAL-TO</th>
+                      <th className="border border-gray-300 p-2">AMOUNT</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.rejection_orders}
+                          onChange={(e) => handleInputChange('rejection_orders', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.rejection_amount}
+                          onChange={(e) => handleInputChange('rejection_amount', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                    </tr>
+                    {/* ... Repeat for other input fields */}
+                  </tbody>
+                </table>
+
+
+
+
+
+
+
+
+
+                <h3 className="text-3xl text-center pt-4 font-bold">BAD ORDER</h3>
+                <input
+                  type="checkbox"
+                  checked={rentmodal.include_bad_order}
+                  onChange={() => handleCheckboxChange('include_bad_order')}
+                />
+                <table className="min-w-full border border-gray-300 mt-4 text-center">
+
+                  <thead>
+                    <tr>
+                      <th className="border border-gray-300 p-2">ORDER-GRETHER-THAN-EQUAL-TO</th>
+                      <th className="border border-gray-300 p-2">AMOUNT</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.bad_orders}
+                          onChange={(e) => handleInputChange('bad_orders', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value={rentmodal.bad_orders_amount}
+                          onChange={(e) => handleInputChange('bad_orders_amount', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
+                <ToastContainer />
+
+
+                <div className='flex justify-between '>
+                  <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                  <button onClick={() => handleclick(15)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+                </div>
               </div>
+
+
             </div>
-
-
-          </div>
 
           </div>
         </main>

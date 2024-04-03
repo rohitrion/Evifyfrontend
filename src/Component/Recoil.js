@@ -14,22 +14,22 @@ export const Num = atom({
   default: ''
 })
 
-                                                                                                                                                                                                                               
+
 
 
 
 export const GloablFile = atom({
   key: "F",
   default: ''
-})   
+})
 
 
 
 export const BaseURLState = atom({
   key: 'baseURLState',
   default: 'http://54.237.210.197:8000',
-  // default: 'https://23a5-2405-201-2008-7273-9d83-ebbe-6172-f841.ngrok-free.app'
- 
+  // default: 'https://97c8-2405-201-2008-7273-9979-1f67-2495-86cc.ngrok-free.app'
+
 });
 
 
@@ -37,6 +37,17 @@ export const Response = atom({
   key: "file",
   default: ""
 })
+
+
+
+
+
+export const Edit = atom({
+  key: "edit",
+  default: ""
+})
+
+
 
 
 
@@ -78,7 +89,7 @@ export const Refresh = atom({
 export const AuthState = atom({
   key: 'authState',
   default: {
-    isAuthenticated: true,
+    isAuthenticated: false,
     user: null,
   },
 });

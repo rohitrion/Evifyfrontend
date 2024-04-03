@@ -25,7 +25,7 @@ const Uptownfresh = () => {
     const [loading, setloding] = useState(false)
     const [rentmodal, setRentModal] = useState({
 
-        fixed_salary: 15000,
+        fixed_salary: 14000,
         days: 26,
 
     });
@@ -79,7 +79,7 @@ const Uptownfresh = () => {
             setfinal(response.data);
 
         } catch (error) {
-            toast.error("Add proper values , select chekbox")
+            toast.error(error.response.data.detail)
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -91,8 +91,15 @@ const Uptownfresh = () => {
 
     function handleclick(val) {
         setnum(val)
-      }
-    
+    }
+
+
+    const handleInputKeyDown = (e) => {
+        // Prevent the default action if the key pressed is '-' or '+'
+        if (e.key === '-' || e.key === '+' || e.key === 'e') {
+            e.preventDefault();
+        }
+    };
 
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     return (
@@ -142,18 +149,21 @@ const Uptownfresh = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
-                                                className='text-center'
+                                                type="number"
+
                                                 value={rentmodal.fixed_salary}
                                                 onChange={(e) => handleInputChange('fixed_salary', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 className='text-center'
-
-
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                                 value={rentmodal.days}
                                                 onChange={(e) => handleInputChange('days', e.target.value)}
                                             />

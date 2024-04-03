@@ -102,7 +102,7 @@ const Bluedart = () => {
             setfinal(response.data);
 
         } catch (error) {
-            toast.error("Add proper values , select chekbox")
+            toast.error(error.response.data.detail)
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
@@ -114,8 +114,16 @@ const Bluedart = () => {
 
     function handleclick(val) {
         setnum(val)
-      }
-    
+    }
+
+    const handleInputKeyDown = (e) => {
+        // Prevent the default action if the key pressed is '-' or '+'
+        if (e.key === '-' || e.key === '+' || e.key === 'e') {
+            e.preventDefault();
+        }
+    };
+
+
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     return (
 
@@ -165,24 +173,32 @@ const Bluedart = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
-                                                className='text-center'
+                                                type="number"
                                                 value={rentmodal.from_order_document}
                                                 onChange={(e) => handleInputChange('from_order_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.to_order_document}
                                                 onChange={(e) => handleInputChange('to_order_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.first_amount_document}
                                                 onChange={(e) => handleInputChange('first_amount_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -192,23 +208,32 @@ const Bluedart = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVG_GRATHER_THEN' className='text-center'
+                                                type="number"
                                                 value={rentmodal.second_condition_from_document}
                                                 onChange={(e) => handleInputChange('second_condition_from_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.second_condition_to_document}
                                                 onChange={(e) => handleInputChange('second_condition_to_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.second_condition_amount_document}
                                                 onChange={(e) => handleInputChange('second_condition_amount_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -218,23 +243,32 @@ const Bluedart = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVERAGE_LESS_THEN' className='text-center'
+                                                type="number"
                                                 value={rentmodal.third_condition_from_document}
                                                 onChange={(e) => handleInputChange('third_condition_from_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.third_condition_to_document}
                                                 onChange={(e) => handleInputChange('third_condition_to_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.third_condtion_amount_document}
                                                 onChange={(e) => handleInputChange('third_condtion_amount_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -250,23 +284,29 @@ const Bluedart = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
+                                                type="number" placeholder='AVERAGE_LESS_THEN' className='number-center' readOnly
                                                 value={"AVG_GRATHER_THEN"}
                                                 onChange={(e) => handleInputChange('third_condition_from_document', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.order_greater_than_document}
                                                 onChange={(e) => handleInputChange('order_greater_than_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.order_amount_document}
                                                 onChange={(e) => handleInputChange('order_amount_document', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -299,24 +339,32 @@ const Bluedart = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
-                                                className='text-center'
+                                                type="number"
                                                 value={rentmodal.from_order_parcel}
                                                 onChange={(e) => handleInputChange('from_order_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.to_order_parcel}
                                                 onChange={(e) => handleInputChange('to_order_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.first_amount_parcel}
                                                 onChange={(e) => handleInputChange('first_amount_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -326,23 +374,32 @@ const Bluedart = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVG_GRATHER_THEN' className='text-center'
+                                                type="number"
                                                 value={rentmodal.second_condition_from_parcel}
                                                 onChange={(e) => handleInputChange('second_condition_from_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.second_condition_to_parcel}
                                                 onChange={(e) => handleInputChange('second_condition_to_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.second_condition_amount_parcel}
                                                 onChange={(e) => handleInputChange('second_condition_amount_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -352,23 +409,32 @@ const Bluedart = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVERAGE_LESS_THEN' className='text-center'
+                                                type="number"
                                                 value={rentmodal.third_condition_from_parcel}
                                                 onChange={(e) => handleInputChange('third_condition_from_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.third_condition_to_parcel}
                                                 onChange={(e) => handleInputChange('third_condition_to_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.third_condtion_amount_parcel}
                                                 onChange={(e) => handleInputChange('third_condtion_amount_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 
@@ -384,23 +450,29 @@ const Bluedart = () => {
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
+                                                type="number" placeholder='AVERAGE_LESS_THEN' className='number-center' readOnly
                                                 value={"AVG_GRATHER_THEN"}
                                                 onChange={(e) => handleInputChange('third_condition_from_document', e.target.value)}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.order_greater_than_parcel}
                                                 onChange={(e) => handleInputChange('order_greater_than_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 value={rentmodal.order_amount_parcel}
                                                 onChange={(e) => handleInputChange('order_amount_parcel', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
                                             />
                                         </td>
 

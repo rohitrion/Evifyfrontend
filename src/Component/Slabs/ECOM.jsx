@@ -3,12 +3,12 @@
 
 
 
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
-import { ToastContainer, toast } from 'react-toastify'; 
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ECOM = () => {
@@ -27,11 +27,11 @@ const ECOM = () => {
 
         from_order: 1,
         to_order: 40,
-        first_amount:12,
-        second_condition_from:41,
-        second_condition_to:55,
-        second_condition_amount:13,
-        third_condition:55,
+        first_amount: 12,
+        second_condition_from: 41,
+        second_condition_to: 55,
+        second_condition_amount: 13,
+        third_condition: 56,
         third_condition_amount: 14,
     });
 
@@ -72,7 +72,7 @@ const ECOM = () => {
             console.log(formData)
 
             const response = await axios.post(`${baseurl}/surat/ecom/structure1/${final.file_id}/${final.file_name}`, formData, {
-         
+
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -84,12 +84,12 @@ const ECOM = () => {
             setfinal(response.data);
 
         } catch (error) {
-            toast.error("Add proper values , select chekbox")
+            toast.error(error.response.data.detail)
             console.error('Error sending data', error);
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
             console.log('Response headers:', error.response.headers);
-        }finally{
+        } finally {
             setloding(false)
         }
     };
@@ -98,8 +98,15 @@ const ECOM = () => {
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     function handleclick(val) {
         setnum(val)
-      }
-    
+    }
+
+    const handleInputKeyDown = (e) => {
+        // Prevent the default action if the key pressed is '-' or '+'
+        if (e.key === '-' || e.key === '+' || e.key === 'e') {
+            e.preventDefault();
+        }
+    };
+
     return (
 
 
@@ -121,124 +128,150 @@ const ECOM = () => {
                 </div>
             )}
 
-        <div className="flex items-center justify-center ">
+            <div className="flex items-center justify-center ">
 
-            <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
-                <h3 className="text-3xl text-center pb-2 font-bold">ECOM</h3>
-                <div className='border-4 bg-slate-100 p-[50px] '>
+                <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
+                    <h3 className="text-3xl text-center pb-2 font-bold">ECOM</h3>
+                    <div className='border-4 bg-slate-100 p-[50px] '>
 
-                    <div>
+                        <div>
 
-                    <input
+                            <input
                                 type="checkbox"
                                 checked={rentmodal.include_bonus}
                                 onChange={() => handleCheckboxChange('include_bonus')}
+                                className='text-center'
+                                onKeyDown={handleInputKeyDown}
+                                min={0}
                             />
-                        <table className="min-w-full border border-gray-300 mt-2 text-center">
+                            <table className="min-w-full border border-gray-300 mt-2 text-center">
 
-                            <thead>
-                                <tr>
-                                    <th className="border border-gray-300 p-2"> ORDERS TO</th>
-                                    <th className="border border-gray-300 p-2">ORDERS FROM</th>
-                                    <th className="border border-gray-300 p-2">MON-SUN</th>
+                                <thead>
+                                    <tr>
+                                        <th className="border border-gray-300 p-2"> ORDERS TO</th>
+                                        <th className="border border-gray-300 p-2">ORDERS FROM</th>
+                                        <th className="border border-gray-300 p-2">MON-SUN</th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="border border-gray-300 p-2">
-                                        <input
-                                            type="text"
-                                            className='text-center'
-                                            value={rentmodal.from_order}
-                                            onChange={(e) => handleInputChange('from_order', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="border border-gray-300 p-2">
-                                        <input
-                                            type="text"
-                                            value={rentmodal.to_order}
-                                            onChange={(e) => handleInputChange('to_order', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="border border-gray-300 p-2">
-                                        <input
-                                            type="text"
-                                            value={rentmodal.first_amount}
-                                            onChange={(e) => handleInputChange('first_amount', e.target.value)}
-                                        />
-                                    </td>
-
-
-                                </tr>
-
-                                <tr>
-                                    <td className="border border-gray-300 p-2">
-                                        <input
-                                            type="text" placeholder='AVG_GRATHER_THEN' className='text-center' 
-                                            value={rentmodal.second_condition_from}
-                                            onChange={(e) => handleInputChange( 'second_condition_from', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="border border-gray-300 p-2">
-                                        <input
-                                            type="text"
-                                            value={rentmodal.second_condition_to}
-                                            onChange={(e) => handleInputChange('second_condition_to', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="border border-gray-300 p-2">
-                                        <input
-                                            type="text"
-                                            value={rentmodal.second_condition_amount}
-                                            onChange={(e) => handleInputChange('second_condition_amount', e.target.value)}
-                                        />
-                                    </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number"
+                                                value={rentmodal.from_order}
+                                                onChange={(e) => handleInputChange('from_order', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                            />
+                                        </td>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number"
+                                                value={rentmodal.to_order}
+                                                onChange={(e) => handleInputChange('to_order', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                            />
+                                        </td>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number"
+                                                value={rentmodal.first_amount}
+                                                onChange={(e) => handleInputChange('first_amount', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                            />
+                                        </td>
 
 
-                                </tr>
+                                    </tr>
 
-                                <tr>
-                                    <td className="border border-gray-300 p-2">
-                                        <input
-                                            type="text" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
-                                            value={"AVERAGE_GRATHER_THEN"}
-                                            onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="border border-gray-300 p-2">
-                                        <input
-                                            type="text"
-                                            value={rentmodal.third_condition}
-                                            onChange={(e) => handleInputChange('third_condition', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="border border-gray-300 p-2">
-                                        <input
-                                            type="text"
-                                            value={rentmodal.third_condition_amount}
-                                            onChange={(e) => handleInputChange('third_condition_amount', e.target.value)}
-                                        />
-                                    </td>
+                                    <tr>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number" 
+                                                value={rentmodal.second_condition_from}
+                                                onChange={(e) => handleInputChange('second_condition_from', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                            />
+                                        </td>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number"
+                                                value={rentmodal.second_condition_to}
+                                                onChange={(e) => handleInputChange('second_condition_to', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                            />
+                                        </td>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number"
+                                                value={rentmodal.second_condition_amount}
+                                                onChange={(e) => handleInputChange('second_condition_amount', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                            />
+                                        </td>
 
 
-                                </tr>
+                                    </tr>
+
+                                    <tr>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number" placeholder='AVERAGE_LESS_THEN' className='text-center' readOnly
+                                                value={"AVERAGE_GRATHER_THEN"}
+                                                onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
+                                            />
+                                        </td>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number"
+                                                value={rentmodal.third_condition}
+                                                onChange={(e) => handleInputChange('third_condition', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                            />
+                                        </td>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number"
+                                                value={rentmodal.third_condition_amount}
+                                                onChange={(e) => handleInputChange('third_condition_amount', e.target.value)}
+                                                className='text-center'
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                            />
+                                        </td>
 
 
-                            </tbody>
-                        </table>
+                                    </tr>
 
-                        <ToastContainer />
-                        <div className='flex justify-between '>
-                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
-                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
-              </div>
+
+                                </tbody>
+                            </table>
+
+                            <ToastContainer />
+                            <div className='flex justify-between '>
+                                <button onClick={handleUpload2} className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                                <button onClick={() => handleclick(1)} className="mt-4 bg-blue-500 text-white p-2 rounded">back</button>
+                            </div>
+                        </div>
+
+
                     </div>
-
-
-                </div>
-            </main>
-        </div>
+                </main>
+            </div>
         </>
     );
 };
