@@ -8,10 +8,10 @@ import '../App.css'
 import { useState } from 'react';
 import File from './Dashbord/File';
 import Import from './File-import/Import'
-import Inventory from './Sidebar/Inventory'
+import Inventory from './INVENTORY/Inventory'
 import { useRecoilState } from 'recoil'
 import { Num } from './Recoil'
-import Inout from './Sidebar/Inout'
+import Inout from './INVENTORY/Inout'
 
 function Home({ name, log }) {
 
