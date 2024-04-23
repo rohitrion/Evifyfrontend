@@ -3,7 +3,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
@@ -37,10 +37,21 @@ const Flipkart = () => {
 
     console.log(rentmodal)
 
+    // const handleInputChange = (field, value) => {
+    //     setRentModal((prevData) => ({
+    //         ...prevData,
+    //         [field]: value,
+    //     }));
+    // };
+
+
     const handleInputChange = (field, value) => {
+        // Convert value to a number using parseFloat or parseInt
+        const numericValue = parseFloat(value);
+
         setRentModal((prevData) => ({
             ...prevData,
-            [field]: value,
+            [field]: numericValue,
         }));
     };
 
@@ -62,6 +73,7 @@ const Flipkart = () => {
 
 
             Object.entries(rentmodal).forEach(([key, value]) => {
+
                 formData.append(key, value);
             });
 
@@ -107,6 +119,21 @@ const Flipkart = () => {
         }
     };
 
+
+    useEffect(() => {
+        const savedInputValues = localStorage.getItem('inputValuesahblinkit');
+        if (savedInputValues) {
+            setRentModal(JSON.parse(savedInputValues));
+        }
+    }, []);
+ 
+    // Effect to save inputValues to localStorage whenever it changes
+    useEffect(() => {
+        console.log('bava');
+        localStorage.setItem('inputValuesahblinkit', JSON.stringify(rentmodal));
+    }, [rentmodal]);
+
+
     return (
 
         <>
@@ -130,16 +157,16 @@ const Flipkart = () => {
 
                 <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 overflow-y-auto max-h-[900px] ">
                     <h3 className="text-3xl text-center pb-2 font-bold">BLINKIT</h3>
-                
+
                     <div className='border-4 bg-slate-100 p-[50px] '>
 
                         <div>
 
-                        <input
-                        type="checkbox"
-                        checked={rentmodal.include_bonus}
-                        onChange={() => handleCheckboxChange('include_bonus')}
-                    />
+                            <input
+                                type="checkbox"
+                                checked={rentmodal.include_bonus}
+                                onChange={() => handleCheckboxChange('include_bonus')}
+                            />
                             <table className="min-w-full border border-gray-300 mt-2 text-center">
 
                                 <thead>
@@ -155,7 +182,7 @@ const Flipkart = () => {
                                         <td className="border border-gray-300 p-2">
                                             <input
                                                 type="number"
-                                              
+
                                                 value={rentmodal.from_order}
                                                 onChange={(e) => handleInputChange('from_order', e.target.value)}
                                                 className='text-center'

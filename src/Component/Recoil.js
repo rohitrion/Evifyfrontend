@@ -20,7 +20,7 @@ export const Num = atom({
 
 export const GloablFile = atom({
   key: "F",
-  default: ''
+  default: {}
 })
 
 
@@ -28,7 +28,7 @@ export const GloablFile = atom({
 export const BaseURLState = atom({
   key: 'baseURLState',
   default: 'http://54.237.210.197:8000',
-  // default: 'https://97c8-2405-201-2008-7273-9979-1f67-2495-86cc.ngrok-free.app'
+  // default: 'https://b647-2405-201-2008-7273-849e-ce00-80ec-80e6.ngrok-free.app'
 
 });
 
@@ -91,6 +91,7 @@ export const AuthState = atom({
   default: {
     isAuthenticated: false,
     user: null,
+    token:""
   },
 });
 
@@ -106,5 +107,35 @@ export const Search = atom({
   key: "ser",
   default: ''
 })
+
+
+
+
+
+
+
+export const Toggle = atom({
+  key: "toggel",
+  default: {}
+})
+
+
+
+export const Toggleselectedid = atom({
+  key: "toggel",
+  default: ''
+})
+
+
+
+
+
+export const Filename = atom({
+  key: "filename",
+  default: null
+})
+
+
+
 
 

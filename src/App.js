@@ -17,6 +17,8 @@ import { useRecoilState } from 'recoil';
 import { AuthState } from './Component/Recoil';
 import Loginn from './Component/Login';
 import Test from './test/Test';
+import Test2 from './test/Test2';
+import Testtwo from './test/Test2';
 
 function App() {
   const [username, setUsername] = useState('');
@@ -25,40 +27,20 @@ function App() {
   const navigate = useNavigate();
   const [auth, setauth] = useRecoilState(AuthState)
 
-  console.log(auth.isAuthenticated + "the login state")
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     const user = JSON.parse(localStorage.getItem('user'));
-  //     if (user) {
-  //       setUsername(user.displayName);
-  //       setLog(true);
-  //     } else {
-  //       setUsername('');
-  //       setLog(false);
-  //       navigate('/');
-  //     }
+  // console.log(auth.isAuthenticated + "the login state")
+  useEffect(() => {
+    const authData = JSON.parse(localStorage.getItem('authData'));
+    if (authData && authData.isAuthenticated && authData.token) {
+      // If authentication data exists, set the authentication state
+      setauth({
+        isAuthenticated: true,
+        token: authData.token
+      });
+    }
 
-  //     auth.onAuthStateChanged((user) => {
-  //       if (user) {
-  //         setUsername(user.displayName);
-  //         setLog(true);
-  //         localStorage.setItem('user', JSON.stringify(user));
-  //       } else {
-  //         setUsername('');
-  //         setLog(false);
-  //         localStorage.removeItem('user');
-  //         navigate('/'); 
-  //       }
-  //       setAuthCheckComplete(true);
-  //     });
-  //   };
+  }, []);
 
-  //   checkAuth();
-  // }, []);
 
-  // if (!authCheckComplete) {
-  //   return  null; 
-  // }
 
   return (
 
@@ -67,15 +49,16 @@ function App() {
 
 
       <Routes>
-        <Route path="/" index element={<Loginn/>} />
-        <Route path='/data' element={auth.isAuthenticated ? <Home name={username} log={log} /> : <Login/>} />
+        <Route path="/" index element={<Loginn />} />
+        <Route path='/data' element={auth.isAuthenticated ? <Home name={username} log={log} /> : <Login />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/reset" element={<Reset />} />
-        <Route path="/file" element={auth.isAuthenticated ? <File name={username} log={log} /> :  <Login/>} />
+        <Route path="/file" element={auth.isAuthenticated ? <File name={username} log={log} /> : <Login />} />
         <Route path="/new" element={<Import />} />
-        <Route path="/test" element={<Test/>} />
-        <Route path="/file-upload"  />
-         <Route />
+        <Route path="/test" element={<Test />} />
+        <Route path="/test2" element={<Testtwo/>} />
+        <Route path="/file-upload" />
+        <Route />
       </Routes>
 
     </div>

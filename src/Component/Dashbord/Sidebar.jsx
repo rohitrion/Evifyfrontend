@@ -16,38 +16,38 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
             </div>
 
             <ul className='sidebar-list'>
-                <li className='sidebar-list-item  s-col' onClick={() => onSidebarItemClick('Dashboard')}>
+                <li className='sidebar-list-item   text-black s-col' onClick={() => onSidebarItemClick('Dashboard')}>
 
                     <BsGrid1X2Fill className='icon' /> Dashboard
 
                 </li>
-                <li className='sidebar-list-item s-col ' onClick={() => onSidebarItemClick('File-upload')}>
+                <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('File-upload')}>
 
                     <BsFillArchiveFill className='icon' style={{ color: "#9E9EA4" }} />
                     File Upload
 
                 </li>
 
-                <li className='sidebar-list-item s-col' onClick={() => onSidebarItemClick('File-Import')}>
+                <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('File-Import')}>
 
 
                     <BsFillGrid3X3GapFill className='icon' /> File Import
 
 
                 </li>
-                <li className='sidebar-list-item s-col' onClick={() => onSidebarItemClick('Inventory-in')}>
+                <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('Inventory-in')}>
 
                     <BsPeopleFill className='icon' />Inventory-In
 
                 </li>
 
-                <li className='sidebar-list-item s-col' onClick={() => onSidebarItemClick('Inventory-out')}>
+                <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('Inventory-out')}>
 
                     <BsPeopleFill className='icon' />Inventory-Out
 
                 </li>
 
-                <li className='sidebar-list-item s-col' >
+                <li className='sidebar-list-item s-col text-black' >
 
                     <BsListCheck className='icon' /> Invoice Data
 
@@ -73,12 +73,12 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
 
                 </li> */}
 
-                <li className='sidebar-list-item s-col'>
+                <li className='sidebar-list-item s-col text-black'>
 
                     <BsFillGearFill className='icon' /> Setting
 
                 </li>
-                <li className='sidebar-list-item s-col'>
+                <li className='sidebar-list-item s-col text-black'>
 
                     <BsPeopleFill className='icon' />Admin
 

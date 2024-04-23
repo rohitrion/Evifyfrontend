@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
@@ -125,6 +125,22 @@ const Ahzomato = () => {
       e.preventDefault();
     }
   };
+
+
+
+  useEffect(() => {
+    const savedInputValues = localStorage.getItem('inputValuesahzomato');
+    if (savedInputValues) {
+      setRentModal(JSON.parse(savedInputValues));
+    }
+  }, []);
+
+  // Effect to save inputValues to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('inputValuesahzomato', JSON.stringify(rentmodal));
+  }, [rentmodal]);
+
+
 
   return (
 

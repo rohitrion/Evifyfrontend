@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Ahbbnow from './Ahbbnow';
 
 
-const Ahemdabad = ({ setsucess }) => {
+const Ahemdabad = ({ setsucess,setfileName }) => {
     const [num, setnum] = useRecoilState(Num);
     const baseurl = useRecoilValue(BaseURLState);
     const [final, setfinal] = useRecoilState(Finalresponse);
@@ -28,6 +28,7 @@ const Ahemdabad = ({ setsucess }) => {
         setnum(val)
         setsucess(false)
         setgfile(null)
+        setfileName(null)
     }
 
     const handleDownload = async () => {
@@ -233,6 +234,16 @@ const Ahemdabad = ({ setsucess }) => {
                                                                         Update Structure
                                                                     </button>
                                                                 </div>
+
+
+                                                                       {/* Bonus Card */}
+                                                                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 bg-gray-200 p-3 justify-between  rounded">
+                                                                    <span className="text-xl font-bold">Bonus</span>
+                                                                    <button onClick={() => handleclick(19)} className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                                                                        Update Structure
+                                                                    </button>
+                                                                </div>
+
                                                             </div>
 
                                                             {/* Buttons */}

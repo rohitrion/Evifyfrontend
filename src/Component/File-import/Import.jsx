@@ -40,8 +40,8 @@ const Import = () => {
                 <a
                   className={`nav-link ${tab === "salayfiles" ? "active" : ""}`}
                   onClick={() => handleOnClick("salayfiles")}
-
-                >
+                        
+                > 
                   <span className='text-[14px] text-black '> Processed Data</span>
                 </a>
               </li>

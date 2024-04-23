@@ -10,8 +10,11 @@ import File from './Dashbord/File';
 import Import from './File-import/Import'
 import Inventory from './INVENTORY/Inventory'
 import { useRecoilState } from 'recoil'
-import { Num } from './Recoil'
-import Inout from './INVENTORY/Inout'
+import { AuthState, Filename, GloablFile, Num } from './Recoil'
+
+import Category from './INVENTORY-OUT/Category'
+
+
 
 function Home({ name, log }) {
 
@@ -24,10 +27,16 @@ function Home({ name, log }) {
 
   const [num,setnum] =useRecoilState(Num)
 
+ const[auth,setAuth]=useRecoilState(AuthState)
+ const [gfile,setgfile]=useRecoilState(GloablFile)
+ const [fileName, setFileName] = useRecoilState(Filename)
+
   const handleSidebarItemClick = (content) => {
     setSelectedContent(content);
     // setCurrentFileUploadStep(1);
      setnum(0)
+     setgfile(null)
+     setFileName(null)
   };
  
 
@@ -45,7 +54,7 @@ function Home({ name, log }) {
     />,
     "File-Import": <Import />,
     "Inventory-in":<Inventory/>,
-    "Inventory-out": <Inout/>
+    "Inventory-out": <Category/>
   };
 
 
@@ -60,14 +69,23 @@ function Home({ name, log }) {
 
   const navigate = useNavigate()
 
-  const handleLogout = () => {
-    signOut(auth).then(() => {          // Sign-out successful.
-      navigate("/");
-      console.log("Signed out successfully")
-    }).catch((error) => {
-    });
+  // const handleLogout = () => {
+  //   signOut(auth).then(() => {          // Sign-out successful.
+  //     navigate("/");
+  //     console.log("Signed out successfully")
+  //   }).catch((error) => {
+  //   });
 
-  }
+  // }
+
+
+  const handleLogout = () => {
+    // Clear authentication data from local storage and reset auth state
+    localStorage.removeItem('authData');
+    setAuth({ isAuthenticated: false, token: null });
+    // Redirect to login page after logout
+    navigate('/');
+  };
 
   // if (!log) {
   //   navigate('/');

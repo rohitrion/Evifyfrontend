@@ -5,6 +5,8 @@ import { FaPowerOff } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import Datey from './Datey';
 const Header = ({ onClick, selectedContent }) => {
+
+  const y=selectedContent.toUpperCase();
   return (
     <header className='header'>
       {/* <div className='menu-icon'>
@@ -27,13 +29,13 @@ const Header = ({ onClick, selectedContent }) => {
 
       </div>
 
-      <div className='header-mid' >  {selectedContent}</div>
+      <div className='header-mid' >  {y}</div>
 
       <div className='header-right'>
         <div > <Datey /></div>
 
 
-        <span onClick={onClick} style={{ cursor: 'pointer' , marginBottom:4}} ><FaPowerOff /></span>
+        <span onClick={onClick} className= ' cursor-pointer text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-3 py-2.5 text-center ml-8 transition duration-300 ease-in-out transform hover:scale-105' ><FaPowerOff /></span>
         {/* <button style={{ borderRadius: '41px' }} onClick={onClick} > Signout🛑</button> */}
       </div>
     </header>

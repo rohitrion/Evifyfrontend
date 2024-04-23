@@ -6,7 +6,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
@@ -113,6 +113,20 @@ const Ahecom = () => {
         }
     };
 
+
+
+    useEffect(() => {
+        const savedInputValues = localStorage.getItem('inputValuesahecom');
+        if (savedInputValues) {
+          setRentModal(JSON.parse(savedInputValues));
+        }
+      }, []);
+    
+      // Effect to save inputValues to localStorage whenever it changes
+      useEffect(() => {
+        localStorage.setItem('inputValuesahecom', JSON.stringify(rentmodal));
+      }, [rentmodal]);
+    
     return (
 
         <>

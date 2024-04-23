@@ -3,7 +3,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
@@ -123,6 +123,19 @@ const Bluedart = () => {
         }
     };
 
+
+    useEffect(() => {
+        const savedInputValues = localStorage.getItem('suratbluedart');
+        if (savedInputValues) {
+          setRentModal(JSON.parse(savedInputValues));
+        }
+      }, []);
+    
+      // Effect to save inputValues to localStorage whenever it changes
+      useEffect(() => {
+        localStorage.setItem('suratbluedart', JSON.stringify(rentmodal));
+      }, [rentmodal]);
+    
 
     console.log(res.file_id + "the data from zomatao" + res.file_name)
     return (

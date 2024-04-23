@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { BaseURLState, Dz, Finalresponse, GloablFile, NewNum, Num, Refresh, TextState } from '../Recoil'
 
-const Form = ({ setsucess }) => {
+const Form = ({ setsucess ,setfileName}) => {
 
   const [show, setshow] = useRecoilState(TextState)
   const [num, setnum] = useRecoilState(Num)
@@ -26,8 +26,9 @@ const Form = ({ setsucess }) => {
   const handleprev = () => {
     // setgfile(null +  'file is empty ')
     // setnum(0)
-    setgfile(0)
+    setgfile(null)
     setsucess(false)
+    setfileName(null)
     console.log(gfile)
   }
 
@@ -129,6 +130,15 @@ const Form = ({ setsucess }) => {
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 bg-gray-200 p-3 justify-between  rounded">
                 <span className="text-xl font-bold">UPTOWN-FRESH</span>
                 <button onClick={() => handleclick(18)} className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                  Update Structure
+                </button>
+              </div>
+
+
+
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 bg-gray-200 p-3 justify-between  rounded">
+                <span className="text-xl font-bold">Bonus</span>
+                <button onClick={() => handleclick(20)} className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                   Update Structure
                 </button>
               </div>

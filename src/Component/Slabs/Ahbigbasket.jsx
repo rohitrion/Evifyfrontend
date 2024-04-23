@@ -3,7 +3,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
@@ -41,7 +41,7 @@ const Ahbigbasket = () => {
         fourth_biker_to_delivery: 28,
         fourth_biker_amount: 33,
         biker_order_greter_than: 29,
-        biker_second_amount: 26,
+        biker_second_amount: 36,
         micro_from_delivery: 1,
         micro_to_delivery: 22,
         micro_first_amount: 20,
@@ -131,8 +131,22 @@ const Ahbigbasket = () => {
         }
     };
 
-    return (
+    useEffect(() => {
+        const savedInputValues = localStorage.getItem('inputValuesahbigbasket');
+        if (savedInputValues) {
+            setRentModal(JSON.parse(savedInputValues));
+        }
+    }, []);
+ 
+    // Effect to save inputValues to localStorage whenever it changes
+    useEffect(() => {
+        console.log('bava');
+        localStorage.setItem('inputValuesahbigbasket', JSON.stringify(rentmodal));
+    }, [rentmodal]);
 
+
+    return (
+    
 
         <>
 
@@ -147,7 +161,7 @@ const Ahbigbasket = () => {
                             wrapperStyle={{}}
                             wrapperClass=""
                             visible={true}
-                        />
+                        />             
                     </div>
                 </div>
             )}
@@ -161,7 +175,7 @@ const Ahbigbasket = () => {
                         <div className="overflow-x-auto    " style={{ maxHeight: '400px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
 
-
+  
                             <h3 className="text-3xl text-center pt-2 mt-2 font-bold">BIKE</h3>
                             <input
                                 type="checkbox"
@@ -169,9 +183,9 @@ const Ahbigbasket = () => {
                                 onChange={() => handleCheckboxChange('include_bonus')}
                             />
                             <table className="min-w-full border border-gray-300 mt-2 text-center">
-
-                                <thead>
-                                    <tr>
+   
+                                   <thead>
+                                     <tr>
                                         <th className="border border-gray-300 p-2"> ORDERS TO</th>
                                         <th className="border border-gray-300 p-2">ORDERS FROM</th>
                                         <th className="border border-gray-300 p-2">MON-SUN</th>
@@ -179,6 +193,9 @@ const Ahbigbasket = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
+
+
+
                                     <tr>
                                         <td className="border border-gray-300 p-2">
                                             <input
@@ -250,15 +267,6 @@ const Ahbigbasket = () => {
 
 
                                     </tr>
-
-
-
-
-
-
-
-
-
 
 
 

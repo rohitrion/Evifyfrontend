@@ -44,9 +44,15 @@ const Login = () => {
       console.log('Login successful!', response.data);
       setAuth({
         isAuthenticated: true,
+        token: response.data.access.access_token
       });
       // You might want to redirect the user or store the token here
       // toast.dismiss(); /             / Hide the loading toast
+      localStorage.setItem('authData', JSON.stringify({
+        isAuthenticated: true,
+        token: response.data.access.access_token
+
+      }));
 
       toast.success('Login successful', {
         // position: "top-center"
@@ -69,7 +75,7 @@ const Login = () => {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && values.email_id !== "" && values.password !== "" ) {
+    if (event.key === 'Enter' && values.email_id !== "" && values.password !== "") {
       handleSubmit();
     }
   };
@@ -109,7 +115,7 @@ const Login = () => {
     //               wrapperStyle={{}}
     //               wrapperClassName=""
     //               visible={true}
-                    
+
     //             />
     //            </div>
     //           ) : (
@@ -125,52 +131,52 @@ const Login = () => {
     //     </MDBRow>
     //   </MDBContainer>
     // </MDBContainer>
-<MDBContainer className="my-5">
-  <ToastContainer /> {/* Render the ToastContainer */}
-  <MDBContainer fluid className='mt-[100px]'>
-    <MDBRow className='mt-[100px]'>
-      <MDBCol sm='6' className='mx-auto border-4 bg-white p-8 rounded shadow-lg'>
-        <div className='d-flex flex-row ps-5 pt-5 mb-1 justify-content-center'>
-          <span className="h1 fw-bold"><i><b> EVIFY</b></i></span>
-        </div>
+    <MDBContainer className="my-5">
+      <ToastContainer /> {/* Render the ToastContainer */}
+      <MDBContainer fluid className='mt-[100px]'>
+        <MDBRow className='mt-[100px]'>
+          <MDBCol sm='6' className='mx-auto border-4 bg-white p-8 rounded shadow-lg'>
+            <div className='d-flex flex-row ps-5 pt-5 mb-1 justify-content-center'>
+              <span className="h1 fw-bold"><i><b> EVIFY</b></i></span>
+            </div>
 
-        <div className='d-flex flex-column justify-content-center item-center h-custom-2 pt-4 md:w-4/5  sm:w-32 ss:w-32  '>
-          <h3 className="fw-normal mb-3 ps-5 pb-3" style={{ letterSpacing: '1px' }}>Log in</h3>
-          <MDBInput wrapperClass='mb-4 mx-5 input-width' label='Email address' id='formControlLg' type='email' size="lg " className='md:w-12'    onKeyDown={handleKeyPress}
-            onChange={(e) => setValues((prev) => ({ ...prev, email_id: e.target.value }))} />
-          <MDBInput wrapperClass='mb-4 mx-5 input-width' label='Password' id='formControlL' type='password' size="lg"   onKeyDown={handleKeyPress}
-            onChange={(e) => setValues((prev) => ({ ...prev, password: e.target.value }))} />
+            <div className='d-flex flex-column justify-content-center item-center h-custom-2 pt-4 md:w-4/5  sm:w-32 ss:w-32  '>
+              <h3 className="fw-normal mb-3 ps-5 pb-3" style={{ letterSpacing: '1px' }}>Log in</h3>
+              <MDBInput wrapperClass='mb-4 mx-5 input-width' label='Email address' id='formControlLg' type='email' size="lg " className='md:w-12' onKeyDown={handleKeyPress}
+                onChange={(e) => setValues((prev) => ({ ...prev, email_id: e.target.value }))} />
+              <MDBInput wrapperClass='mb-4 mx-5 input-width' label='Password' id='formControlL' type='password' size="lg" onKeyDown={handleKeyPress}
+                onChange={(e) => setValues((prev) => ({ ...prev, password: e.target.value }))} />
 
-          <div className='d-flex flex-row justify-content-center mb-4'>
-            {/* <b className='error'>{error}</b> */}
-          </div>
-
-          <MDBBtn className="mb-4 mx-5 w-100 text-center" color='info' size='lg' onClick={handleSubmit} disabled={loading}>
-            {loading ? (
-              <div className='flex items-center justify-center'>
-                <ThreeDots
-                  height="20"
-                  width="40"
-                  radius="9"
-                  color="black"
-                  ariaLabel="three-dots-loading"
-                  wrapperStyle={{}}
-                  wrapperClassName=""
-                  visible={true}
-                />
+              <div className='d-flex flex-row justify-content-center mb-4'>
+                {/* <b className='error'>{error}</b> */}
               </div>
-            ) : (
-              "Login"
-            )}
-          </MDBBtn>
-          <p className="small mb-5 pb-lg-3 ms-5">
-            <Link  className="text-muted"><b>Forgot password ?</b></Link>
-          </p>
-        </div>
-      </MDBCol>
-    </MDBRow>
-  </MDBContainer>
-</MDBContainer>
+
+              <MDBBtn className="mb-4 mx-5 w-100 text-center" color='info' size='lg' onClick={handleSubmit} disabled={loading}>
+                {loading ? (
+                  <div className='flex items-center justify-center'>
+                    <ThreeDots
+                      height="20"
+                      width="40"
+                      radius="9"
+                      color="black"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClassName=""
+                      visible={true}
+                    />
+                  </div>
+                ) : (
+                  "Login"
+                )}
+              </MDBBtn>
+              <p className="small mb-5 pb-lg-3 ms-5">
+                <Link className="text-muted"><b>Forgot password ?</b></Link>
+              </p>
+            </div>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    </MDBContainer>
 
 
   );

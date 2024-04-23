@@ -1,546 +1,129 @@
-// // import React, { useState } from 'react';
-// // import axios from 'axios';
-// // import { BaseURLState } from '../Component/Recoil';
-// // import { useRecoilState } from 'recoil';
-
-// // const ImageUploadComponent = () => {
-// //   const [selectedFile, setSelectedFile] = useState(null);
-// //   const [uploadStatus, setUploadStatus] = useState('');
-// //   const [baseurl, setbaseurl] = useRecoilState(BaseURLState)
-// //   const handleFileChange = (event) => {
-// //     setSelectedFile(event.target.files[0]);
-// //   };
-
-// //   const handleUpload = async () => {
-// //     if (!selectedFile) {
-// //       setUploadStatus('Please select a file.');
-// //       return;
-// //     }
-
-// //     const formData = new FormData();
-// //     formData.append('file', selectedFile);
-
-// //     try {
-// //       const response = await axios.post(`${baseurl}/inventories/upload/image`, formData, {
-// //         headers: {
-// //           'Content-Type': 'multipart/form-data'
-// //         }
-// //       });
-// //       setUploadStatus('Upload successful!');
-// //       console.log('Response:', response);
-// //     } catch (error) {
-// //       console.error('Error uploading image:', error);
-// //       setUploadStatus('Upload failed. Please try again.');
-// //     }
-    
-// //   };
-
-// //   return (
-// //     <div>
-// //       <h1>Image Upload</h1>
-// //       <input type="file"  onChange={handleFileChange} />
-// //       <button className='text-black' onClick={handleUpload}>Upload</button>
-// //       <p>{uploadStatus}</p>
-// //     </div>
-// //   );
-// // };
-
-// // export default ImageUploadComponent;
-
 // import React, { useState } from 'react';
+// import Select from 'react-select';
 
-// function NumberInput() {
-//   const [number1, setNumber1] = useState(0);
-//   const [number2, setNumber2] = useState(0);
-//   const [number3, setNumber3] = useState(0);
+// const YourComponent = () => {
+//   // State to manage input values and dynamically add new inputs
+//   const [inputs, setInputs] = useState([{ name: '', city: '', address: '', date:"",days: [] }]);
 
-//   const handleNumber1Change = (e) => {
-//     const value = parseInt(e.target.value);
-//     if (value >= 0) {
-//       setNumber1(value);
-//       console.log('Number 1:', value);
-//     }
+//   // Options for days
+//   const dayOptions = [
+//     { value: 'mon', label: 'Monday' },
+//     { value: 'tue', label: 'Tuesday' },
+//     { value: 'wed', label: 'Wednesday' },
+//     { value: 'thu', label: 'Thursday' },
+//     { value: 'fri', label: 'Friday' },
+//     { value: 'sat', label: 'Saturday' },
+//     { value: 'sun', label: 'Sunday' } 
+//   ];
+
+//   // Options for cities
+//   const cityOptions = [
+//     { value: 'city1', label: 'City 1' },
+//     { value: 'city2', label: 'City 2' },
+//     { value: 'city3', label: 'City 3' }
+//   ];
+
+//   // Function to handle input change
+//   const handleInputChange = (index, event) => {
+//     const { name, value } = event.target;
+//     const newInputs = [...inputs];
+//     newInputs[index][name] = value;
+//     setInputs(newInputs);
 //   };
 
-//   const handleNumber2Change = (e) => {
-//     const value = parseInt(e.target.value);
-//     if (value >= 0) {
-//       setNumber2(value);
-//       console.log('Number 2:', value);
-//     }
+//   // Function to handle multi-select change
+//   const handleMultiSelectChange = (index, selectedOptions) => {
+//     const newInputs = [...inputs];
+//     newInputs[index]['days'] = selectedOptions.map(option => option.value);
+//     setInputs(newInputs);
 //   };
 
-//   const handleNumber3Change = (e) => {
-//     const value = parseInt(e.target.value);
-//     if (value >= 0) {
-//       setNumber3(value);
-//       console.log('Number 3:', value);
-//     }
+//   // Function to handle city select change
+//   const handleCityChange = (index, selectedOption) => {
+//     const newInputs = [...inputs];
+//     newInputs[index]['city'] = selectedOption.value;
+//     setInputs(newInputs);
 //   };
-// //   const updateInventory = async (updatedInventory) => {
-// //     try {
-// //         const response = await axios.put(`${baseurl}/inventories/${updatedInventory.id}`, updatedInventory);
-// //         // Update the inventory data in getapidata state
-// //         const updatedData = getapidata.map(item => item.id === updatedInventory.id ? response.data : item);
-// //         setgetapi(updatedData);
-// //     } catch (error) {
-// //         console.error('Error updating inventory:', error);
-// //         setError('Failed to update inventory.');
-// //     }
-// // };
+
+//   // Function to handle adding new input fields
+//   const handleAddInput = () => {
+//     setInputs([...inputs, { name: '', city: '', address: '', days: [] }]);
+//   };
+
+
+
+//   console.log(inputs)
+
 //   return (
-//     <div>
-//       <input type="number" value={number1} onChange={handleNumber1Change} />
-//       <input type="number" value={number2} onChange={handleNumber2Change} />
-//       <input type="number" value={number3} onChange={handleNumber3Change} />
-      
+//     <div className="container mx-auto">
+//       <table className="border-collapse border border-gray-400">
+//         <thead>
+//           <tr>
+//             <th className="border border-gray-400 px-4 py-2">Name</th>
+//             <th className="border border-gray-400 px-4 py-2">Date</th>
+//             <th className="border border-gray-400 px-4 py-2">City</th>
+//             <th className="border border-gray-400 px-4 py-2">Address</th>
+//             <th className="border border-gray-400 px-4 py-2">Days</th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {inputs.map((input, index) => (
+//             <tr key={index}>
+//               <td className="border border-gray-400 px-4 py-2">
+//                 <input
+//                   type="text"
+//                   name="name"
+//                   value={input.name}
+//                   onChange={(e) => handleInputChange(index, e)}
+//                   placeholder="Name"
+//                   className="border rounded px-2 py-1"
+//                 />
+//               </td>
+//               <td className="border border-gray-400 px-4 py-2">
+//                 <input
+//                   type="date"
+//                   name="date"
+//                   value={input.date}
+//                   onChange={(e) => handleInputChange(index, e)}
+//                   placeholder="Name"
+//                   className="border rounded px-2 py-1"
+//                 />
+//               </td>
+//               <td className="border border-gray-400 px-4 py-2">
+//                 <Select
+//                   options={cityOptions}
+//                   value={cityOptions.find(option => option.value === input.city)}
+//                   onChange={(selectedOption) => handleCityChange(index, selectedOption)}
+//                 />
+//               </td>
+//               <td className="border border-gray-400 px-4 py-2">
+//                 <input
+//                   type="text"
+//                   name="address"
+//                   value={input.address}
+//                   onChange={(e) => handleInputChange(index, e)}
+//                   placeholder="Address"
+//                   className="border rounded px-2 py-1"
+//                 />
+//               </td>
+//               <td className="border border-gray-400 px-4 py-2">
+//                 <Select
+//                   isMulti
+//                   delimiter
+//                   options={dayOptions}
+//                   value={dayOptions.filter(option => input.days.includes(option.value))}
+//                   onChange={(selectedOptions) => handleMultiSelectChange(index, selectedOptions)}
+//                 />
+//               </td>
+//             </tr>
+//           ))}
+//         </tbody>
+//       </table>
+//       <button onClick={handleAddInput} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+//         Add
+//       </button>
 //     </div>
 //   );
-// }
-
-// export default NumberInput;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect, useRef, useState } from 'react';
-// import { useRecoilState } from 'recoil';
-// import { BaseURLState } from '../Recoil';
-// import axios from 'axios';
-// import Modal from 'react-modal';
-// import DataInventory from './DataInventory';
-// import { Circles } from 'react-loader-spinner';
-// const customStyles = {
-//     content: {
-//         top: '50%',
-//         left: '50%',
-//         right: 'auto',
-//         bottom: 'auto',
-//         marginRight: '-50%',
-//         transform: 'translate(-50%, -50%)',
-//         maxWidth: '30%', // Adjusted width for responsiveness
-//         width: 'auto', // Set to auto for responsiveness
-//         maxHeight: '90vh', // Limit height for small screens
-//         overflow: 'auto', // Enable scrolling if content overflows
-//         background: '#fff',
-//         borderRadius: '8px',
-//         boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)',
-//         padding: '20px',
-//         position: 'relative'
-
-//     },
-//     overlay: {
-//         background: 'rgba(0,0,0,0.6)'
-//     }
 // };
 
-// const MyComponent = () => {
-//     const [isOpen, setIsOpen] = useState(false);
-//     const [search, setSearch] = useState('');
-//     const [image, setImage] = useState(null);
-//     const [isLoading, setIsLoading] = useState(false);
-//     const [error, setError] = useState(null);
-//     const [baseurl, setBaseurl] = useRecoilState(BaseURLState);
-//     const [getapidata, setgetapi] = useState([])
-//     const [loading, setLoading] = useState(false);
-//     const [filteredData, setFilteredData] = useState([]);
-//     const [formMode, setFormMode] = useState('add'); // add or edit
-//     const [selectedItemId, setSelectedItemId] = useState(null);
-
-//     const [inputFields, setInputFields] = useState({
-//         invoice_number: '',
-//         invoice_amount: '',
-//         invoice_date: '',
-//         inventory_paydate: '',
-//         vendor: '',
-//         invoice_image_id: ''
-//     });
-//     const formRef = useRef(null);
-
-//     // const openModal = () => {
-//     //     setIsOpen(true);
-//     // };
-
-
-
-//     const openModal = (item) => {
-//         setIsOpen(true);
-//         if (item) {
-//             setFormMode('edit');
-//             setSelectedItemId(item.invoice_id);
-//             setInputFields({
-//                 invoice_number: item.invoice_number,
-//                 invoice_amount: item.invoice_amount,
-//                 invoice_date: item.invoice_date,
-//                 inventory_paydate: item.inventory_paydate,
-//                 vendor: item.vendor,
-//                 invoice_image_id: item.invoice_image_id
-//             });
-//         } else {
-//             setFormMode('add');
-//             setSelectedItemId(null);
-//             setInputFields({
-//                 invoice_number: '',
-//                 invoice_amount: '',
-//                 invoice_date: '',
-//                 inventory_paydate: '',
-//                 vendor: '',
-//                 invoice_image_id: ''
-//             });
-//         }
-//     };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     const closeModal = () => {
-//         setIsOpen(false);
-//         setInputFields({
-//             invoice_number: '',
-//             invoice_amount: '',
-//             invoice_date: '',
-//             inventory_paydate: '',
-//             vendor: '',
-//             invoice_image_id: ''
-//         });
-//     };
-
-//     const handleImageChange = (e) => {
-//         setImage(e.target.files[0]);
-//     };
-
-//     const handleChange = (e) => {
-//         const { name, value } = e.target;
-//         setInputFields(prevState => ({
-//             ...prevState,
-//             [name]: value
-//         }));
-//     };
-
-
-
-//     useEffect(() => {
-//         const filteredResults = getapidata.filter(item =>
-//             item.vendor.toLowerCase().includes(search.toLowerCase())
-//         );
-//         setFilteredData(filteredResults);
-//     }, [search, getapidata]);
-
-
-
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//                 setLoading(true);
-//                 const response = await axios.get(`${baseurl}/inventories`);
-
-//                 setgetapi(response.data);
-//                 console.log(response.data)
-//                 setFilteredData(response.data);
-//             } catch (error) {
-//                 console.error('Error fetching data:', error);
-//                 setError('Failed to fetch data from the API.');
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
-
-//         fetchData();
-//     }, [baseurl]);
-
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         setIsLoading(true);
-
-//         try {
-//             const imageData = new FormData();
-//             imageData.append('file', image);
-
-//             const responseImage = await axios.post(`${baseurl}/inventories/upload/image`, imageData, {
-//                 headers: {
-//                     'Content-Type': 'multipart/form-data'
-//                 }
-//             });
-
-//             const formData = new FormData(formRef.current);
-//             formData.append('invoice_image_id', responseImage.data.image_url);
-
-
-//             // if (formMode === 'add') {  
-
-//                 const responseForm = await axios.post(`${baseurl}/inventories`, formData, {
-//                     headers: {
-//                         'Content-Type': 'application/json'
-//                     }
-//                 });
-
-//                 console.log("rohit", responseForm.data);
-//                 console.log('Form submitted successfully!');
-                    
-
-//                 setgetapi(prevData => [...prevData, responseForm.data.invoice]);
-//                 setError(null);
-//             // } else if (formMode === 'edit') {
-//             //     const responseForm = await axios.patch(`${baseurl}/inventories/${selectedItemId}`, formData, {
-//             //         headers: {
-//             //             'Content-Type': 'application/json'
-//             //         }
-//             //     });
-
-//             //     setgetapi(prevData => prevData.map(item => item.invoice_id === selectedItemId ? responseForm.data.invoice : item));
-//             // }
-//             // }
-//         } catch (error) {
-//             console.error('Error:', error);
-//             setError('Failed to submit form data. Please try again later.');
-//         } finally {
-//             setIsLoading(false);
-//             closeModal();
-//         }
-//     };
-
-
-
-//     return (
-//         <div>
-
-
-//             {loading && (
-//                 <div className="flex items-center justify-center fixed top-0 left-0 w-full h-full bg-opacity-60 z-2 bg-gray-300">
-//                     <div className="ml-40">
-//                         <Circles
-//                             height="80"
-//                             width="80"
-//                             color="#4fa94d"
-//                             ariaLabel="circles-loading"
-//                             wrapperStyle={{}}
-//                             wrapperClass=""
-//                             visible={true}
-//                         />
-
-//                     </div>
-//                 </div>
-//             )}
-
-//             <div className="w-4/5 mx-auto py-4">
-//                 <div className="flex items-center justify-between">
-//                     <div className="relative w-full mr-4">
-//                         <input
-//                             type="text"
-//                             name="search"
-//                             value={search}
-//                             onChange={(e) => setSearch(e.target.value)}
-//                             placeholder="Search"
-//                             className="border rounded px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-//                         />
-//                         <span className="absolute inset-y-0 right-0 flex items-center pr-3">
-//                             <svg
-//                                 className="w-6 h-6 text-gray-500 cursor-pointer hover:text-blue-500"
-//                                 fill="none"
-//                                 stroke="currentColor"
-//                                 viewBox="0 0 24 24"
-//                                 xmlns="http://www.w3.org/2000/svg"
-//                             >
-//                                 <path
-//                                     strokeLinecap="round"
-//                                     strokeLinejoin="round"
-//                                     strokeWidth="2"
-//                                     d="M15 15l5-5m0 0l-5-5m5 5H4"
-//                                 />
-//                             </svg>
-//                         </span>
-//                     </div>
-//                     <button onClick={openModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105">
-//                         Create
-//                     </button>
-//                 </div>
-//             </div>
-
-//             <Modal
-//                 isOpen={isOpen}
-//                 onRequestClose={closeModal}
-//                 style={customStyles}
-//                 contentLabel="Example Modal"
-
-//             >
-//                 <h2 className="text-lg font-bold mb-4">INVENTORY DETAILS</h2>
-//                 <form onSubmit={handleSubmit} ref={formRef}>
-
-//                     <div className="mb-4    ">
-//                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
-//                             Upload Image:
-//                         </label>
-//                         <div className="flex items-center justify-center bg-gray-100 p-2 rounded-lg border border-gray-300">
-//                             <label htmlFor="image" className="flex flex-col items-center px-2 py-2 bg-white text-blue-500 rounded-lg tracking-wide border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white">
-//                                 <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-//                                     <path
-//                                         fillRule="evenodd"
-//                                         d="M10 12a2 2 0 100-4 2 2 0 000 4zM5 10a5 5 0 1110 0 5 5 0 01-10 0z"
-//                                         clipRule="evenodd"
-//                                     />
-//                                     <path
-//                                         fillRule="evenodd"
-//                                         d="M9 2a7 7 0 016.568 4.5h1.932a1 1 0 01.95 1.316l-2.5 7a1 1 0 01-.95.684h-6a1 1 0 01-.95-.684l-2.5-7A1 1 0 012.5 6.5H4.5A7 7 0 019 2zm6.568 4.5A5 5 0 0010 4a5 5 0 00-5 5 5 5 0 005 5 5 5 0 005-5 5 5 0 001.568-3.5h-3.432z"
-//                                         clipRule="evenodd"
-//                                     />
-//                                 </svg>
-//                                 <span className="mt-1 text-xs leading-normal">Select a file</span>
-//                                 <input
-//                                     type="file"
-//                                     id="image"
-//                                     name="image"
-//                                     className="hidden"
-//                                     onChange={handleImageChange}
-//                                 />
-//                             </label>
-//                         </div>
-//                     </div>
-
-
-//                     <div className="mb-4">
-//                         <label htmlFor="invoice_number" className="block text-gray-700 text-sm font-bold mb-2">Invoice Number:</label>
-//                         <input
-//                             type="text"
-//                             name="invoice_number"
-//                             value={inputFields.invoice_number}
-//                             onChange={handleChange}
-//                             placeholder="Enter invoice number"
-//                             className="border rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-//                         />
-//                     </div>
-
-
-//                     <div className="mb-4">
-//                         <label htmlFor="invoice_amount" className="block text-gray-700 text-sm font-bold mb-2">INVOICE AMOUNT</label>
-//                         <div className="relative">
-//                             <input
-//                                 type="number"
-//                                 min={0}
-//                                 name="invoice_amount"
-//                                 value={inputFields.invoice_amount}
-//                                 onChange={handleChange}
-//                                 placeholder="Enter Invoice Amount"
-//                                 className="border rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-//                             />
-//                             <span className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none text-gray-500">
-//                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-//                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-//                                 </svg>
-//                             </span>
-//                         </div>
-//                     </div>
-
-//                     <div className="mb-4">
-//                         <label htmlFor="invoice_date" className="block text-gray-700 text-sm font-bold mb-2">INVOICE DATE</label>
-//                         <div className="relative">
-//                             <input
-//                                 type="date"
-//                                 name="invoice_date"
-//                                 value={inputFields.invoice_date}
-//                                 onChange={handleChange}
-//                                 className="border rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-//                             />
-//                             <span className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none text-gray-500">
-//                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-//                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-//                                 </svg>
-//                             </span>
-//                         </div>
-//                     </div>
-
-
-//                     <div className="mb-4">
-//                         <label htmlFor="inventory_paydate" className="block text-gray-700 text-sm font-bold mb-2">INVOICE PAYDATE</label>
-//                         <div className="relative">
-//                             <input
-//                                 type="date"
-//                                 name="inventory_paydate"
-//                                 value={inputFields.inventory_paydate}
-//                                 onChange={handleChange}
-//                                 className="border rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-//                                 placeholder='ENTER DATE'
-//                             />
-//                             <span className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none">
-//                                 <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-//                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-//                                 </svg>
-//                             </span>
-//                         </div>
-//                     </div>
-//                     <div className="mb-4">
-//                         <label htmlFor="vendor" className="block text-gray-700 text-sm font-bold mb-2">VENDOR</label>
-//                         <div className="relative">
-//                             <input
-//                                 type="text"
-//                                 name="vendor"
-//                                 value={inputFields.vendor}
-//                                 onChange={handleChange}
-//                                 placeholder="Enter Vendor"
-//                                 className="border rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-//                             />
-//                             <span className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none text-gray-500">
-//                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-//                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-//                                 </svg>
-//                             </span>
-//                         </div>
-//                     </div>
-
-//                     <div className='flex justify-between'>
-//                         <button type="submit" disabled={isLoading} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-//                             {isLoading ? 'Submitting...' : 'Submit'}
-//                         </button>
-//                         <button onClick={closeModal} className="ml-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-//                             Close
-//                         </button>
-//                     </div>
-//                 </form>
-//                 {error && <div>{error}</div>}
-//             </Modal>
-
-
-
-//             <div style={{ maxHeight: '800px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }} >
-//                 {
-//                     filteredData.map((item) => {
-//                         return <DataInventory item={item} data={getapidata} setdata={setgetapi} modal={openModal} closemodal={closeModal} />
-//                     })
-//                 }
-//             </div>
-
-//         </div>
-//     );
-// };
-
-// export default MyComponent;
+// export default YourComponent;

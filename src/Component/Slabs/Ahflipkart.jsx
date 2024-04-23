@@ -3,7 +3,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Circles } from 'react-loader-spinner'
@@ -100,6 +100,22 @@ const Ahflipkart = () => {
             e.preventDefault();
         }
     };
+
+
+
+    useEffect(() => {
+        const savedInputValues = localStorage.getItem('inputValuesahflipkart');
+        if (savedInputValues) {
+          setRentModal(JSON.parse(savedInputValues));
+        }
+      }, []);
+    
+      // Effect to save inputValues to localStorage whenever it changes
+      useEffect(() => {
+        localStorage.setItem('inputValuesahflipkart', JSON.stringify(rentmodal));
+      }, [rentmodal]);
+    
+    
     return (
 
 

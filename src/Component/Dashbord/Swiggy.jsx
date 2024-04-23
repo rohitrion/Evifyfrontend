@@ -3,7 +3,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
@@ -109,7 +109,7 @@ const Swiggy = () => {
             console.log('Response data:', error.response.data);
             console.log('Response status:', error.response.status);
             console.log('Response headers:', error.response.headers);
-     
+
         } finally {
             setloding(false)
         }
@@ -129,6 +129,21 @@ const Swiggy = () => {
             e.preventDefault();
         }
     };
+
+
+    useEffect(() => {
+        const savedInputValues = localStorage.getItem('suratswiggy');
+        if (savedInputValues) {
+            setRentModal(JSON.parse(savedInputValues));
+        }
+    }, []);
+ 
+    // Effect to save inputValues to localStorage whenever it changes
+    useEffect(() => {
+        console.log('bava');
+        localStorage.setItem('suratswiggy', JSON.stringify(rentmodal));
+    }, [rentmodal]);
+
     return (
 
 
@@ -282,7 +297,7 @@ const Swiggy = () => {
                                                 placeholder='ORDERTO >='
                                                 readOnly
                                                 onChange={(e) => handleInputChange('bonusorder', 'bonus_order_partime', e.target.value)}
-                                                
+
                                             />
 
                                         </td>
@@ -352,7 +367,7 @@ const Swiggy = () => {
                                                 placeholder='FULL-TIME' className='text-center' readOnly
                                                 value={"FULL TIME"}
                                                 onChange={(e) => handleInputChange(e.target.value)}
-                                                
+
                                             />
                                         </td>
                                         <td className="border border-gray-300 p-2">

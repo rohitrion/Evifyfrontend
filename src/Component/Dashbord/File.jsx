@@ -6,7 +6,7 @@ import Form from './Form';
 import { Circles } from 'react-loader-spinner'
 import Salary from './Salary';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { BaseURLState, Dz, Error, GloablFile, Num, Refresh, TextState } from '../Recoil';
+import { BaseURLState, Dz, Error, Filename, GloablFile, Num, TextState } from '../Recoil';
 import Swiggy from './Swiggy';
 import BBnow from '../Slabs/BBnow';
 import Flipkart from '../Slabs/Flipkart';
@@ -23,6 +23,9 @@ import Ahecom from '../Slabs/Ahecom';
 import Ahbigbasket from '../Slabs/Ahbigbasket';
 import BluedartVan from '../Slabs/BluedartVan';
 import Uptownfresh from '../Slabs/Uptownfresh';
+import AhBonus from '../Slabs/AhBonus';
+import Zbonus from '../Slabs/Zbonus';
+
 const File = ({ currentStep, onNext }) => {
 
   const [selectedCity, setSelectedCity] = useState(null);
@@ -50,24 +53,36 @@ const File = ({ currentStep, onNext }) => {
   const [num, setnum] = useRecoilState(Num)
 
 
-  const [refresh, setrefresh] = useRecoilState(Refresh)
+
   // console.log(num)
 
   console.log(Gfile + "data")
 
+  const [fileName, setFileName] = useRecoilState(Filename)
 
-  const handleFileChange = (event) => {
-    const selectedfile = event.target.files[0]
-    console.log(selectedfile)
+  const handleFileChange = (e) => {
+    const selectedfile = e.target.files[0];
+
+    setFileName(selectedfile.name);
     setfile(selectedfile)
     GsetFile(selectedfile)
-  }
+
+    // else {
+    //   setFileName(null);
+    // }
+  };
+  // const handleFileChange = (event) => {
+  //   const selectedfile = event.target.files[0]
+  //   console.log(selectedfile)
+  //   setfile(selectedfile)
+  //   GsetFile(selectedfile)
+  // }
 
   const navigate = useNavigate
 
   const handleUpload = async () => {
-    if (!Gfile) {
-      return
+    if (!Gfile || !selectedCity) {
+      return;
     }
     try {
 
@@ -196,7 +211,7 @@ const File = ({ currentStep, onNext }) => {
 
       {
         Gfile && selectedCity === "ahmedabad" && num === 15 && sucess ? (
-          <Ahemdabad setsucess={setsucess} sucess={sucess} />
+          <Ahemdabad setsucess={setsucess} sucess={sucess} setfileName={setFileName} />
         ) :
 
 
@@ -208,7 +223,7 @@ const File = ({ currentStep, onNext }) => {
 
 
           ) : sucess && num == 1 && selectedCity === "surat" ? (
-            <Form setsucess={setsucess} />
+            <Form setsucess={setsucess} setfileName={setFileName} />
           ) : sucess && num === 2 ? (
             <Salary />
           ) : sucess && num === 3 ? (
@@ -247,83 +262,104 @@ const File = ({ currentStep, onNext }) => {
                         <Uptownfresh />
                       )
                         :
-                        (
-                          <>
+                        sucess && num === 19 ? (
+                          <AhBonus />
+                        )
+                        :
+                        sucess && num === 20 ? (
+                          <Zbonus/>
+                        )
+                          :
+                          (
+                            <>
 
 
-                            <div className="flex items-center justify-center  file  w-auto   ">
-                              <main className="bg-white p-8 rounded shadow-lg w-120  ">
+                              <div className="flex items-center justify-center  file  w-auto   ">
+                                <main className="p-8 rounded shadow-lg w-120  bg-white  ">
 
-                                <div className="text-center mb-6">
-                                  <h3 className="text-3xl font-bold">File Upload</h3>
-                                </div>
+                                  <div className="text-center mb-6 ">
+                                    <h3 className="text-3xl text-black font-bold">File Upload</h3>
+                                  </div>
 
-                                <div className="mb-6">
-                                  <label className="block mb-2">CITY:</label>
-                                  <select
-                                    className="w-full border p-3"
-                                    value={selectedCity}
-                                    onChange={handleCityChange}
-                                  >
-                                    <option value="select">select </option>
-                                    <option value="ahmedabad">Ahmedabad</option>
-                                    <option value="surat">Surat</option>
-                                    <option value="otherCity">Other City</option>
-                                  </select>
-                                </div>
+                                  <div className="mb-6">
+                                    <label class="block mb-3 font-bold text-gray-700 ">City  </label>
+                                    <select
+                                      className="w-full border p-3 font-bold   hover:bg-blue-100  transition duration-300 ease-in-out transform hover:scale-105 text-black "
+                                      value={selectedCity}
+                                      onChange={handleCityChange}
+                                    >
+                                      <option value="select">Select </option>
+                                      <option value="ahmedabad">Ahmedabad</option>
+                                      <option value="surat">Surat</option>
+                                      <option value="otherCity">Other City</option>
+                                    </select>
+                                  </div>
 
-                                <div className="mb-6">
-                                  <label className="block mb-2">FILE UPLOAD SECTION:</label>
+                                  {/* <div className="mb-6">
+                                  <label class="block mb-3 font-bold text-gray-700">FILE UPLOAD SECTION:</label>
+
                                   <div className="border p-4">
                                     <input type="file" className="w-full" onChange={handleFileChange} />
                                   </div>
-                                </div>
-
-
-
-                                {
-                                  error ? <div class="p-4 mb-4 text-lg text-center text-red-800 mb-6 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                                    <b><span class="font-medium">{error}</span></b>
-                                  </div> : ""
-
-
-                                }
+                                </div> */}
 
 
 
 
+                                  <label className="flex flex-col items-center px-4 py-6 mb-6 bg-[#dbbdff] text-indigo-600 rounded-lg shadow-md tracking-wide uppercase cursor-pointer border border-indigo-600 hover:bg-indigo-400">
+                                    <svg class="text-indigo-500 w-20 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                                    {fileName ? (
+                                      <span className="mt-2 text-base leading-normal">{fileName}</span>
+                                    ) : (
+                                      <span className="text mt-2 bg-indigo-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-500">Select a file</span>
+                                    )}
+                                    <input type="file" className="hidden" onChange={handleFileChange} />
+                                  </label>
 
 
 
-                                <div className="flex justify-end">
-                                  <select
-                                    className="px-4 py-0.5 mr-2 bg-[#EFEFEF] shadow-lg rounded-lg  text-black "
-                                    value={selectedCity1}
-                                    onChange={handleCityChange1}
-                                  >
-                                    <option value="select">select </option>
-                                    <option value="ahmedabad">Ahmedabad</option>
-                                    <option value="surat">Surat</option>
-                                    <option value="otherCity">Other City</option>
-                                  </select>
-                                  <button
-                                    className="bg-[#EFEFEF]  text-black px-5 py-0.5 mr-2 shadow-lg  rounded-lg"
-                                    onClick={handleDownload}
-                                  >
-                                    Sample File
-                                  </button>
-                                  <button
-                                    className="bg-[#EFEFEF]  text-black px-5 py-0.5 rounded-lg"
-                                    onClick={handleUpload}
-                                  >
-                                    Next
-                                  </button>
-                                </div>
 
-                              </main>
+                                  {
+                                    error ? <div class="p-4 mb-4 text-lg text-center text-red-800 mb-6 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                      <b><span class="font-medium">{error}</span></b>
+                                    </div> : ""
 
-                            </div>
-                          </>)}
+
+                                  }
+
+
+
+
+
+                                  <div className="flex justify-end">
+                                    <select
+                                      className="px-4 py-1 mr-2 bg-[#EFEFEF] shadow-lg rounded-lg font-bold  hover:bg-slate-200 transition duration-300 ease-in-out transform hover:scale-105 text-black "
+                                      value={selectedCity1}
+                                      onChange={handleCityChange1}
+                                    >
+                                      <option value="select">Select </option>
+                                      <option value="ahmedabad">Ahmedabad</option>
+                                      <option value="surat">Surat</option>
+                                      <option value="otherCity">Other City</option>
+                                    </select>
+                                    <button
+                                      className="bg-[#EFEFEF]  text-black font-bold    px-5 py-1 mr-2  hover:bg-blue-500 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 rounded-lg"
+                                      onClick={handleDownload}
+                                    >
+                                      Sample File
+                                    </button>
+                                    <button
+                                      className="bg-[#EFEFEF]  text-black px-5 py-1 rounded-lg shadow-lg  hover:bg-blue-500 font-bold  transition duration-300 ease-in-out transform hover:scale-105"
+                                      onClick={handleUpload}
+                                    >
+                                      Next
+                                    </button>
+                                  </div>
+
+                                </main>
+
+                              </div>
+                            </>)}
 
 
 
