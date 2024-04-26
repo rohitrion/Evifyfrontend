@@ -191,7 +191,17 @@ const Zbonus = () => {
     setInputs([...inputs, { name: '', clients: "", city: '', address: '', dateto: "", datefrom: "", days: [], orderto: "", orderfrom: "", present: "", incentive: "", pentalty: "" }]);
   };
 
-
+  const customStyles = {
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 100, // Ensure high z-index
+      position: 'relative', // Relative position to avoid issues
+    }),
+    control: (provided) => ({
+      ...provided,
+      zIndex: 100, // Also set z-index for the control
+    }),
+  };
 
   return (
 
@@ -213,171 +223,16 @@ const Zbonus = () => {
           </div>
         </div>
       )}
-      {/* <div class="flex items-center justify-center mt-2 w-full lg:w-3/4">
-        <main class="bg-white p-4 rounded shadow-lg lg:w-full">
+
+      {/* <div class="flex items-center justify-center mt-2 ">
+        <main class="bg-white p-4 rounded shadow-lg lg:w-4/5">
           <h3 class="text-3xl text-center pb-2 font-bold">Bonus</h3>
-          <div class='border-4 bg-slate-100 p-4'>
-            <div>
-              <h3 class="text-3xl text-center pt-2 mt-2 font-bold">Suart</h3>
-              <input
-                type="checkbox"
-                checked={rentmodal.include_bonus}
-                onChange={() => handleCheckboxChange('include_bonus')}
-              />
-              <div class="overflow-x-auto flex items-center justify-center">
-                <table class="w-full table-auto">
-                  <thead>
-                    <tr>
-                      <th class="border px-2 py-1">Name</th>
-                      <th class="border px-2 py-1">Client</th>
-                      <th class="border px-2 py-1">Date to</th>
-                      <th class="border px-2 py-1">Date from</th>
-                      <th class="border px-2 py-1">Days</th>
-                      <th class="border px-2 py-1">Order To</th>
-                      <th class="border px-2 py-1">Order From</th>
-                      <th class="border px-2 py-1">Present</th>
-                      <th class="border px-2 py-1">Incentive</th>
-                      <th class="border px-2 py-1">Penalty</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {inputs.map((input, index) => (
-                      <tr key={index}>
-                        <td class="border px-2 py-1">
-                          <input
-                            type="text"
-                            name="name"
-                            value={input.name}
-                            onChange={(e) => handleInputChange(index, e)}
-                            placeholder="Name"
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-
-                        <td class="border px-2 py-1">
-                          <Select
-                            options={clients}
-                            value={clients.find(option => option.value === input.clients)}
-                            onChange={(selectedOption) => handleCliendtChange(index, selectedOption)}
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-
-                        <td class="border px-2 py-1">
-                          <input
-                            type="date"
-                            name="dateto"
-                            value={input.dateto}
-                            onChange={(e) => handleInputChange(index, e)}
-                            placeholder="Date to"
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-
-                        <td class="border px-2 py-1">
-                          <input
-                            type="date"
-                            name="datefrom"
-                            value={input.datefrom}
-                            onChange={(e) => handleInputChange(index, e)}
-                            placeholder="Date from"
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-
-                        <td class="border px-2 py-1">
-                          <Select
-                            isMulti
-                            delimiter
-                            options={dayOptions}
-                            value={dayOptions.filter(option => input.days.includes(option.value))}
-                            onChange={(selectedOptions) => handleMultiSelectChange(index, selectedOptions)}
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-
-                        <td class="border px-2 py-1">
-                          <input
-                            type="text"
-                            name="orderto"
-                            value={input.orderto}
-                            onChange={(e) => handleInputChange(index, e)}
-                            placeholder="Order To"
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-
-                        <td class="border px-2 py-1">
-                          <input
-                            type="text"
-                            name="orderfrom"
-                            value={input.orderfrom}
-                            onChange={(e) => handleInputChange(index, e)}
-                            placeholder="Order From"
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-
-                        <td class="border px-2 py-1">
-                          <Select
-                            options={present}
-                            value={present.find(option => option.value === input.present)}
-                            onChange={(selectedOption) => handlePresentChange(index, selectedOption)}
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-
-                        <td class="border px-2 py-1">
-                          <input
-                            type="text"
-                            name="incentive"
-                            value={input.incentive}
-                            onChange={(e) => handleInputChange(index, e)}
-                            placeholder="Incentive"
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-
-                        <td class="border px-2 py-1">
-                          <input
-                            type="text"
-                            name="penalty"
-                            value={input.penalty}
-                            onChange={(e) => handleInputChange(index, e)}
-                            placeholder="Penalty"
-                            class="border rounded px-2 py-1"
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <button onClick={handleAddInput} class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Add
-              </button>
-              <div class='flex justify-between mt-4'>
-                <button onClick={handleUpload2} class="bg-blue-500 text-white p-2 rounded">Submit</button>
-                <button onClick={() => handleclick(15)} class="bg-blue-500 text-white p-2 rounded">Back</button>
-              </div>
-            </div>
-          </div>
-        </main>
-      </div> */}
-      <div className="flex items-center justify-center mt-2  ">
-
-        <main className="bg-white p-4 rounded shadow-lg w-4/5 lg:w-144  ">
-          <h3 className="text-3xl text-center pb-2 font-bold">Bonus</h3>
           <div className='border-4 bg-slate-100 p-4'>
             <div>
               <h3 className="text-3xl text-center pt-2 mt-2 font-bold">Surat</h3>
-              {/* <input
-                type="checkbox"
-                checked={rentmodal.include_bonus}
-                onChange={() => handleCheckboxChange('include_bonus')}
-              /> */}
+
               <div className="overflow-x-auto">
-                <table className="w-full table-auto">
+                <table className="">
                   <thead>
                     <tr>
                       <th className="border px-4 py-2">Name</th>
@@ -467,6 +322,8 @@ const Zbonus = () => {
                             placeholder="Order From"
                             className="border rounded px-2 py-1 w-20"
                           />
+
+
                         </td>
 
                         <td className="border px-4 py-2">
@@ -493,7 +350,7 @@ const Zbonus = () => {
                           <input
                             type="text"
                             name="penalty"
-                            value={input.penalty}
+                            value={input.pentalty}
                             onChange={(e) => handleInputChange(index, e)}
                             placeholder="Penalty"
                             className="border rounded px-2 py-1 w-20"
@@ -517,7 +374,148 @@ const Zbonus = () => {
             </div>
           </div>
         </main>
+      </div> */}
+<div className="flex justify-center items-center  mt-2">
+  <main className="bg-white p-6 rounded shadow-lg w-full max-w-7xl">
+    <h3 className="text-3xl text-center pb-4 font-bold">Bonus</h3>
+    <div className="border-4 bg-slate-100 p-4">
+      <h3 className="text-3xl text-center font-bold">Surat</h3>
+      <div className="overflow-x-auto mt-4">
+        <table className="w-full text-center relative">
+          <thead>
+            <tr>
+              <th className="border px-4 py-2">Name</th>
+              <th className="border px-4 py-2  ">Client</th>
+              <th className="border px-4 py-2">Date to</th>
+              <th className="border px-4 py-2">Date from</th>
+              <th className="border px-4 py-2">Days</th>
+              <th className="border px-4 py-2">Order To</th>
+              <th className="border px-4 py-2">Order From</th>
+              <th className="border px-4 py-2">Present</th>
+              <th className="border px-4 py-2">Incentive</th>
+              <th className="border px-4 py-2">Penalty</th>
+            </tr>
+          </thead>
+          <tbody>
+            {inputs.map((input, index) => (
+              <tr key={index}>
+                <td className="border px-4 py-2">
+                  <input
+                    type="text"
+                    name="name"
+                    value={input.name}
+                    onChange={(e) => handleInputChange(index, e)}
+                    placeholder="Name"
+                    className="border rounded px-2 py-1 w-24"
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <Select
+                    options={clients}
+                    value={clients.find((option) => option.value === input.clients)}
+                    onChange={(selectedOption) => handleCliendtChange(index, selectedOption)}
+                    className="w-40 z-90"  styles={customStyles} 
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <input
+                    type="date"
+                    name="dateto"
+                    value={input.dateto}
+                    onChange={(e) => handleInputChange(index, e)}
+                    placeholder="Date to"
+                    className="w-full"
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <input
+                    type="date"
+                    name="datefrom"
+                    value={input.datefrom}
+                    onChange={(e) => handleInputChange(index, e)}
+                    placeholder="Date from"
+                    className="w-full"
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <Select
+                    isMulti
+                    delimiter
+                    options={dayOptions}
+                    value={dayOptions.filter((option) => input.days.includes(option.value))}
+                    onChange={(selectedOptions) => handleMultiSelectChange(index, selectedOptions)}
+                    className="w-40"
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <input
+                    type="text"
+                    name="orderto"
+                    value={input.orderto}
+                    onChange={(e) => handleInputChange(index, e)}
+                    placeholder="Order To"
+                    className="w-20"
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <input
+                    type="text"
+                    name="orderfrom"
+                    value={input.orderfrom}
+                    onChange={(e) => handleInputChange(index, e)}
+                    placeholder="Order From"
+                    className="w-20"
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <Select
+                    options={present}
+                    value={present.find((option) => option.value === input.present)}
+                    onChange={(selectedOption) => handlePresentChange(index, selectedOption)}
+                    className="w-40 z-30"
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <input
+                    type="text"
+                    name="incentive"
+                    value={input.incentive}
+                    onChange={(e) => handleInputChange(index, e)}
+                    placeholder="Incentive"
+                    className="w-20"
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <input
+                    type="text"
+                    name="penalty"
+                    value={input.pentalty}
+                    onChange={(e) => handleInputChange(index, e)}
+                    placeholder="Penalty"
+                    className="w-20"
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+      <div className="flex justify-between mt-4">
+        <button onClick={handleUpload2} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Submit
+        </button>
+        <div className="flex gap-3">
+          <button onClick={handleAddInput} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Add
+          </button>
+          <button onClick={() => handleclick(1)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Back
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
 
     </>
   );

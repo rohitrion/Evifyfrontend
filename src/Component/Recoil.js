@@ -28,7 +28,7 @@ export const GloablFile = atom({
 export const BaseURLState = atom({
   key: 'baseURLState',
   default: 'http://54.237.210.197:8000',
-  // default: 'https://b647-2405-201-2008-7273-849e-ce00-80ec-80e6.ngrok-free.app'
+  // default: 'https://1784-2405-201-2008-7273-5430-8bb1-fd1e-e221.ngrok-free.app'
 
 });
 
@@ -138,4 +138,17 @@ export const Filename = atom({
 
 
 
+
+
+export const FileUploadresponse = atom({
+  key: "",
+  default: null
+})
+
+
+
+
+
+
+ 
 
