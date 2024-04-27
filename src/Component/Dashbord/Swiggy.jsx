@@ -1,8 +1,4 @@
 
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -133,11 +129,6 @@ const Swiggy = () => {
 
 
 
-
-
-
-
-
     console.log(rentmodal)
 
     const handleInputChange = (field, value) => {
@@ -258,7 +249,19 @@ const Swiggy = () => {
             e.preventDefault();
         }
     };
+    const handleDeleteLastSlab = () => {
+        if (rentmodal.slabs.length > 1) {
+            const updatedSlabs = rentmodal.slabs.slice(0, -1); // Remove the last slab
 
+            setRentModal((prevData) => ({
+                ...prevData, // Spread the rest of the state
+                slabs: updatedSlabs, // Update with the new array without the last item
+            }));
+            toast.success("Deleted", { autoClose: 1000 });
+        } else {
+            toast.error('Cannot delete the only slab', { autoClose: 1000 }); // Display an error if there's only one slab
+        }
+    };
 
     // useEffect(() => {
     //     const savedInputValues = localStorage.getItem('suratswiggy');
@@ -299,7 +302,7 @@ const Swiggy = () => {
                 <main className="bg-white p-4 rounded shadow-lg w-120 lg:w-144 ">
                     <h3 className="text-3xl text-center  font-bold">Swiggy</h3>
                     <div className='border-4 bg-slate-100 p-[50px]  mb-4  '>
-                        <button className="mt-4 bg-blue-500 text-white p-1 mb-2 text-end rounded" onClick={addSlabForm}>Add New Slab</button>
+
 
                         <div className="overflow-x-auto    " style={{ maxHeight: '400px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                             <h3 className="text-3xl text-center pb-6 font-bold">Slab Sturcture</h3>
@@ -471,153 +474,169 @@ const Swiggy = () => {
 
 
                             {rentmodal.slabs.map((form, index) => (
-                                <table className="border border-gray-300 text-center mt-4">
-                                    <thead>
-                                        <tr className="text-center">
-                                            <th className="border border-gray-300 p-2">ORDER-TO</th>
-                                            <th className="border border-gray-300 p-2">ORDER-FROM</th>
-                                            <th className="border border-gray-300 p-2">MON-FRI</th>
-                                            <th className="border border-gray-300 p-2">SAT-SUN</th>
-                                        </tr>
-                                    </thead>
+                                <div key={index}>
+                                    <table className="border border-gray-300 text-center mt-4">
+                                        <thead>
+                                            <tr className="text-center">
+                                                <th className="border border-gray-300 p-2">ORDER-TO</th>
+                                                <th className="border border-gray-300 p-2">ORDER-FROM</th>
+                                                <th className="border border-gray-300 p-2">MON-FRI</th>
+                                                <th className="border border-gray-300 p-2">SAT-SUN</th>
+                                            </tr>
+                                        </thead>
 
-                                    <tbody>
-                                        {show && (
-                                            <tr key={index}>
+                                        <tbody>
+                                            {show && (
+                                                <tr key={index}>
+                                                    <td className="border border-gray-300 p-2">
+                                                        <input
+                                                            type="date"
+                                                            name="from_date"
+                                                            value={form.from_date ? format(parse(form.from_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd') : ''}
+                                                            onChange={(e) => handleSlabChange(index, e)}
+                                                        />
+                                                    </td>
+                                                    <td className="border border-gray-300 p-2">
+                                                        <input
+                                                            type="date"
+                                                            name="to_date"
+                                                            value={form.to_date ? format(parse(form.to_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd') : ''}
+                                                            onChange={(e) => handleSlabChange(index, e)}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            )}
+
+                                            <tr>
                                                 <td className="border border-gray-300 p-2">
                                                     <input
-                                                        type="date"
-                                                        name="from_date"
-                                                        value={form.from_date ? format(parse(form.from_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd') : ''}
+                                                        type="text"
+                                                        name="swiggy_first_order_start"
+                                                        placeholder="First Order Start"
+                                                        value={form.swiggy_first_order_start}
                                                         onChange={(e) => handleSlabChange(index, e)}
                                                     />
                                                 </td>
                                                 <td className="border border-gray-300 p-2">
                                                     <input
-                                                        type="date"
-                                                        name="to_date"
-                                                        value={form.to_date ? format(parse(form.to_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd') : ''}
+                                                        type="text"
+                                                        name="swiggy_first_order_end"
+                                                        placeholder="First Order End"
+                                                        value={form.swiggy_first_order_end}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        name="swiggy_first_week_amount"
+                                                        placeholder="First Week Amount"
+                                                        value={form.swiggy_first_week_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        name="swiggy_first_weekend_amount"
+                                                        placeholder="First Weekend Amount"
+                                                        value={form.swiggy_first_weekend_amount}
                                                         onChange={(e) => handleSlabChange(index, e)}
                                                     />
                                                 </td>
                                             </tr>
-                                        )}
 
-                                        <tr>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_first_order_start"
-                                                    placeholder="First Order Start"
-                                                    value={form.swiggy_first_order_start}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_first_order_end"
-                                                    placeholder="First Order End"
-                                                    value={form.swiggy_first_order_end}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_first_week_amount"
-                                                    placeholder="First Week Amount"
-                                                    value={form.swiggy_first_week_amount}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_first_weekend_amount"
-                                                    placeholder="First Weekend Amount"
-                                                    value={form.swiggy_first_weekend_amount}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        name="swiggy_second_order_start"
+                                                        placeholder="Second Order Start"
+                                                        value={form.swiggy_second_order_start}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        name="swiggy_second_order_end"
+                                                        placeholder="Second Order End"
+                                                        value={form.swiggy_second_order_end}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        name="swiggy_second_week_amount"
+                                                        placeholder="Second Week Amount"
+                                                        value={form.swiggy_second_week_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        name="swiggy_second_weekend_amount"
+                                                        placeholder="Second Weekend Amount"
+                                                        value={form.swiggy_second_weekend_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                    />
+                                                </td>
+                                            </tr>
 
-                                        <tr>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_second_order_start"
-                                                    placeholder="Second Order Start"
-                                                    value={form.swiggy_second_order_start}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_second_order_end"
-                                                    placeholder="Second Order End"
-                                                    value={form.swiggy_second_order_end}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_second_week_amount"
-                                                    placeholder="Second Week Amount"
-                                                    value={form.swiggy_second_week_amount}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_second_weekend_amount"
-                                                    placeholder="Second Weekend Amount"
-                                                    value={form.swiggy_second_weekend_amount}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        name="swiggy_order_greater_than"
+                                                        placeholder="Order Greater Than"
+                                                        value={form.swiggy_order_greater_than}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        name="swiggy_third_week_amount"
+                                                        placeholder="Third Week Amount"
+                                                        value={form.swiggy_third_week_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        name="swiggy_third_weekend_amount"
+                                                        placeholder="Third Weekend Amount"
+                                                        value={form.swiggy_third_weekend_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-                                        <tr>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_order_greater_than"
-                                                    placeholder="Order Greater Than"
-                                                    value={form.swiggy_order_greater_than}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_third_week_amount"
-                                                    placeholder="Third Week Amount"
-                                                    value={form.swiggy_third_week_amount}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                            <td className="border border-gray-300 p-2">
-                                                <input
-                                                    type="text"
-                                                    name="swiggy_third_weekend_amount"
-                                                    placeholder="Third Weekend Amount"
-                                                    value={form.swiggy_third_weekend_amount}
-                                                    onChange={(e) => handleSlabChange(index, e)}
-                                                />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                </div>
                             ))}
 
 
 
 
-
+                            <div className="flex justify-end gap-8 mt-8 mb-4">
+                                <button
+                                    className="bg-blue-500 text-white p-2 gap-3 rounded"
+                                    onClick={addSlabForm}
+                                >
+                                    Add New Slab
+                                </button>
+                                <button
+                                    className="bg-red-500 text-white px-4 py-2 rounded"
+                                    onClick={handleDeleteLastSlab}
+                                >
+                                    Delete
+                                </button>
+                            </div>
 
 
 

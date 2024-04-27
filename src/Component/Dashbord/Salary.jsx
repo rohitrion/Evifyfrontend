@@ -203,22 +203,20 @@ const Salary = () => {
     }
   };
 
-  // const handleDateChange = (index, date, name) => {
-  //   try {
 
+  const handleDeleteLastSlab = () => {
+    if (rentmodal.slabs.length > 1) {
+      const updatedSlabs = rentmodal.slabs.slice(0, -1); // Remove the last slab
 
-  //     const formattedDate = format(date, 'dd-MM-yy'); // Format the date
-  //     const updatedSlabs = [...rentmodal.slabs];
-  //     updatedSlabs[index][name] = formattedDate;
-
-  //     setRentModal((prevState) => ({
-  //       ...prevState,
-  //       slabs: updatedSlabs,
-  //     }));
-  //   } catch (error) {
-  //     console.error("Error updating date:", error); // Log specific error
-  //   }
-  // };
+      setRentModal((prevData) => ({
+        ...prevData, // Spread the rest of the state
+        slabs: updatedSlabs, // Update with the new array without the last item
+      }));
+      toast.success("Deleted", { autoClose: 1000 });
+    } else {
+      toast.error('Cannot delete the only slab',{ autoClose: 1000 }); // Display an error if there's only one slab
+    }
+  };
 
   return (
 
@@ -251,11 +249,11 @@ const Salary = () => {
 
             <div className="overflow-x-auto    " style={{ maxHeight: '500px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
-         
 
 
-            <h3 className="text-3xl text-center pb-2 font-bold">Slab Sturcture</h3>
-              <button className="mt-4 bg-blue-500 text-white p-1 mb-2 text-end rounded" onClick={addSlabForm}>Add New Slab</button> {/* Adds a new set of inputs */}
+
+              <h3 className="text-3xl text-center pb-2 font-bold">Slab Sturcture</h3>
+
 
 
 
@@ -264,164 +262,181 @@ const Salary = () => {
 
 
               {rentmodal.slabs.map((form, index) => (
-                <table className=" border border-gray-300 text-center mt-4 ">
-                  <thead >
-                    <tr className='text-center'>
-                      <th className="border border-gray-300 p-2">ORDER-TO</th>
-                      <th className="border border-gray-300 p-2"> ORDER-FROM</th>
-                      <th className="border border-gray-300 p-2">MON-FRI </th>
-                      <th className="border border-gray-300 p-2">SAT-SUN </th>
-                    </tr>
-                  </thead>
+                <div key={index}>
+                  <table className="border border-gray-300 text-center mt-4 w-full">
+                    <thead>
+                      <tr className="text-center">
+                        <th className="border border-gray-300 p-2">ORDER-TO</th>
+                        <th className="border border-gray-300 p-2">ORDER-FROM</th>
+                        <th className="border border-gray-300 p-2">MON-FRI</th>
+                        <th className="border border-gray-300 p-2">SAT-SUN</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {show && (
 
-                  <tbody>
-                    {show ?
-                      <tr key={index}>
-
-
+                        <tr>
+                          <td className="border border-gray-300 p-2">
+                            <input
+                              type="date"
+                              name="from_date"
+                              value={
+                                form.from_date
+                                  ? format(parse(form.from_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd')
+                                  : ''
+                              }
+                              onChange={(e) => handleSlabChange(index, e)}
+                            />
+                          </td>
+                          <td className="border border-gray-300 p-2">
+                            <input
+                              type="date"
+                              name="to_date"
+                              value={
+                                form.to_date
+                                  ? format(parse(form.to_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd')
+                                  : ''
+                              }
+                              onChange={(e) => handleSlabChange(index, e)}
+                            />
+                          </td>
+                        </tr>
+                      )}
+                      <tr>
                         <td className="border border-gray-300 p-2">
                           <input
-                            type="date"
-                            name="from_date"
-                            value={form.from_date ? format(parse(form.from_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd') : ''}
+                            type="text"
+                            name="zomato_first_order_start"
+                            placeholder="First Order Start"
+                            value={form.zomato_first_order_start}
                             onChange={(e) => handleSlabChange(index, e)}
                           />
                         </td>
                         <td className="border border-gray-300 p-2">
                           <input
-                            type="date"
-                            name="to_date"
-                            value={form.to_date ? format(parse(form.to_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd') : ''}
+                            type="text"
+                            name="zomato_first_order_end"
+                            placeholder="First Order End"
+                            value={form.zomato_first_order_end}
                             onChange={(e) => handleSlabChange(index, e)}
                           />
                         </td>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            name="zomato_first_week_amount"
+                            placeholder="First Week Amount"
+                            value={form.zomato_first_week_amount}
+                            onChange={(e) => handleSlabChange(index, e)}
+                          />
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            name="zomato_first_weekend_amount"
+                            placeholder="First Weekend Amount"
+                            value={form.zomato_first_weekend_amount}
+                            onChange={(e) => handleSlabChange(index, e)}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            name="zomato_second_order_start"
+                            placeholder="Second Order Start"
+                            value={form.zomato_second_order_start}
+                            onChange={(e) => handleSlabChange(index, e)}
+                          />
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            name="zomato_second_order_end"
+                            placeholder="Second Order End"
+                            value={form.zomato_second_order_end}
+                            onChange={(e) => handleSlabChange(index, e)}
+                          />
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            name="zomato_second_week_amount"
+                            placeholder="Second Week Amount"
+                            value={form.zomato_second_week_amount}
+                            onChange={(e) => handleSlabChange(index, e)}
+                          />
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            name="zomato_second_weekend_amount"
+                            placeholder="Second Weekend Amount"
+                            value={form.zomato_second_weekend_amount}
+                            onChange={(e) => handleSlabChange(index, e)}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            placeholder="Order"
+                            className="text-center"
+                            readOnly
+                            value="Order"
+                            onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
+                          />
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            name="zomato_order_greater_than"
+                            placeholder="Order Greater Than"
+                            value={form.zomato_order_greter_than}
+                            onChange={(e) => handleSlabChange(index, e)}
+                          />
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            name="zomato_third_week_amount"
+                            placeholder="Third Week Amount"
+                            value={form.zomato_third_week_amount}
+                            onChange={(e) => handleSlabChange(index, e)}
+                          />
+                        </td>
+                        <td className="border border-gray-300 p-2">
+                          <input
+                            type="text"
+                            name="zomato_third_weekend_amount"
+                            placeholder="Third Weekend Amount"
+                            value={form.zomato_third_weekend_amount}
+                            onChange={(e) => handleSlabChange(index, e)}
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-
-                      </tr> : ""}
- 
-                    <tr>
-
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_first_order_start"
-                          placeholder="First Order Start"
-                          value={form.zomato_first_order_start}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_first_order_end"
-                          placeholder="First Order End"
-                          value={form.zomato_first_order_end}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_first_week_amount"
-                          placeholder="First Week Amount"
-                          value={form.zomato_first_week_amount}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_first_weekend_amount"
-                          placeholder="First Weekend Amount"
-                          value={form.zomato_first_weekend_amount}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-
-                    </tr>
-
-                    <tr>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_second_order_start"
-                          placeholder="Second Order Start"
-                          value={form.zomato_second_order_start}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_second_order_end"
-                          placeholder="Second Order End"
-                          value={form.zomato_second_order_end}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_second_week_amount"
-                          placeholder="Second Week Amount"
-                          value={form.zomato_second_week_amount}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_second_weekend_amount"
-                          placeholder="Second Weekend Amount"
-                          value={form.zomato_second_weekend_amount}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                    <td className="border border-gray-300 p-2">
-                      <input
-                        type="text" placeholder='Order' className='text-center' readOnly
-                        value={'Order'}
-                        onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
-                      />
-                    </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_order_greter_than"
-                          placeholder="Order Greater Than"
-                          value={form.zomato_order_greter_than}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_third_week_amount"
-                          placeholder="Third Week Amount"
-                          value={form.zomato_third_week_amount}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="text"
-                          name="zomato_third_weekend_amount"
-                          placeholder="Third Weekend Amount"
-                          value={form.zomato_third_weekend_amount}
-                          onChange={(e) => handleSlabChange(index, e)}
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-
-
-                </table>
-
+                </div>
               ))}
 
-       
+              <div className="flex justify-end gap-8 mt-8 mb-4">
+                <button
+                  className="bg-blue-500 text-white p-2 gap-3 rounded"
+                  onClick={addSlabForm}
+                >
+                  Add New Slab
+                </button>
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded"
+                  onClick={handleDeleteLastSlab}
+                >
+                  Delete
+                </button>
+              </div>
 
 
 
@@ -1155,53 +1170,53 @@ export default Salary;
 
 
 
-  // const handleSlabChange = (index, e) => {
-  //   const { name, value, type } = e.target; // Also get the 'type' property
-  //   const updatedSlabs = [...rentmodal.slabs];
+// const handleSlabChange = (index, e) => {
+//   const { name, value, type } = e.target; // Also get the 'type' property
+//   const updatedSlabs = [...rentmodal.slabs];
 
-  //   // Apply date formatting only if the input type is 'date' and there's a non-empty value
-  //   if (type === 'date') {
-  //     updatedSlabs[index][name] = value
-  //       ? moment(value).format('DD-MM-YYYY') // Format if there's a valid value
-  //       : ''; // Keep empty fields as empty
-  //   } else {
-  //     updatedSlabs[index][name] = value; // Keep other types unchanged
-  //   }
+//   // Apply date formatting only if the input type is 'date' and there's a non-empty value
+//   if (type === 'date') {
+//     updatedSlabs[index][name] = value
+//       ? moment(value).format('DD-MM-YYYY') // Format if there's a valid value
+//       : ''; // Keep empty fields as empty
+//   } else {
+//     updatedSlabs[index][name] = value; // Keep other types unchanged
+//   }
 
-  //   setRentModal((prevState) => ({
-  //     ...prevState,
-  //     slabs: updatedSlabs,
-  //   }));
-  // };
+//   setRentModal((prevState) => ({
+//     ...prevState,
+//     slabs: updatedSlabs,
+//   }));
+// };
 
-  // const handleSlabChange = (index, event) => {
-  //   const { name, value, type } = event.target;
+// const handleSlabChange = (index, event) => {
+//   const { name, value, type } = event.target;
 
-  //   // Format the date for display
-  //   const formattedValue = (type === 'date') ? format(new Date(value), 'dd-MM-yy') : value;
+//   // Format the date for display
+//   const formattedValue = (type === 'date') ? format(new Date(value), 'dd-MM-yy') : value;
 
-  //   // Update the slab with the formatted value
-  //   const updatedSlabs = [...rentmodal.slabs];
-  //   updatedSlabs[index][name] = formattedValue;
+//   // Update the slab with the formatted value
+//   const updatedSlabs = [...rentmodal.slabs];
+//   updatedSlabs[index][name] = formattedValue;
 
-  //   // Update the state
-  //   setRentModal((prevState) => ({
-  //     ...prevState,
-  //     slabs: updatedSlabs,
-  //   }));
-  // };
-  // const handleSlabChange = (index, e) => {
-  //   const { name, value } = e.target;
-  //   const updatedSlabs = [...rentmodal.slabs];
-  //   updatedSlabs[index][name] = value; // Update the specific slab with new value
-  //   setRentModal((prevState) => ({
-  //     ...prevState,
-  //     slabs: updatedSlabs,
-  //   }));
-  // };
+//   // Update the state
+//   setRentModal((prevState) => ({
+//     ...prevState,
+//     slabs: updatedSlabs,
+//   }));
+// };
+// const handleSlabChange = (index, e) => {
+//   const { name, value } = e.target;
+//   const updatedSlabs = [...rentmodal.slabs];
+//   updatedSlabs[index][name] = value; // Update the specific slab with new value
+//   setRentModal((prevState) => ({
+//     ...prevState,
+//     slabs: updatedSlabs,
+//   }));
+// };
 
 
-         {/* {slabForms.map((form, index) => (
+{/* {slabForms.map((form, index) => (
                 <table className=" border border-gray-300 text-center mt-8 ">
 
                   <thead >
@@ -1347,3 +1362,22 @@ export default Salary;
                   </tbody>
                 </table >
               ))} */}
+
+
+
+// const handleDateChange = (index, date, name) => {
+//   try {
+
+
+//     const formattedDate = format(date, 'dd-MM-yy'); // Format the date
+//     const updatedSlabs = [...rentmodal.slabs];
+//     updatedSlabs[index][name] = formattedDate;
+
+//     setRentModal((prevState) => ({
+//       ...prevState,
+//       slabs: updatedSlabs,
+//     }));
+//   } catch (error) {
+//     console.error("Error updating date:", error); // Log specific error
+//   }
+// };
