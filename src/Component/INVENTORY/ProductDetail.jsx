@@ -12,7 +12,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null); 
   const [baseurl, setBaseurl] = useRecoilState(BaseURLState);
   const [getapidata, setgetapi] = useState([])
   const [loading, setLoading] = useState(false);
@@ -206,9 +206,10 @@ const ProductDetail = ({ product, onProductSelect }) => {
               color: selectedColor,
               city: selectedCity
             };
+            
           } else {
             return item;
-          }
+          }     
         }));
       } else {
 

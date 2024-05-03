@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { BaseURLState, Finalresponse, GloablFile, Num, Response } from '../Recoil';
+import { BaseURLState, FileUploadresponse, Finalresponse, GloablFile, Num, Response } from '../Recoil';
 import { Circles } from 'react-loader-spinner'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { format, isValid } from 'date-fns'; // Importing the isValid function to check date validity
+import { parse } from 'date-fns';
 const Ahzomato = () => {
 
 
@@ -18,40 +20,56 @@ const Ahzomato = () => {
   const [final, setfinal] = useRecoilState(Finalresponse)
 
   const [loading, setloding] = useState(false)
-  const [rentmodal, setRentModal] = useState({
-    include_slab: false,
-    zomato_first_order_start: 1,
-    zomato_first_order_end: 29,
-    zomato_first_week_amount: 30,
-    zomato_first_weekend_amount: 32,
-    zomato_second_order_start: 20,
-    zomato_second_order_end: 25,
-    zomato_second_week_amount: 25,
-    zomato_second_weekend_amount: 27,
-    zomato_order_greter_than: 26,
-    zomato_third_week_amount: 30,
-    zomato_third_weekend_amount: 32,
-    include_vahicle_charges: false,
+  const [filerespose, setfileresponse] = useRecoilState(FileUploadresponse)
+
+
+  const initialData = {
+    raw_file_key: filerespose,
+    include_slab: true,
+    slabs: [
+      {
+        from_date: "",
+        to_date: "",
+        zomato_first_order_start: 1,
+        zomato_first_order_end: 29,
+        zomato_first_week_amount: 30,
+        zomato_first_weekend_amount: 32,
+        zomato_second_order_start: 20,
+        zomato_second_order_end: 25,
+        zomato_second_week_amount: 25,
+        zomato_second_weekend_amount: 27,
+        zomato_order_greter_than: 26,
+        zomato_third_week_amount: 30,
+        zomato_third_weekend_amount: 32
+      }
+    ],
+    include_vahicle_charges: true,
     fulltime_average: 20,
     fulltime_greter_than_order: 20,
     vahicle_charges_fulltime: 100,
     partime_average: 11,
     partime_greter_than_order: 12,
     vahicle_charges_partime: 70,
-    include_bonus: false,
+    include_bonus: true,
     bonus_order_fulltime: 700,
     bonus_amount_fulltime: 1000,
     bonus_order_partime: 400,
     bonus_amount_partime: 500,
-    include_rejection: false,
+    include_rejection: true,
     rejection_orders: 2,
     rejection_amount: 20,
-    include_bad_order: false,
+    include_bad_order: true,
     bad_orders: 2,
-    bad_orders_amount: 20,
+    bad_orders_amount: 20
+  }
 
-  });
+
+  const [rentmodal, setRentModal] = useState(initialData)
+
+
+
   const [file, setfile] = useRecoilState(GloablFile)
+  const [show, setshow] = useState(false)
 
   console.log(rentmodal)
 
@@ -70,36 +88,86 @@ const Ahzomato = () => {
     }));
   };
 
+  const addSlabForm = () => {
+    setshow(true)
+    const newSlab = {
+      from_date: "",
+      to_date: "",
+      zomato_first_order_start: 1,
+      zomato_first_order_end: 29,
+      zomato_first_week_amount: 30,
+      zomato_first_weekend_amount: 32,
+      zomato_second_order_start: 20,
+      zomato_second_order_end: 25,
+      zomato_second_week_amount: 25,
+      zomato_second_weekend_amount: 27,
+      zomato_order_greter_than: 26,
+      zomato_third_week_amount: 30,
+      zomato_third_weekend_amount: 32
+    };
+
+
+    setRentModal((prevState) => ({
+      ...prevState,
+      slabs: [...prevState.slabs, newSlab], // Append the new slab to existing slabs
+    }));
+  };
+
+  const handleSlabChange = (index, event) => {
+    const { name, value, type } = event.target;
+    const updatedSlabs = [...rentmodal.slabs];
+
+    if (type === 'date') {
+      try {
+        const parsedDate = parse(value, 'yyyy-MM-dd', new Date());
+        const formattedDate = format(parsedDate, 'dd-MM-yyyy'); // Correct date format with 4-digit year
+
+        updatedSlabs[index][name] = formattedDate;
+      } catch (error) {
+        console.error(`Error parsing date at index ${index}:`, error); // Handle invalid date
+      }
+    } else {
+      updatedSlabs[index][name] = value; // Update other input types directly
+    }
+
+    setRentModal((prevState) => ({
+      ...prevState,
+      slabs: updatedSlabs,
+    }));
+  };
+
   const handleUpload2 = async () => {
     try {
       setloding(true)
-      const formData = new FormData();
+      // const formData = new FormData();
 
 
-      formData.append('rentmodal', JSON.stringify(rentmodal));
+      // formData.append('rentmodal', JSON.stringify(rentmodal));
 
 
-      Object.entries(rentmodal).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
+      // Object.entries(rentmodal).forEach(([key, value]) => {
+      //   formData.append(key, value);
+      // });
 
 
-      formData.append('file', file);
-      console.log(formData)
+      // formData.append('file', file);
+      // console.log(formData)
+      const rentmodalJSON = JSON.stringify(rentmodal);
 
+      const response = await axios.post(`${baseurl}/ahmedabad/zomato/v3/structure1`, rentmodalJSON,
+        {
 
-      const response = await axios.post(`${baseurl}/ahmedabad/zomato/v2/structure1?`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+          headers: {
+            'Content-Type': 'application/json',
+          },
+
+        });
 
       console.log('Data sent successfully', response.data);
       // console.log('Data sent successfully', JSON.stringify(response.data));
       setnum(15)
       setres(response.data)
       setfinal(response.data)
-      console.log(res + "the response" + setres)
       console.log(res + "the data ")
       console.log("api12 successfully ");
     } catch (error) {
@@ -111,6 +179,7 @@ const Ahzomato = () => {
       console.log('Response headers:', error.response.headers);
     } finally {
       setloding(false)
+
     }
   };
 
@@ -127,18 +196,30 @@ const Ahzomato = () => {
   };
 
 
-
-  useEffect(() => {
-    const savedInputValues = localStorage.getItem('inputValuesahzomato');
-    if (savedInputValues) {
-      setRentModal(JSON.parse(savedInputValues));
+  const handleDeleteLastSlab = () => {
+    if (rentmodal.slabs.length > 1) {
+      const updatedSlabs = rentmodal.slabs.slice(0, -1); // Remove the last slab
+      setshow(false)
+      setRentModal((prevData) => ({
+        ...prevData, // Spread the rest of the state
+        slabs: updatedSlabs, // Update with the new array without the last item
+      }));
+      toast.success("Deleted", { autoClose: 1000 });
+    } else {
+      toast.error('Cannot delete the only slab', { autoClose: 1000 }); // Display an error if there's only one slab
     }
-  }, []);
+  };
+  // useEffect(() => {
+  //   const savedInputValues = localStorage.getItem('inputValuesahzomato');
+  //   if (savedInputValues) {
+  //     setRentModal(JSON.parse(savedInputValues));
+  //   }
+  // }, []);
 
-  // Effect to save inputValues to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('inputValuesahzomato', JSON.stringify(rentmodal));
-  }, [rentmodal]);
+  // // Effect to save inputValues to localStorage whenever it changes
+  // useEffect(() => {
+  //   localStorage.setItem('inputValuesahzomato', JSON.stringify(rentmodal));
+  // }, [rentmodal]);
 
 
 
@@ -177,169 +258,378 @@ const Ahzomato = () => {
                   checked={rentmodal.include_slab}
                   onChange={() => handleCheckboxChange('include_slab')}
                 />
-                <table className="min-w-full border border-gray-300 text-center ">
-                  <thead >
-                    <tr className='number-center'>
-                      <th className="border border-gray-300 p-2">ORDER-TO</th>
-                      <th className="border border-gray-300 p-2"> ORDER-FROM</th>
-                      <th className="border border-gray-300 p-2">MON-FRI </th>
-                      <th className="border border-gray-300 p-2">SAT-SUN </th>
-                    </tr>
-                  </thead>
-                  <tbody className='text-center'>
-                    <tr>
-
-                      <td className="border border-gray-300 p-2 text-center">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_first_order_start}
-                          placeholder='ordeTO'
-                          onChange={(e) => handleInputChange('zomato_first_order_start', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
-
-                      </td>
-
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_first_order_end}
-                          onChange={(e) => handleInputChange('zomato_first_order_end', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
-
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_first_week_amount}
-                          onChange={(e) => handleInputChange('zomato_first_week_amount', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
-
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_first_weekend_amount}
-                          onChange={(e) => handleInputChange('zomato_first_weekend_amount', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_second_order_start}
-                          onChange={(e) => handleInputChange('zomato_second_order_start', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                          placeholder='ordeTO'
-
-                        />
-
-                      </td>
-
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_second_order_end}
-                          onChange={(e) => handleInputChange('zomato_second_order_end', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
-
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_second_week_amount}
-                          onChange={(e) => handleInputChange('zomato_second_week_amount', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
-
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_second_weekend_amount}
-                          onChange={(e) => handleInputChange('zomato_second_weekend_amount', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
-                      </td>
-                    </tr>
 
 
-                    <tr>
 
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={null}
+                {
+                  rentmodal.slabs.map((form, index) => (
+                    <div key={index}>
+                      <table className="border border-gray-300 text-center mt-4">
+                        <thead>
+                          <tr className="text-center">
+                            <th className="border border-gray-300 p-2">ORDER-TO</th>
+                            <th className="border border-gray-300 p-2">ORDER-FROM</th>
+                            <th className="border border-gray-300 p-2">MON-FRI</th>
+                            <th className="border border-gray-300 p-2">SAT-SUN</th>
+                          </tr>
+                        </thead>
 
-                          placeholder='ORDERTO >='
-                          readOnly
-                          onChange={(e) => handleInputChange('bonusorder', 'bonus_order_partime', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
+                        <tbody>
+                          {show && (
+                            <tr key={index}>
+                              <td className="border border-gray-300 p-2">
+                                <input
+                                  type="date"
+                                  name="from_date"
+                                  value={
+                                    form.from_date
+                                      ? format(parse(form.from_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd')
+                                      : ''
+                                  }
+                                  onChange={(e) => handleSlabChange(index, e)}
+                                  className="text-center"
+                                  onKeyDown={handleInputKeyDown}
+                                />
+                              </td>
+                              <td className="border border-gray-300 p-2">
+                                <input
+                                  type="date"
+                                  name="to_date"
+                                  value={
+                                    form.to_date
+                                      ? format(parse(form.to_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd')
+                                      : ''
+                                  }
+                                  onChange={(e) => handleSlabChange(index, e)}
+                                  className="text-center"
+                                  onKeyDown={handleInputKeyDown}
+                                />
+                              </td>
+                            </tr>
+                          )}
 
-                      </td>
+                          <tr>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_first_order_start"
+                                placeholder="First Order Start"
+                                value={form.swiggy_first_order_start}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_first_order_end"
+                                placeholder="First Order End"
+                                value={form.swiggy_first_order_end}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_first_week_amount"
+                                placeholder="First Week Amount"
+                                value={form.swiggy_first_week_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_first_weekend_amount"
+                                placeholder="First Weekend Amount"
+                                value={form.swiggy_first_weekend_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                          </tr>
 
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_order_greter_than}
-                          onChange={(e) => handleInputChange('zomato_order_greter_than', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
+                          <tr>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_second_order_start"
+                                placeholder="Second Order Start"
+                                value={form.swiggy_second_order_start}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_second_order_end"
+                                placeholder="Second Order End"
+                                value={form.swiggy_second_order_end}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_second_week_amount"
+                                placeholder="Second Week Amount"
+                                value={form.swiggy_second_week_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_second_weekend_amount"
+                                placeholder="Second Weekend Amount"
+                                value={form.swiggy_second_weekend_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                          </tr>
 
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_third_week_amount}
-                          onChange={(e) => handleInputChange('zomato_third_week_amount', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
+                          <tr>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                placeholder="Order"
+                                className="text-center"
+                                readOnly
+                                value="Order"
+                                onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_order_greater_than"
+                                placeholder="Order Greater Than"
+                                value={form.swiggy_order_greater_than}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_third_week_amount"
+                                placeholder="Third Week Amount"
+                                value={form.swiggy_third_week_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="number"
+                                name="swiggy_third_weekend_amount"
+                                placeholder="Third Weekend Amount"
+                                value={form.swiggy_third_weekend_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                                className="text-center"
+                                onKeyDown={handleInputKeyDown}
+                              />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  ))
+                }
 
-                      </td>
-                      <td className="border border-gray-300 p-2">
-                        <input
-                          type="number"
-                          value={rentmodal.zomato_third_weekend_amount}
-                          onChange={(e) => handleInputChange('zomato_third_weekend_amount', e.target.value)}
-                          className='text-center'
-                          onKeyDown={handleInputKeyDown}
-                          min={0}
-                        />
-                      </td>
-                    </tr>
+
+                {/* {
+                  rentmodal.slabs.map((form, index) => (
+                    <div key={index}>
+                      <table className="border border-gray-300 text-center mt-4">
+                        <thead>
+                          <tr className="text-center">
+                            <th className="border border-gray-300 p-2">ORDER-TO</th>
+                            <th className="border border-gray-300 p-2">ORDER-FROM</th>
+                            <th className="border border-gray-300 p-2">MON-FRI</th>
+                            <th className="border border-gray-300 p-2">SAT-SUN</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {show && (
+                            <tr key={index}>
+                              <td className="border border-gray-300 p-2">
+                                <input
+                                  type="date"
+                                  name="from_date"
+                                  value={form.from_date ? format(parse(form.from_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd') : ''}
+                                  onChange={(e) => handleSlabChange(index, e)}
+                                />
+                              </td>
+                              <td className="border border-gray-300 p-2">
+                                <input
+                                  type="date"
+                                  name="to_date"
+                                  value={form.to_date ? format(parse(form.to_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd') : ''}
+                                  onChange={(e) => handleSlabChange(index, e)}
+                                />
+                              </td>
+                            </tr>
+                          )}
+
+                          <tr>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_first_order_start"
+                                placeholder="First Order Start"
+                                value={form.zomato_first_order_start}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_first_order_end"
+                                placeholder="First Order End"
+                                value={form.zomato_first_order_end}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_first_week_amount"
+                                placeholder="First Week Amount"
+                                value={form.zomato_first_week_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_first_weekend_amount"
+                                placeholder="First Weekend Amount"
+                                value={form.zomato_first_weekend_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_second_order_start"
+                                placeholder="Second Order Start"
+                                value={form.zomato_second_order_start}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_second_order_end"
+                                placeholder="Second Order End"
+                                value={form.zomato_second_order_end}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_second_week_amount"
+                                placeholder="Second Week Amount"
+                                value={form.zomato_second_week_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_second_weekend_amount"
+                                placeholder="Second Weekend Amount"
+                                value={form.zomato_second_weekend_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                placeholder="Order"
+                                className="text-center"
+                                readOnly
+                                value="Order"
+                                onChange={(e) => handleInputChange('vehicleCharges', 'vehicleChargesOrderFulltime', e.target.value)}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_order_greater_than"
+                                placeholder="Order Greater Than"
+                                value={form.zomato_order_greter_than}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_third_week_amount"
+                                placeholder="Third Week Amount"
+                                value={form.zomato_third_week_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              <input
+                                type="text"
+                                name="swiggy_third_weekend_amount"
+                                placeholder="Third Weekend Amount"
+                                value={form.zomato_third_weekend_amount}
+                                onChange={(e) => handleSlabChange(index, e)}
+                              />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  ))
+                } */}
 
 
-                  </tbody>
-                </table>
+                <div className="flex justify-end gap-8 mt-8 mb-4">
+                  <button
+                    className="bg-blue-500 text-white p-2 gap-3 rounded"
+                    onClick={addSlabForm}
+                  >
+                    Add New Slab
+                  </button>
+                  <button
+                    className="bg-red-500 text-white px-4 py-2 rounded"
+                    onClick={handleDeleteLastSlab}
+                  >
+                    Delete
+                  </button>
+                </div>
+
+
 
 
 
@@ -660,3 +950,46 @@ const Ahzomato = () => {
 };
 
 export default Ahzomato;
+
+
+
+
+
+
+
+
+
+
+// const [rentmodal, setRentModal] = useState({
+//   include_slab: false,
+//   zomato_first_order_start: 1,
+//   zomato_first_order_end: 29,
+//   zomato_first_week_amount: 30,
+//   zomato_first_weekend_amount: 32,
+//   zomato_second_order_start: 20,
+//   zomato_second_order_end: 25,
+//   zomato_second_week_amount: 25,
+//   zomato_second_weekend_amount: 27,
+//   zomato_order_greter_than: 26,
+//   zomato_third_week_amount: 30,
+//   zomato_third_weekend_amount: 32,
+//   include_vahicle_charges: false,
+//   fulltime_average: 20,
+//   fulltime_greter_than_order: 20,
+//   vahicle_charges_fulltime: 100,
+//   partime_average: 11,
+//   partime_greter_than_order: 12,
+//   vahicle_charges_partime: 70,
+//   include_bonus: false,
+//   bonus_order_fulltime: 700,
+//   bonus_amount_fulltime: 1000,
+//   bonus_order_partime: 400,
+//   bonus_amount_partime: 500,
+//   include_rejection: false,
+//   rejection_orders: 2,
+//   rejection_amount: 20,
+//   include_bad_order: false,
+//   bad_orders: 2,
+//   bad_orders_amount: 20,
+
+// });

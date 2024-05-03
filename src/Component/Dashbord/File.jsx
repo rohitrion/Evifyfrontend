@@ -185,7 +185,7 @@ const File = ({ currentStep, onNext }) => {
 
   console.log(selectedCity, "city")
 
-  console.log(filerespose)
+  console.log(filerespose + "ye upload hui hai ")
 
   return (
     <>
@@ -296,8 +296,8 @@ const File = ({ currentStep, onNext }) => {
                                         <option value="select">Select </option>
                                         <option value="ahmedabad">Ahmedabad</option>
                                         <option value="surat">Surat</option>
-                                        <option value="otherCity">Other City</option>
-                                      </select>
+
+                                      </select><a href=""></a>
                                     </div>
 
                                     {/* <div className="mb-6">
@@ -345,7 +345,7 @@ const File = ({ currentStep, onNext }) => {
                                         <option value="select">Select </option>
                                         <option value="ahmedabad">Ahmedabad</option>
                                         <option value="surat">Surat</option>
-                                        <option value="otherCity">Other City</option>
+
                                       </select>
                                       <button
                                         className="bg-[#EFEFEF]  text-black font-bold    px-5 py-1 mr-2  hover:bg-blue-500 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 rounded-lg"

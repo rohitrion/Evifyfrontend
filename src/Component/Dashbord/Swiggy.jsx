@@ -82,16 +82,16 @@ const Swiggy = () => {
             from_date: "",
             to_date: "",
             swiggy_first_order_start: 1,
-            swiggy_first_week_amount: 20,
             swiggy_first_order_end: 19,
+            swiggy_first_week_amount: 20,
             swiggy_first_weekend_amount: 22,
-            wiggy_second_order_start: 20,
+            swiggy_second_order_start: 20,
             swiggy_second_order_end: 25,
             swiggy_second_week_amount: 25,
             swiggy_second_weekend_amount: 27,
-            swiggy_order_greter_than: 26,
+            swiggy_order_greater_than: 26,
             swiggy_third_week_amount: 30,
-            swiggy_third_weekend_amount: 3
+            swiggy_third_weekend_amount: 32
         };
 
 
@@ -252,7 +252,7 @@ const Swiggy = () => {
     const handleDeleteLastSlab = () => {
         if (rentmodal.slabs.length > 1) {
             const updatedSlabs = rentmodal.slabs.slice(0, -1); // Remove the last slab
-
+            setshow(false)
             setRentModal((prevData) => ({
                 ...prevData, // Spread the rest of the state
                 slabs: updatedSlabs, // Update with the new array without the last item
@@ -312,168 +312,201 @@ const Swiggy = () => {
                                 checked={rentmodal.include_slab}
                                 onChange={() => handleCheckboxChange('include_slab')}
                             />
-                            {/* <table className="min-w-full border border-gray-300 text-center  ">
-                                <thead >
-                                    <tr className='text-center'>
-                                        <th className="border border-gray-300 p-2">ORDER-TO</th>
-                                        <th className="border border-gray-300 p-2"> ORDER-FROM</th>
-                                        <th className="border border-gray-300 p-2">MON-FRI </th>
-                                        <th className="border border-gray-300 p-2">SAT-SUN </th>
-                                    </tr>
-                                </thead>
-                                <tbody className='text-center'>
-                                    <tr>
-
-                                        <td className="border border-gray-300 p-2 text-center">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_first_order_start}
-                                                placeholder='ordeTO'
-                                                onChange={(e) => handleInputChange('swiggy_first_order_start', e.target.value)}
-                                                onKeyDown={handleInputKeyDown}
-                                                min={0}
-                                                className='text-center'
-                                            />
-
-                                        </td>
-
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_first_order_end}
-                                                onKeyDown={handleInputKeyDown}
-                                                onChange={(e) => handleInputChange('swiggy_first_order_end', e.target.value)}
-                                                min={0}
-                                                className='text-center'
-                                            />
-
-                                        </td>
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_first_week_amount}
-                                                onKeyDown={handleInputKeyDown}
-                                                onChange={(e) => handleInputChange('swiggy_first_week_amount', e.target.value)}
-                                                min={0}
-                                                className='text-center'
-                                            />
-
-                                        </td>
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_first_weekend_amount}
-                                                onKeyDown={handleInputKeyDown}
-                                                onChange={(e) => handleInputChange('swiggy_first_weekend_amount', e.target.value)}
-                                                min={0}
-                                                className='text-center'
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_second_order_start}
-                                                onKeyDown={handleInputKeyDown}
-                                                onChange={(e) => handleInputChange('swiggy_second_order_start', e.target.value)}
-                                                placeholder='ordeTO'
-                                                className='text-center'
-                                            />
-
-                                        </td>
-
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_second_order_end}
-                                                onChange={(e) => handleInputChange('swiggy_second_order_end', e.target.value)}
-                                                onKeyDown={handleInputKeyDown}
-                                                min={0}
-                                                className='text-center'
-                                            />
-
-                                        </td>
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_second_week_amount}
-                                                onChange={(e) => handleInputChange('swiggy_second_week_amount', e.target.value)}
-                                                onKeyDown={handleInputKeyDown}
-                                                min={0}
-                                                className='text-center'
-                                            />
-
-                                        </td>
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_second_weekend_amount}
-                                                onChange={(e) => handleInputChange('swiggy_second_weekend_amount', e.target.value)}
-                                                onKeyDown={handleInputKeyDown}
-                                                min={0}
-                                                className='text-center'
-                                            />
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={null}
-                                                className='text-center'
-                                                placeholder='ORDERTO >='
-                                                readOnly
-                                                onChange={(e) => handleInputChange('bonusorder', 'bonus_order_partime', e.target.value)}
-
-                                            />
-
-                                        </td>
-
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_order_greter_than}
-                                                onChange={(e) => handleInputChange('swiggy_order_greter_than', e.target.value)}
-                                                onKeyDown={handleInputKeyDown}
-                                                min={0}
-                                                className='text-center'
-                                            />
-
-                                        </td>
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_third_week_amount}
-                                                onKeyDown={handleInputKeyDown}
-                                                min={0}
-                                                onChange={(e) => handleInputChange('swiggy_third_week_amount', e.target.value)}
-                                                className='text-center'
-                                            />
-
-                                        </td>
-                                        <td className="border border-gray-300 p-2">
-                                            <input
-                                                type="number"
-                                                value={rentmodal.swiggy_third_weekend_amount}
-                                                onChange={(e) => handleInputChange('swiggy_third_weekend_amount', e.target.value)}
-                                                onKeyDown={handleInputKeyDown}
-                                                min={0}
-                                                className='text-center'
-                                            />
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table> */}
-
 
 
                             {rentmodal.slabs.map((form, index) => (
+                                <div key={index}>
+                                    <table className="border border-gray-300 text-center mt-4 w-full">
+                                        <thead>
+                                            <tr className="text-center">
+                                                <th className="border border-gray-300 p-2">ORDER-TO</th>
+                                                <th className="border border-gray-300 p-2">ORDER-FROM</th>
+                                                <th className="border border-gray-300 p-2">MON-FRI</th>
+                                                <th className="border border-gray-300 p-2">SAT-SUN</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {show && (
+                                                <tr key={index}>
+                                                    <td className="border border-gray-300 p-2">
+                                                        <input
+                                                            type="date"
+                                                            name="from_date"
+                                                            value={
+                                                                form.from_date
+                                                                    ? format(parse(form.from_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd')
+                                                                    : ''
+                                                            }
+                                                            onChange={(e) => handleSlabChange(index, e)}
+                                                            className="text-center"
+                                                            onKeyDown={handleInputKeyDown}
+                                                        />
+                                                    </td>
+                                                    <td className="border border-gray-300 p-2">
+                                                        <input
+                                                            type="date"
+                                                            name="to_date"
+                                                            value={
+                                                                form.to_date
+                                                                    ? format(parse(form.to_date, 'dd-MM-yyyy', new Date()), 'yyyy-MM-dd')
+                                                                    : ''
+                                                            }
+                                                            onChange={(e) => handleSlabChange(index, e)}
+                                                            className="text-center"
+                                                            onKeyDown={handleInputKeyDown}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            )}
+
+                                            <tr>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_first_order_start"
+                                                        placeholder="First Order Start"
+                                                        value={form.swiggy_first_order_start}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_first_order_end"
+                                                        placeholder="First Order End"
+                                                        value={form.swiggy_first_order_end}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_first_week_amount"
+                                                        placeholder="First Week Amount"
+                                                        value={form.swiggy_first_week_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_first_weekend_amount"
+                                                        placeholder="First Weekend Amount"
+                                                        value={form.swiggy_first_weekend_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_second_order_start"
+                                                        placeholder="Second Order Start"
+                                                        value={form.swiggy_second_order_start}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_second_order_end"
+                                                        placeholder="Second Order End"
+                                                        value={form.swiggy_second_order_end}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_second_week_amount"
+                                                        placeholder="Second Week Amount"
+                                                        value={form.swiggy_second_week_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_second_weekend_amount"
+                                                        placeholder="Second Weekend Amount"
+                                                        value={form.swiggy_second_weekend_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Order"
+                                                        readOnly
+                                                        value="Order"
+                                                        className="text-center"
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_order_greater_than"
+                                                        placeholder="Order Greater Than"
+                                                        value={form.swiggy_order_greater_than}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_third_week_amount"
+                                                        placeholder="Third Week Amount"
+                                                        value={form.swiggy_third_week_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                                <td className="border border-gray-300 p-2">
+                                                    <input
+                                                        type="number"
+                                                        name="swiggy_third_weekend_amount"
+                                                        placeholder="Third Weekend Amount"
+                                                        value={form.swiggy_third_weekend_amount}
+                                                        onChange={(e) => handleSlabChange(index, e)}
+                                                        className="text-center"
+                                                        onKeyDown={handleInputKeyDown}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ))}
+
+
+                            {/* {rentmodal.slabs.map((form, index) => (
                                 <div key={index}>
                                     <table className="border border-gray-300 text-center mt-4">
                                         <thead>
@@ -618,7 +651,7 @@ const Swiggy = () => {
                                     </table>
 
                                 </div>
-                            ))}
+                            ))} */}
 
 
 

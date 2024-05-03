@@ -49,7 +49,7 @@ const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSel
 
     };
 
-    const handleEditClick = (item) => {
+    const handleEditClick = (item,id) => {
         onEdit(item);
         console.log(item)
 

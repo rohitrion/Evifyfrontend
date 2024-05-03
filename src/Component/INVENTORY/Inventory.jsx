@@ -550,7 +550,8 @@ const MyComponent = () => {
         invoice_date: '',
         inventory_paydate: '',
         vendor: '',
-        invoice_image_id: ''
+        invoice_image_id: '',
+        invoice_id:""
     });
     const formRef = useRef(null);
 
@@ -612,7 +613,8 @@ const MyComponent = () => {
             invoice_date: inventory.invoice_date,
             inventory_paydate: inventory.inventory_paydate,
             vendor: inventory.vendor,
-            invoice_image_id: inventory.invoice_image_id
+            invoice_image_id: inventory.invoice_image_id,
+            invoice_id:inventory.invoice_id
 
         });
         console.log(inventory)
@@ -652,7 +654,7 @@ const MyComponent = () => {
                     }
                 });
                 console.log('Inventory updated successfully!');
-                console.log(response.data); 
+                console.log(response.data);
 
                 setgetapi(prevData => prevData.map(item => (
                     item.invoice_id === selectedInventory.invoice_id ? inputFields : item
@@ -669,7 +671,7 @@ const MyComponent = () => {
             }
 
 
-            formRef.current.reset(); 
+            formRef.current.reset();
             setError(null);
         } catch (error) {
             console.error('Error:', error);
@@ -692,7 +694,7 @@ const MyComponent = () => {
         setFilteredData(filteredResults);
     }, [search, getapidata]);
 
-        
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -712,7 +714,7 @@ const MyComponent = () => {
         };
 
         fetchData();
-    }, [baseurl,]);
+    }, [baseurl]);
 
 
 
@@ -740,7 +742,7 @@ const MyComponent = () => {
 
             {!selectedProduct &&
                 <div>
-                
+
                     <div className="w-4/5 mx-auto py-4">
                         <div className="flex items-center justify-between">
                             <div className="relative w-full mr-4">
@@ -782,7 +784,7 @@ const MyComponent = () => {
                         contentLabel="Example Modal"
 
                     >
-                        <h2 className="text-lg font-bold mb-4">INVENTORY DETAILS</h2>
+                        <h2 className="text-lg font-bold mb-4">INVOICE DETAILS</h2>
                         <form onSubmit={handleSubmit} ref={formRef}>
 
                             <div className="mb-4    ">
