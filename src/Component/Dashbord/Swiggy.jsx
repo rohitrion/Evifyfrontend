@@ -707,9 +707,9 @@ const Swiggy = () => {
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 value={rentmodal.fulltime_greater_than_order}
-                                                onChange={(e) => handleInputChange('fulltime_greter_than_order', e.target.value)}
+                                                onChange={(e) => handleInputChange('fulltime_greater_than_order',e.target.value)}
                                                 onKeyDown={handleInputKeyDown}
                                                 min={0}
                                                 className='text-center'
@@ -719,7 +719,7 @@ const Swiggy = () => {
                                             <input
                                                 type="number"
                                                 value={rentmodal.fulltime_average}
-                                                onChange={(e) => handleInputChange('fulltime_average', e.target.value)}
+                                                onChange={(e) => handleInputChange('fulltime_average',e.target.value)}
                                                 onKeyDown={handleInputKeyDown}
                                                 min={0}
                                                 className='text-center'
@@ -729,7 +729,7 @@ const Swiggy = () => {
                                             <input
                                                 type="number"
                                                 value={rentmodal.vehicle_charges_fulltime}
-                                                onChange={(e) => handleInputChange('vahicle_charges_fulltime', e.target.value)}
+                                                onChange={(e) => handleInputChange('vehicle_charges_fulltime', e.target.value)}
                                                 onKeyDown={handleInputKeyDown}
                                                 min={0}
                                                 className='text-center'
@@ -750,7 +750,7 @@ const Swiggy = () => {
                                             <input
                                                 type="number"
                                                 value={rentmodal.parttime_greater_than_order}
-                                                onChange={(e) => handleInputChange('partime_greter_than_order', e.target.value)}
+                                                onChange={(e) => handleInputChange('parttime_greater_than_order', e.target.value)}
                                                 onKeyDown={handleInputKeyDown}
                                                 min={0}
                                                 className='text-center'
@@ -760,7 +760,7 @@ const Swiggy = () => {
                                             <input
                                                 type="number"
                                                 value={rentmodal.parttime_average}
-                                                onChange={(e) => handleInputChange('partime_average', e.target.value)}
+                                                onChange={(e) => handleInputChange('parttime_average', e.target.value)}
                                                 onKeyDown={handleInputKeyDown}
                                                 min={0}
                                                 className='text-center'
@@ -770,7 +770,7 @@ const Swiggy = () => {
                                             <input
                                                 type="number"
                                                 value={rentmodal.vehicle_charges_parttime}
-                                                onChange={(e) => handleInputChange('vahicle_charges_partime', e.target.value)}
+                                                onChange={(e) => handleInputChange('vehicle_charges_parttime', e.target.value)}
                                                 onKeyDown={handleInputKeyDown}
                                                 min={0}
                                                 className='text-center'
@@ -851,7 +851,7 @@ const Swiggy = () => {
                                             <input
                                                 type="number"
                                                 value={rentmodal.bonus_order_parttime}
-                                                onChange={(e) => handleInputChange('bonus_order_partime', e.target.value)}
+                                                onChange={(e) => handleInputChange('bonus_order_parttime', e.target.value)}
                                                 onKeyDown={handleInputKeyDown}
                                                 min={0}
                                                 className='text-center'
@@ -861,7 +861,7 @@ const Swiggy = () => {
                                             <input
                                                 type="number"
                                                 value={rentmodal.bonus_amount_parttime}
-                                                onChange={(e) => handleInputChange('bonus_amount_partime', e.target.value)}
+                                                onChange={(e) => handleInputChange('bonus_amount_parttime', e.target.value)}
                                                 onKeyDown={handleInputKeyDown}
                                                 min={0}
                                                 className='text-center'
