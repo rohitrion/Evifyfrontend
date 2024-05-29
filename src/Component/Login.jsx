@@ -44,13 +44,13 @@ const Login = () => {
       console.log('Login successful!', response.data);
       setAuth({
         isAuthenticated: true,
-        token: response.data.access.access_token
+        token: response.data.access
       });
       // You might want to redirect the user or store the token here
       // toast.dismiss(); /             / Hide the loading toast
       localStorage.setItem('authData', JSON.stringify({
         isAuthenticated: true,
-        token: response.data.access.access_token
+        token: response.data.access
 
       }));
 
@@ -82,55 +82,7 @@ const Login = () => {
 
   return (
 
-    // <MDBContainer className="my-5    ">
-    //   <ToastContainer /> {/* Render the ToastContainer */}
-    //   <MDBContainer fluid className='mt-[100px]'>
-    //     <MDBRow className='mt-[100px] '>
-    //       <MDBCol sm='6' className='ml-[300px] border-4 bg-white p-8 rounded shadow-lg   '>
-    //         <div className='d-flex flex-row ps-5 pt-5 mb-1 justify-content-center'>
-    //           <span className="h1 fw-bold  "><i><b> EVIFY</b></i> </span>
-    //         </div>
-
-    //         <div className='d-flex flex-column justify-content-center  item-center h-custom-2 w-75 pt-4'>
-    //           <h3 className="fw-normal mb-3 ps-5 pb-3" style={{ letterSpacing: '1px' }}>Log in</h3>
-    //           <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Email address' id='formControlLg' type='email' size="lg"
-    //             onChange={(e) => setValues((prev) => ({ ...prev, email_id: e.target.value }))} />
-    //           <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password' id='formControlL' type='password' size="lg"
-    //             onChange={(e) => setValues((prev) => ({ ...prev, password: e.target.value }))} />
-
-    //           <div className='d-flex flex-row justify-content-center mb-4'>
-    //             {/* <b className='error'>{error}</b> */}
-    //           </div>
-
-    //           <MDBBtn className="mb-4 px-5 mx-5 w-100 text-center" color='info' size='lg' onClick={handleSubmit} disabled={loading}>
-
-    //             {loading ? (
-    //               <div className='pl-[150px]' >
-    //             <ThreeDots
-    //               height="20"
-    //               width="40"
-    //               radius="9"
-    //               color="black"
-    //               ariaLabel="three-dots-loading"
-    //               wrapperStyle={{}}
-    //               wrapperClassName=""
-    //               visible={true}
-
-    //             />
-    //            </div>
-    //           ) : (
-    //              " Login"
-    //           )}
-
-    //           </MDBBtn>
-    //           <p className="small mb-5 pb-lg-3 ms-5">
-    //             <Link to='/reset' className="text-muted"><b>Forgot password ?</b></Link>
-    //           </p>
-    //         </div>
-    //       </MDBCol>
-    //     </MDBRow>
-    //   </MDBContainer>
-    // </MDBContainer>
+  
     <MDBContainer className="my-5">
       <ToastContainer /> {/* Render the ToastContainer */}
       <MDBContainer fluid className='mt-[100px]'>

@@ -355,8 +355,6 @@ const Category = ({ product, onProductSelect }) => {
 
 
 
-
-
               <div className="mb-4">
                 <label htmlFor="invoice_number" className="block text-gray-700 text-sm font-bold mb-2">Product Name:</label>
                 <input

@@ -20,13 +20,13 @@ const Datey = () => {
 		weekday: 'short',
 		day: 'numeric',
 		month: 'numeric',
-		year: 'numeric',  
+		year: 'numeric',
 		hour: 'numeric',
 		minute: 'numeric',
 		// hour12: true,
 
-	})  
-	
+	})
+
 	return (
 		<>		<span className='mt-1 text-black'>{formattedDateTime}</span>
 		</>

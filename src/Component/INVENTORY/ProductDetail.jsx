@@ -2,9 +2,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { BaseURLState } from '../Recoil';
+import { AuthState, BaseURLState } from '../Recoil';
 import axios from 'axios';
 import Modal from 'react-modal';
+import Select from 'react-select';
 import DataInventory from './DataInventory';
 import { Circles } from 'react-loader-spinner';
 import Singleproduct from './Singleproduct';
@@ -12,7 +13,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
   const [baseurl, setBaseurl] = useRecoilState(BaseURLState);
   const [getapidata, setgetapi] = useState([])
   const [loading, setLoading] = useState(false);
@@ -20,22 +21,30 @@ const ProductDetail = ({ product, onProductSelect }) => {
   const [selectedInventory, setSelectedInventory] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+
+
   const [Edit, SetEdit] = useState(false)
 
   const [productname, setproductname] = useState('');
   const [category, setCategory] = useState('');
   const [bikeCategory, setBikeCategory] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [Amount, setamount] = useState('')
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
+
+  const [Gst, setGst] = useState(null);
+  const [unit, setUnit] = useState(null);
+  const [hsn, Sethsn] = useState('')
+
   const [categories, setCategories] = useState([]);
   const [bikeCategories, setBikeCategories] = useState([]);
   const [sizeOptions, setSizeOptions] = useState([]);
   const [colorOptions, setColorOptions] = useState([]);
   const [cityOptions, setCityOptions] = useState([]);
-
-
+  const [products, setproducts] = useState([]);
+  const [authState, setauthstate] = useRecoilState(AuthState)
 
 
   // const [inputFields, setInputFields] = useState({
@@ -54,24 +63,141 @@ const ProductDetail = ({ product, onProductSelect }) => {
     const fetchData = async () => {
       try {
         // Fetch categories
+        // const categoryResponse = await axios.get(`${baseurl}/categories`);
+        // setCategories(categoryResponse.data.category);
+
+
+
+
         const categoryResponse = await axios.get(`${baseurl}/categories`);
-        setCategories(categoryResponse.data.category);
+        const category = categoryResponse.data.category.map(category => ({
+          value: category.category_id,
+          label: category.category_name,
+        }));
+        setCategories(category);
+
+
+
+
+
+
+
 
         // Fetch bike categories
+        // const bikeCategoryResponse = await axios.get(`${baseurl}/bikes`);
+        // setBikeCategories(bikeCategoryResponse.data.bikes);
+
+
+
+
+
         const bikeCategoryResponse = await axios.get(`${baseurl}/bikes`);
-        setBikeCategories(bikeCategoryResponse.data.bikes);
+        const Bike = bikeCategoryResponse.data.bikes.map(category => ({
+          value: category.bike_id,
+          label: category.bike_name,
+        }));
+        setBikeCategories(Bike);
+
+
+
+
+
+
+
+
+
+
+
 
         // Fetch sizes
+        // const sizeResponse = await axios.get(`${baseurl}/sizes`);
+        // setSizeOptions(sizeResponse.data.size);
+
+
+
+
+
+
         const sizeResponse = await axios.get(`${baseurl}/sizes`);
-        setSizeOptions(sizeResponse.data.size);
+        const size = sizeResponse.data.size.map(category => ({
+          value: category.size_id,
+          label: category.size_name,
+        }));
+        setSizeOptions(size);
 
-        // Fetch colors
+
+
+
+
+
+
+
+
+
+
+        // // Fetch colors
+        // const colorResponse = await axios.get(`${baseurl}/colors`);
+        // setColorOptions(colorResponse.data.colors);
+
+
+
+
+
+
+
+
         const colorResponse = await axios.get(`${baseurl}/colors`);
-        setColorOptions(colorResponse.data.colors);
+        const colors = colorResponse.data.colors.map(category => ({
+          value: category.color_id,
+          label: category.color_name,
+        }));
+        setColorOptions(colors);
 
-        // Fetch cities
+
+
+
+        // // Fetch cities
+        // const cityResponse = await axios.get(`${baseurl}/cities`);
+        // setCityOptions(cityResponse.data.cities);
+
+
+
+
+
+
+
+
+
         const cityResponse = await axios.get(`${baseurl}/cities`);
-        setCityOptions(cityResponse.data.cities);
+        const City = cityResponse.data.cities.map(category => ({
+          value: category.city_id,
+          label: category.city_name,
+        }));
+        setCityOptions(City);
+
+
+
+
+
+
+        // const productname = await axios.get(`${baseurl}/get/product_category`);
+        // setproducts(productname.data.products);
+
+
+        const productname = await axios.get(`${baseurl}/get/product_category`);
+        const categoryOptions = productname.data.products.map(category => ({
+          value: category.product_id,
+          label: category.product_name,
+        }));
+        setproducts(categoryOptions);
+
+
+
+
+
+
+
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -116,9 +242,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
       transform: 'translate(-50%, -50%)',
       maxWidth: '30%', // Adjusted width for responsiveness
       width: 'auto', // Set to auto for responsiveness
-      maxHeight: '90vh', // Limit height for small screens
+      maxHeight: '80vh', // Limit height for small screens
       overflow: 'auto', // Enable scrolling if content overflows
-      background: '#fff',
+      background: '#f8f8ff',
       borderRadius: '8px',
       boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)',
       padding: '20px',
@@ -139,6 +265,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
     setSelectedColor('')
     setSelectedSize('')
     setQuantity('')
+    Sethsn('')
+    setamount('')
+    setGst('')
   };
 
   // const handleImageChange = (e) => {
@@ -157,15 +286,23 @@ const ProductDetail = ({ product, onProductSelect }) => {
     setSelectedInventory(inventory);
     setIsOpen(true);
     SetEdit(true)
-    setproductname(inventory.product_name)
-    setCategory(inventory.category);
-    setBikeCategory(inventory.bike_category);
+    setproductname({
+      label: inventory.product_name
+    })
+
+    setCategory({
+      label: inventory.category
+    });
+
+    setBikeCategory({ label: inventory.bike_category });
     setQuantity(inventory.quantity);
-    setSelectedSize(inventory.size);
-    setSelectedColor(inventory.color);
-    setSelectedCity(inventory.city);
-
-
+    setSelectedSize({ label: inventory.size });
+    setSelectedColor({ label: inventory.color });
+    setSelectedCity({ label: inventory.city });
+    Sethsn(inventory.HSN_code)
+    setUnit(inventory.unit)
+    setGst(inventory.GST)
+    setamount(inventory.amount)
     console.log(inventory)
   };
 
@@ -176,14 +313,21 @@ const ProductDetail = ({ product, onProductSelect }) => {
     setIsLoading(true);
 
     try {
+
+
       const formData = new FormData();
-      formData.append('product_name', productname);
-      formData.append('category', category);
-      formData.append('bike_category', bikeCategory);
+      formData.append('product_name', productname.label);
+      formData.append('category', category.label);
+      formData.append('bike_category', bikeCategory.label);
       formData.append('quantity', quantity);
-      formData.append('size', selectedSize);
-      formData.append('color', selectedColor);
-      formData.append('city', selectedCity);
+      formData.append('size', selectedSize.label);
+      formData.append('color', selectedColor.label);
+      formData.append('city', selectedCity.label);
+      formData.append('HSN_code', hsn);
+      formData.append('GST', Gst);
+      formData.append('unit', unit);
+      formData.append('amount', Amount);
+
 
       if (selectedInventory) {
         const response = await axios.patch(`${baseurl}/products/${selectedInventory.product_id}`, formData, {
@@ -206,18 +350,21 @@ const ProductDetail = ({ product, onProductSelect }) => {
               color: selectedColor,
               city: selectedCity
             };
-            
+
           } else {
             return item;
-          }     
+          }
         }));
       } else {
 
-
+        const headers = {
+          'Authorization': `Bearer ${authState.token}`,
+        };
         const response = await axios.post(`${baseurl}/product/${product.invoice_id}`, formData, {
           headers: {
-            'Content-Type': 'application/json'
-          }
+            ...headers,
+            'Content-Type': 'application/json',
+          },
         });
         console.log(response.data, ' the response')
         // setgetapi(prevData => [...prevData, response.data.invoice]);
@@ -236,6 +383,93 @@ const ProductDetail = ({ product, onProductSelect }) => {
     }
   };
 
+
+
+
+
+
+
+  const handleGstChange = (event) => {
+    setGst(event.target.value);
+  };
+
+
+
+
+  const handleUnitChange = (event) => {
+    setUnit(event.target.value);
+  };
+
+
+
+  const fetchProductAndCategory = async (hsn) => {
+    try {
+      const response = await axios.get(`${baseurl}/get/product_category/${hsn}`)
+      // const response = await fetch(`/get/product_category/${hsnCode}`);
+      // const data = await response.json();
+      // Handle the API response data and update the respective states
+      // for the product and category dropdowns
+      console.log(response.data.products, "zandubababab")
+
+      // setCategory({
+      //   value: response.data.products,
+      //   label: category.city_name,
+      // });
+
+
+
+
+
+      // setproductname({
+      //   label:  response.data.products.product_name
+      // });
+      if (response.data.products.length > 0) {
+        setCategory({
+          value: response.data.products[0].category, // Assuming 'city_name' is the desired label
+          label: response.data.products[0].category,
+        });
+
+        setproductname({
+          value: response.data.products[0].product_name, // Assuming 'product_name' is the desired label
+          label: response.data.products[0].product_name,
+        });
+      } else {
+        // Handle the case when the products array is empty
+        setCategory({ value: '', label: '' });
+        setproductname({ value: '', label: '' });
+      }
+
+    } catch (error) {
+      console.error('Error fetching product and category:', error);
+    }
+  };
+
+  useEffect(() => {
+    //debounce
+    const timeoutId = setTimeout(() => {
+
+      if (hsn.trim() !== "") {
+
+        fetchProductAndCategory(hsn);
+      }
+    }, 1500);
+
+    return () => {
+
+      clearTimeout(timeoutId);
+    };
+  }, [hsn]);
+
+  // useEffect(() => {
+
+  //    setTimeout(() => {
+  //     fetchProductAndCategory();
+  //    }, 5000);
+
+  //    return () => {
+  //     clearTimeout(debounceTimeout);
+  //   };
+  // }, [hsn]);
 
 
   useEffect(() => {
@@ -276,11 +510,14 @@ const ProductDetail = ({ product, onProductSelect }) => {
     fetchData();
   }, [baseurl]);
 
+
+
+
   return (
     <>
-      {
-        error && "babu no product"
-      }
+      {/* {
+        error && " no product"
+      } */}
       <div>
 
 
@@ -339,7 +576,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
               <button onClick={openModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105">
                 Create
               </button>
-              <button className="px-4 py-2 bg-gray-800 text-white text-end rounded hover:bg-gray-700" onClick={() => onProductSelect(null)}>Back </button>
+              <button className="px-4 py-2 bg-[#357D71] text-white text-end rounded hover:bg-[#1f6f62]" onClick={() => onProductSelect(null)}>Back </button>
             </div>
           </div>
 
@@ -350,31 +587,66 @@ const ProductDetail = ({ product, onProductSelect }) => {
             contentLabel="Example Modal"
 
           >
-            <h2 className="text-lg font-bold mb-4">Product DETAILS</h2>
+            <h2 className="text-lg  text-black text-bold font-bold mb-4">Product Details</h2>
             <form onSubmit={handleSubmit} ref={formRef}>
 
+
+              <div className="mb-4">
+                <label htmlFor="invoice_amount" className="block  text-black text-bold text-sm font-bold mb-2">HSN-Code</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    id="Enter Hsn"
+                    className="mt-1 block w-full p-1 border border-gray-300 rounded-md"
+                    value={hsn}
+                    onChange={(e) => Sethsn(e.target.value)}
+
+
+
+                  />
+
+                </div>
+
+
+
+              </div>
 
 
 
 
               <div className="mb-4">
-                <label htmlFor="invoice_number" className="block text-gray-700 text-sm font-bold mb-2">Product Name:</label>
-                <input
+                <label htmlFor="invoice_number" className="block text-black  text-sm font-bold mb-2">Product Name:</label>
+                {/* <input
                   type="text"
                   name="invoice_number"
                   value={productname}
                   onChange={(e) => setproductname(e.target.value)}
                   placeholder="Enter Product Name"
                   className="border rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+                /> */}
+
+                <Select
+                  options={products}
+                  onChange={(selectedOption) => setproductname(selectedOption)}
+                  value={productname}
+                  placeholder="Select a Product name"
+                  isClearable
+                // filterOption={customFilterOption}
                 />
               </div>
 
 
 
-              <div className="mb-4    ">
-                <label htmlFor="invoice_number" className="block text-gray-700 text-sm font-bold mb-2">Category:</label>
 
-                <select
+
+
+
+
+
+              <div className="mb-4    ">
+                <label htmlFor="invoice_number" className="block  text-black text-bold text-sm font-bold mb-2">Category:</label>
+
+                {/* <select
                   id="category"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                   value={category}
@@ -384,14 +656,25 @@ const ProductDetail = ({ product, onProductSelect }) => {
                   {categories.map((category) => (
                     <option key={category.id} value={category.category_name}>{category.category_name}</option>
                   ))}
-                </select>
+                </select> */}
+
+                <Select
+                  options={categories}
+                  placeholder="Select a Category name"
+                  isClearable
+                  onChange={(selectedOption) => setCategory(selectedOption)}
+                  value={category}
+                // filterOption={customFilterOption}
+                />
+
+
               </div>
 
 
 
               <div className="mb-4">
-                <label htmlFor="invoice_number" className="block text-gray-700 text-sm font-bold mb-2">Bike-Category:</label>
-                <select
+                <label htmlFor="invoice_number" className="block  text-black text-bold text-sm font-bold mb-2">Bike-Category:</label>
+                {/* <select
                   id="bikeCategory"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                   value={bikeCategory}
@@ -401,12 +684,21 @@ const ProductDetail = ({ product, onProductSelect }) => {
                   {bikeCategories.map((bikeCategory) => (
                     <option key={bikeCategory.id} value={bikeCategory.bike_name}>{bikeCategory.bike_name}</option>
                   ))}
-                </select>
+                </select> */}
+
+                <Select
+                  options={bikeCategories}
+                  placeholder="Select a Bike name"
+                  isClearable
+                  onChange={(selectedOption) => setBikeCategory(selectedOption)}
+                  value={bikeCategory}
+                // filterOption={customFilterOption}
+                />
               </div>
 
 
               <div className="mb-4">
-                <label htmlFor="invoice_amount" className="block text-gray-700 text-sm font-bold mb-2">Quantity</label>
+                <label htmlFor="invoice_amount" className="block  text-black text-bold text-sm font-bold mb-2">Quantity</label>
                 <div className="relative">
                   <input
                     type="number"
@@ -424,9 +716,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="invoice_date" className="block text-gray-700 text-sm font-bold mb-2">SIZE</label>
+                <label htmlFor="invoice_date" className="block  text-black  text-sm font-bold mb-2">SIZE</label>
                 <div className="relative">
-                  <select
+                  {/* <select
                     id="size"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                     value={selectedSize}
@@ -436,7 +728,19 @@ const ProductDetail = ({ product, onProductSelect }) => {
                     {sizeOptions.map((size) => (
                       <option key={size.id} value={size.size_name}>{size.size_name}</option>
                     ))}
-                  </select>
+                  </select> */}
+
+
+
+
+                  <Select
+                    options={sizeOptions}
+                    placeholder="Select a Size name"
+                    isClearable
+                    onChange={(selectedOption) => setSelectedSize(selectedOption)}
+                    value={selectedSize}
+                  // filterOption={customFilterOption}
+                  />
                   <span className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none text-gray-500">
 
                   </span>
@@ -445,9 +749,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
               <div className="mb-4">
-                <label htmlFor="inventory_paydate" className="block text-gray-700 text-sm font-bold mb-2">Colour</label>
+                <label htmlFor="inventory_paydate" className="block  text-black text-bold text-sm font-bold mb-2">Colour</label>
                 <div className="relative">
-                  <select
+                  {/* <select
                     id="color"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                     value={selectedColor}
@@ -457,7 +761,19 @@ const ProductDetail = ({ product, onProductSelect }) => {
                     {colorOptions.map((color) => (
                       <option key={color.id} value={color.color_name}>{color.color_name}</option>
                     ))}
-                  </select>
+                  </select> */}
+
+
+
+                  <Select
+                    options={colorOptions}
+                    placeholder="Select a Colour name"
+                    isClearable
+                    onChange={(selectedOption) => setSelectedColor(selectedOption)}
+                    value={selectedColor}
+                  // filterOption={customFilterOption}
+                  />
+
                   <span className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none">
                     {/* <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -465,10 +781,113 @@ const ProductDetail = ({ product, onProductSelect }) => {
                   </span>
                 </div>
               </div>
+
+
+
+
+
+
               <div className="mb-4">
-                <label htmlFor="vendor" className="block text-gray-700 text-sm font-bold mb-2">City</label>
+                <label htmlFor="vendor" className="block text-black text-bold text-sm font-bold mb-2">Gst</label>
                 <div className="relative">
+
+                  {/* <Select
+                    options={cityOptions}
+                    placeholder="Select a City name"
+                    isClearable
+                  // filterOption={customFilterOption}
+                  /> */}
+
+
+
+
                   <select
+                    className="px-4 py-1 mr-2 bg-[#EFEFEF] w-full rounded-lg font-bold  hover:bg-slate-200 transition duration-300 ease-in-out transform hover:scale-105 text-black "
+                    value={Gst}
+                    onChange={handleGstChange}
+                  >
+                    <option value="Select">Select </option>
+                    <option value="GST 5">GST 5 </option>
+                    <option value="GST 12">GST 12</option>
+                    <option value="GST 18">GST 18</option>
+                    <option value="GST 28"> GST 28</option>
+
+                  </select>
+
+
+
+
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+              <div className="mb-4">
+                <label htmlFor="vendor" className="block text-black text-bold text-sm font-bold mb-2">Unit</label>
+                <div className="relative">
+
+                  {/* <Select
+                    options={cityOptions}
+                    placeholder="Select a City name"
+                    isClearable
+                  // filterOption={customFilterOption}
+                  /> */}
+
+
+
+
+                  <select
+                    className="px-4 py-1 mr-2 bg-[#EFEFEF] w-full rounded-lg font-bold  hover:bg-slate-200 transition duration-300 ease-in-out transform hover:scale-105 text-black "
+                    value={unit}
+                    onChange={handleUnitChange}
+                  >
+                    <option value="Select">Select </option>
+                    <option value="NOS">NOS </option>
+                    <option value="PACKET">PACKET</option>
+
+
+                  </select>
+
+
+
+
+                </div>
+              </div>
+
+
+
+
+              <div className="mb-4">
+                <label htmlFor="invoice_amount" className="block  text-black text-boldtext-sm font-bold mb-2">Amount</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    id="quantity"
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                    value={Amount}
+                    onChange={(e) => setamount(e.target.value)}
+                  />
+
+                </div>
+              </div>
+
+
+
+
+
+
+              <div className="mb-4">
+                <label htmlFor="vendor" className="block  text-black text-bold text-sm font-bold mb-2">City</label>
+                <div className="relative">
+                  {/* <select
                     id="city"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                     value={selectedCity}
@@ -478,12 +897,21 @@ const ProductDetail = ({ product, onProductSelect }) => {
                     {cityOptions.map((city) => (
                       <option key={city.id} value={city.city_name}>{city.city_name}</option>
                     ))}
-                  </select>
-                  <span className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none text-gray-500">
-                    {/* <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                    </svg> */}
-                  </span>
+                  </select> */}
+
+
+
+                  <Select
+                    options={cityOptions}
+                    placeholder="Select a City name"
+                    isClearable
+                    onChange={(selectedOption) => setSelectedCity(selectedOption)}
+                    value={selectedCity}
+                  // filterOption={customFilterOption}
+                  />
+
+
+
                 </div>
               </div>
 
@@ -502,19 +930,18 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
         </div>
 
-
-        <div style={{ maxHeight: '800px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }} >
-
-
-          {
-            <Singleproduct filteredData={filteredData} onProductSelect={onProductSelect}
-              data={getapidata} setFilteredData={setFilteredData}
-              setdata={setgetapi} modal={openModal} onEdit={handleEdit} closemodal={closeModal} />
-          }
-        </div>
-
-
       </div>
+      {/* style={{ maxHeight: '800px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }} */}
+      <div >
+
+        {
+          <Singleproduct filteredData={filteredData} onProductSelect={onProductSelect}
+            data={getapidata} setFilteredData={setFilteredData}
+            setdata={setgetapi} modal={openModal} onEdit={handleEdit} closemodal={closeModal} />
+        }
+      </div>
+
+
     </>
 
   )

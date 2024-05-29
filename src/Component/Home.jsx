@@ -13,6 +13,8 @@ import { useRecoilState } from 'recoil'
 import { AuthState, Filename, GloablFile, Num } from './Recoil'
 
 import Category from './INVENTORY-OUT/Category'
+import Inventory_Form from './Sub_inventory/Inventory_Form'
+
 
 
 
@@ -54,11 +56,11 @@ function Home({ name, log }) {
     />,
     "File-Import": <Import />,
     "Inventory-in":<Inventory/>,
-    "Inventory-out": <Category/>
-  };
+    "Inventory-out": <Category/>, 
+    "form": <Inventory_Form/>
 
 
-
+  }
 
   // const [show,setshow]=useState(true)
    

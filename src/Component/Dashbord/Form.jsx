@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { BaseURLState, Dz, Finalresponse, GloablFile, NewNum, Num, Refresh, TextState } from '../Recoil'
-
-const Form = ({ setsucess ,setfileName}) => {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+const Form = ({ setsucess, setfileName }) => {
 
   const [show, setshow] = useRecoilState(TextState)
   const [num, setnum] = useRecoilState(Num)
@@ -35,10 +36,16 @@ const Form = ({ setsucess ,setfileName}) => {
 
   const handleDownload = async () => {
 
+    if (!final) {
+      toast.error('No Slab selected  for Caluculation ', { autoClose: 1000 });
+      return;
+    }
+
+
     try {
       const url =
 
-    
+
 
         `${baseurl}/download_salary_file_format/${final.file_key}`;
       const link = document.createElement("a");

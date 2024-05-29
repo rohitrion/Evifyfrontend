@@ -14,7 +14,7 @@ function Rawdata({ activetab }) {
     const [loading, setLoading] = useState(false);
     const [baseurl, setBaseurl] = useRecoilState(BaseURLState);
     const [filteredData, setFilteredData] = useState([]);
-    const[search,setSearch]=useRecoilState(Search)
+    const [search, setSearch] = useRecoilState(Search)
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -63,18 +63,24 @@ function Rawdata({ activetab }) {
                 </div>
             )}
 
-            <div className="overflow-y-auto transition ease-in-out duration-500 transform hover:shadow-xl z-1 h-[50rem] scrollbar">
-                {filteredData.map((item, key) => (
-                    <Rawtabs
-                        key={item.filekey}
-                        item={item}
-                        activetab={activetab}
-                        data={data}
-                        val={key}
-                        setdata={setData}
-                    />
-                ))}
+
+            <div className="overflow-y-auto transition ease-in-out duration-500 transform hover:shadow-xl z-0 h-[50rem] scrollbar">
+                {filteredData && filteredData.length > 0 ? (
+                    filteredData.map((item, key) => (
+                        <Rawtabs
+                            key={item.filekey}
+                            item={item}
+                            activetab={activetab}
+                            data={data}
+                            val={key}
+                            setData={setData}
+                        />
+                    ))
+                ) : (
+                    <div className="text-center font-sans font-large font-extrabold  mt-16">No data Found</div>
+                )}
             </div>
+
         </>
     );
 }

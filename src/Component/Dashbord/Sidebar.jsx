@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import {
     BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill,
     BsListCheck, BsMenuButtonWideFill, BsFillGearFill
 }
     from 'react-icons/bs'
+import { MdOutlineInventory2, MdOutlineInventory } from "react-icons/md";
+import { GoFile } from "react-icons/go";
+import { SiReacthookform } from "react-icons/si";
+import { FaWpforms } from "react-icons/fa";
+
 const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }) => {
+
+    const [showAboutSubmenu, setShowAboutSubmenu] = useState(false);
+
     return (
         <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
             <div className='sidebar-title'>
@@ -23,7 +31,7 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
                 </li>
                 <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('File-upload')}>
 
-                    <BsFillArchiveFill className='icon' style={{ color: "#9E9EA4" }} />
+                    <GoFile className='icon' style={{ fontSize: "22px" }} />
                     File Upload
 
                 </li>
@@ -35,7 +43,7 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
 
 
                 </li>
-                <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('Inventory-in')}>
+                {/* <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('Inventory-in')}>
 
                     <BsPeopleFill className='icon' />Inventory-In
 
@@ -45,14 +53,101 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
 
                     <BsPeopleFill className='icon' />Inventory-Out
 
+                </li> */}
+
+
+
+
+
+                <div className="flex justify-between items-center">
+                    <li className='sidebar-list-item s-col text-black' onClick={() => setShowAboutSubmenu(!showAboutSubmenu)} >
+
+                        <BsListCheck className='icon ' /> Inventory
+                        <span className='pl-3'>{showAboutSubmenu ? '▲' : '▼'}</span>
+
+                    </li>
+                </div>
+                {showAboutSubmenu && (
+                    <div className="ml-4">
+
+                        <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('Inventory-in')} >
+
+                            <MdOutlineInventory2 className='icon' /> Inventory-In
+
+                        </li>
+                        <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('Inventory-out')} >
+
+                            <MdOutlineInventory className='icon' /> Inventory-Out
+
+                        </li>
+
+                        <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('form')} >
+
+                            <FaWpforms className='icon  text-black'  /> Form
+
+                        </li>
+
+                    </div>
+                )}
+
+
+                {/* <div className="flex justify-between items-center">
+    <li className='sidebar-list-item s-col text-black relative' onClick={() => setShowAboutSubmenu(!showAboutSubmenu)}>
+        <BsListCheck className='icon' /> Inventory
+        <span className='pl-3'>{showAboutSubmenu ? '▲' : '▼'}</span>
+    </li>
+</div>
+{showAboutSubmenu && (
+    <div className="ml-4 transition-smooth duration-300 ease-in-out">
+        <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('team')}>
+            <BsListCheck className='icon' /> Team
+        </li>
+        <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('History')}>
+            <BsListCheck className='icon' /> History
+        </li>
+    </div>
+)} */}
+
+                <li className='sidebar-list-item s-col text-black'>
+
+                    <BsFillGearFill className='icon' /> Setting
+
+                </li>
+                <li className='sidebar-list-item s-col text-black'>
+
+                    <BsPeopleFill className='icon' />Admin
+
                 </li>
 
-                <li className='sidebar-list-item s-col text-black' >
 
-                    <BsListCheck className='icon' /> Invoice Data
+            </ul>
 
-                </li>
-                {/* <li className='sidebar-list-item s-col'>
+        </aside >
+    )
+}
+
+export default Sidebar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <li className='sidebar-list-item s-col'>
 
                     <BsMenuButtonWideFill className='icon' /> Client Data
 
@@ -72,29 +167,3 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
                     <BsMenuButtonWideFill className='icon' /> Employee Data
 
                 </li> */}
-
-                <li className='sidebar-list-item s-col text-black'>
-
-                    <BsFillGearFill className='icon' /> Setting
-
-                </li>
-                <li className='sidebar-list-item s-col text-black'>
-
-                    <BsPeopleFill className='icon' />Admin
-
-                </li>
-
-
-
-
-
-
-
-
-            </ul>
-
-        </aside>
-    )
-}
-
-export default Sidebar

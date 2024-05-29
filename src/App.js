@@ -18,7 +18,7 @@ import { AuthState } from './Component/Recoil';
 import Loginn from './Component/Login';
 import Test from './test/Test';
 import Test2 from './test/Test2';
-import Testtwo from './test/Test2';
+
 
 function App() {
   const [username, setUsername] = useState('');
@@ -56,7 +56,7 @@ function App() {
         <Route path="/file" element={auth.isAuthenticated ? <File name={username} log={log} /> : <Login />} />
         <Route path="/new" element={<Import />} />
         <Route path="/test" element={<Test />} />
-        <Route path="/test2" element={<Testtwo/>} />
+        <Route path="/test2" element={<Test2/>} />
         <Route path="/file-upload" />
         <Route />
       </Routes>

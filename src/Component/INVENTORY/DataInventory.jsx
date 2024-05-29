@@ -49,7 +49,7 @@ const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSel
 
     };
 
-    const handleEditClick = (item,id) => {
+    const handleEditClick = (item, id) => {
         onEdit(item);
         console.log(item)
 
@@ -66,34 +66,36 @@ const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSel
 
     return (
 
-        <div className="mx-auto w-full">
+        <div className="mx-auto w-10/12" style={{ maxHeight: '800px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none', position: "fixed", }}>
 
 
-            <table className="border-collapse w-4/5 mx-auto">
-                <thead>
-                    <tr className="bg-gray-200">
-                        <th className="border px-4  text-center py-2">Invoice Number</th>
+            <table className="border-separate font-sans  border-2 w-11/12 mx-auto  " >
+                <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
+                    <tr className="bg-[#FFB603]  ">
+                        <th className="border px-4  text-center py-2">Invoice Number</th> 
                         <th className="border  text-center px-4 py-2">Vendor</th>
+                        <th className="border  text-center px-4 py-2">User</th>
                         <th className="border  text-center px-4 py-2">Last-updated</th>
                         <th className="border px-4  text-center py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredData.map((item, index) => (
-                        <tr key={index} className="hover:bg-gray-100">
+                        <tr key={index} className="hover:bg-[#8FB7B0]  ">
                             <td className="border font-bold cursor-pointer text-center px-4 py-2" onClick={() => handleClick(item)}>{item.invoice_number}</td>
                             <td className="border font-bold cursor-pointer text-center px-4 py-2" onClick={() => handleClick(item)}>{item.vendor}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.user?.first_name}</td>
                             <td className="border font-bold text-center px-4 py-2" >{item.updated_at}</td>
                             <td className="border px-4 py-2">
 
                                 <td className=" px-4 py-2 flex justify-center gap-5">
                                     <button onClick={() => handleEditClick(item)} className="rounded-full p-2 bg-gray-200 hover:bg-gray-300">
-                                        <FaRegEdit className="h-4 w-4 text-gray-600" />
+                                        <FaRegEdit className="h-4 w-4 text-[#5D7CF6]" />
                                         <span className="sr-only">Edit</span>
                                     </button>
                                     <button onClick={() => handleDeleteClick(item.invoice_id)} className="rounded-full p-2 bg-gray-200 hover:bg-gray-300">
                                         <FaTrashAlt className="h-4 w-4 text-gray-600" />
-                                        <span className="sr-only">Delete</span>
+                                        <span className="sr-only ">Delete</span>
                                     </button>
                                 </td>
 

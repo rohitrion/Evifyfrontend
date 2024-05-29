@@ -130,6 +130,7 @@ body {
 .main-container {
   grid-area: main;
   overflow-y: auto;
+  overflow: hidden;
   padding: 20px 20px;
   color: rgba(255, 255, 255, 0.95);
 }
@@ -137,6 +138,7 @@ body {
 .main-title {
   display: flex;
   justify-content: space-between;
+  overflow: hidden;
 }
 
 .main-cards {
@@ -144,6 +146,7 @@ body {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 20px;
   margin: 15px 0;
+  overflow: hidden;
 }
 
 .card {
@@ -152,6 +155,7 @@ body {
   justify-content: space-around;
   padding: 8px 15px;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 .card:first-child {
@@ -285,6 +289,7 @@ body {
 .main-container {
   padding: 20px;
   color: #1d2634;
+  overflow: hidden;
 }
 
 .main-title {
@@ -384,6 +389,144 @@ body {
 
 
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+  overflow: hidden;
+}
+
+
+
+
+.edit-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.edit-svgIcon {
+  width: 17px;
+  transition-duration: 0.3s;
+}
+
+.edit-svgIcon path {
+  fill: white;
+}
+
+.edit-button:hover {
+  width: 120px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.edit-button:hover .edit-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.edit-button::before {
+  display: none;
+  content: "Edit";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.edit-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
+
+
+
+
+
+
+
+.delete-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.delete-svgIcon {
+  width: 15px;
+  transition-duration: 0.3s;
+}
+
+.delete-svgIcon path {
+  fill: white;
+}
+
+.delete-button:hover {
+  width: 90px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.delete-button:hover .delete-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.delete-button::before {
+  display: none;
+  content: "Delete";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.delete-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
 
 
 
@@ -394,3 +537,23 @@ body {
 
 
 
+
+/* 
+.btn-12 {
+  width: 150px;
+  height: 60px;
+  border: 3px solid #315cfd;
+  border-radius: 45px;
+  transition: all 0.3s;
+  cursor: pointer;
+  background: white;
+  font-size: 1.2em;
+  font-weight: 550;
+  font-family: 'Montserrat', sans-serif;
+}
+
+btn-12:hover {
+  background: #315cfd;
+  color: white;
+  font-size: 1.5em;
+} */

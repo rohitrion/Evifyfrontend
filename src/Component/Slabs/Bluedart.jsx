@@ -1,8 +1,4 @@
 
-
-
-
-
 import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -192,7 +188,7 @@ const Bluedart = () => {
                                                 className='text-center'
                                                 onKeyDown={handleInputKeyDown}
                                                 min={0}
-                                            />
+                                            />    
                                         </td>
                                         <td className="border border-gray-300 p-2">
                                             <input

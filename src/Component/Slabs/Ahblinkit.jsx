@@ -132,7 +132,7 @@ const Flipkart = () => {
         console.log('bava');
         localStorage.setItem('inputValuesahblinkit', JSON.stringify(rentmodal));
     }, [rentmodal]);
-
+                                                                                   
 
     return (
 

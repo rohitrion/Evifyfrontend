@@ -1,8 +1,4 @@
 
-
-
-
-
 import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -60,7 +56,7 @@ const Ahbbnow = () => {
 
             formData.append('rentmodal', JSON.stringify(rentmodal));
 
-
+   
             Object.entries(rentmodal).forEach(([key, value]) => {
                 formData.append(key, value);
             });

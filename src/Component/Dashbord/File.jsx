@@ -6,7 +6,7 @@ import Form from './Form';
 import { Circles } from 'react-loader-spinner'
 import Salary from './Salary';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { BaseURLState, Dz, Error, FileUploadresponse, Filename, GloablFile, Num, TextState } from '../Recoil';
+import { AuthState, BaseURLState, Dz, Error, FileUploadresponse, Filename, GloablFile, Num, TextState } from '../Recoil';
 import Swiggy from './Swiggy';
 import BBnow from '../Slabs/BBnow';
 import Flipkart from '../Slabs/Flipkart';
@@ -53,7 +53,7 @@ const File = ({ currentStep, onNext }) => {
   const [num, setnum] = useRecoilState(Num)
 
   const [filerespose, setfileresponse] = useRecoilState(FileUploadresponse)
-
+  const [authState, setauthstate] = useRecoilState(AuthState)
 
   // console.log(num)
 
@@ -66,7 +66,7 @@ const File = ({ currentStep, onNext }) => {
 
     setFileName(selectedfile.name);
     setfile(selectedfile)
-    GsetFile(selectedfile)
+    GsetFile(selectedfile)              
 
     // else {
     //   setFileName(null);
@@ -86,6 +86,10 @@ const File = ({ currentStep, onNext }) => {
       return;
     }
     try {
+      const headers = {
+        'Authorization': `Bearer ${authState.token}`,
+      };
+
 
       setloding(true)
 
@@ -95,8 +99,8 @@ const File = ({ currentStep, onNext }) => {
       // Replace 'your-api-endpoint' with the actual endpoint of your API
       const response = await axios.post(`${baseurl}/uploadfile/${selectedCity}`, formData, {
         headers: {
+          ...headers,
           'Content-Type': 'multipart/form-data',
-
         },
       });
 
@@ -126,7 +130,6 @@ const File = ({ currentStep, onNext }) => {
       }
 
     }
-
 
 
   };

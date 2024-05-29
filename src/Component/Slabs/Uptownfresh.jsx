@@ -87,8 +87,9 @@ const Uptownfresh = () => {
         } finally {
             setloding(false)
         }
-    };
+    }; 
 
+       
     function handleclick(val) {
         setnum(val)
     }
