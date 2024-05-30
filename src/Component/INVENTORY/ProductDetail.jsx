@@ -338,19 +338,32 @@ const ProductDetail = ({ product, onProductSelect }) => {
           }
         });
         console.log('Inventory updated successfully!');
+        toast.success("product updated successfully", {
+          position: 'top-center',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        })
         console.log(response.data);
 
         setFilteredData(prevData => prevData.map(item => {
           if (item.product_id === selectedInventory.product_id) {
             return {
               ...item,
-              product_name: productname,
-              category: category,
-              bike_category: bikeCategory,
-              quantity: parseInt(quantity), // Assuming quantity is a number
-              size: selectedSize,
-              color: selectedColor,
-              city: selectedCity
+              product_name: productname.label,
+              category: category.label,
+              bike_category: bikeCategory.label,
+              quantity: parseInt(quantity), 
+              size: selectedSize.label,
+              color: selectedColor.label,
+              city: selectedCity.label,
+              GST:Gst,
+              unit:unit,
+              amount:Amount,
+              HSN_code:hsn
+
             };
 
           } else {
@@ -383,11 +396,11 @@ const ProductDetail = ({ product, onProductSelect }) => {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-      })
+        })
       }
     } catch (error) {
-      console.error('Error:', error);
-      setError('Failed to submit form data. Please try again later.');
+      toast.error(error)
+
     } finally {
       setIsLoading(false);
       closeModal();
@@ -709,14 +722,23 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
               <div className="mb-4">
-                <label htmlFor="invoice_amount" className="block  text-black text-bold text-sm font-bold mb-2">Quantity</label>
+                <label htmlFor="invoice_amount" className="block  text-black text-bold text-sm font-bold  mb-2">Quantity</label>
                 <div className="relative">
                   <input
                     type="number"
-                    id="quantity"
+                    // onFocus={(e) => e.target.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })}
+                    onWheel={ event => event.currentTarget.blur() }
+                    placeholder='enter qunatity'
+                    id="quantity" 
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
+                    style={{
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                      appearance: "textfield",
+                      margin: 0,
+                  }}
                   />
                   <span className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none text-gray-500">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -882,10 +904,16 @@ const ProductDetail = ({ product, onProductSelect }) => {
                   <input
                     type="number"
                     id="quantity"
+                    onWheel={ event => event.currentTarget.blur() }
                     placeholder='rate per item'
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                     value={Amount}
                     onChange={(e) => setamount(e.target.value)}
+                    style={{
+                      WebkitAppearance: 'none',  // For Chrome, Safari, and Opera
+                      MozAppearance: 'textfield',  // For Firefox
+                      appearance: 'textfield'  // For modern browsers
+                  }}
                   />
 
                 </div>
@@ -936,7 +964,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
                 </button>
               </div>
             </form>
-            {error && <div>{error}</div>}
+
           </Modal>
 
 

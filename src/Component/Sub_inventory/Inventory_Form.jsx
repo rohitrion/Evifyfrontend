@@ -20,7 +20,7 @@ const Inventory_Form = () => {
         city: [],
         size: [],
         bikeCategory: [],
-        productname: []
+        product_name: []
     });
     const defaultCategoryKey = 'category';
     const [input, setinput] = useState()
@@ -73,8 +73,8 @@ const Inventory_Form = () => {
             console.log(sizeData)
             const bikeCategoryData = await axios.get(`${baseurl}/bikes`);
             console.log(bikeCategoryData)
-            const productname = await axios.get(`${baseurl}/get/product_category`);
-            console.log(productname)
+            const product_name = await axios.get(`${baseurl}/get/product_category`);
+            console.log(product_name)
 
 
             const fetchedCategories = {
@@ -83,7 +83,7 @@ const Inventory_Form = () => {
                 city: cityData.data.cities,
                 size: sizeData.data.size,
                 bikeCategory: bikeCategoryData.data.bikes,
-                productname: productname.data.products
+                product_name: product_name.data.products
             };
 
 
@@ -107,7 +107,7 @@ const Inventory_Form = () => {
         setIsOpen(true);
         setholder(category)
         // Logic to handle creating a new item
-        setShowModalForProduct(category === "productname")
+        setShowModalForProduct(category === "product_name")
         setselectvalue('')
         sethsn('')
         setinput('')
@@ -115,11 +115,12 @@ const Inventory_Form = () => {
     };
 
     const handleCategoryClick = (categoryKey) => {
+
         if (categoryKey === selectedCategory) {
             setSelectedCategory(null);
             setSelectedItems([]);
         } else {
-            setShowModalForProduct(categoryKey === "productname")
+            setShowModalForProduct(categoryKey === "product_name")
             //   alert(categoryKey)
             setSelectedCategory(categoryKey);
             setSelectedItems(categories[categoryKey]);
@@ -139,7 +140,7 @@ const Inventory_Form = () => {
                 return item.size_name;
             case 'bikeCategory':
                 return item.bike_name;
-            case 'productname':
+            case 'product_name':
                 return item.product_name;
             default:
                 return item.item.name;
@@ -152,7 +153,7 @@ const Inventory_Form = () => {
         city: `${baseurl}/cities`,
         size: `${baseurl}/sizes`,
         bikeCategory: `${baseurl}/bikes`,
-        productname: `${baseurl}/product_category/category`
+        product_name: `${baseurl}/product_category/category`
     };
 
 
@@ -162,7 +163,7 @@ const Inventory_Form = () => {
         city: "city_name",
         size: "size_name",
         bikeCategory: "bike_name",
-        productname: "product_name"
+        product_name: "product_name"
     };
 
 
@@ -176,13 +177,13 @@ const Inventory_Form = () => {
         city: `${baseurl}/cities`,
         size: `${baseurl}/sizes`,
         bikeCategory: `${baseurl}/bikes`,
-        productname: `${baseurl}/get/product_category`
+        product_name: `${baseurl}/get/product_category`
     };
 
 
 
     const responseKeyMapping = {
-        productname: "product_category",
+        product_name: "product_category",
         city: "city",
         color: "color",
         bike: 'bike',
@@ -242,6 +243,7 @@ const Inventory_Form = () => {
                         item[da] === ide ? updatedItem : item
                     )
                 };
+
 
                 setCategories(updatedCategories);
                 setSelectedItems(updatedItems);
@@ -320,7 +322,17 @@ const Inventory_Form = () => {
 
                 setCategories(updatedCategories);
 
-                // console.log('Updating selected items');
+
+                const newCategory = {
+                    value: data, // Assuming the user input data contains the category_id
+                    label: input, // Assuming the user input data contains the category_name
+                  };
+             
+                    setsel([...sel, newCategory]);
+                
+
+
+                // console. log('Updating selected items');
                 setSelectedItems(updatedCategories[holder]);
                 toast.success("Item Added", {
                     position: 'top-center',
@@ -407,13 +419,14 @@ const Inventory_Form = () => {
     };
 
 
+
     const delcategoryIdMapping = {
         category: "category_id",
         color: "color_id",
         city: "city_id",
         size: "size_id",
         bikeCategory: "bike_id",
-        productname: "product_id"
+        product_name: "product_id"
 
         // Add other categories and their corresponding ID field names here
     };
@@ -425,7 +438,7 @@ const Inventory_Form = () => {
         city: `${baseurl}/cities`,
         size: `${baseurl}/sizes`,
         bikeCategory: `${baseurl}/bikes`,
-        productname: `${baseurl}/get/product_category`
+        product_name: `${baseurl}/get/product_category`
     };
 
     const handleDelete = async (item, category) => {
@@ -679,7 +692,7 @@ const Inventory_Form = () => {
 
 
                 {selectedCategory && selectedItems?.length > 0 && (
-                    <div className="mt-8 p-4 border border-gray-300 rounded shadow-lg bg-white  overflow-y-auto  max-h-96" >
+                    <div className="mt-8 ml-4 p-6 border border-gray-300 rounded shadow-lg bg-white fixed   w-8/12 overflow-y-auto  max-h-96" >
                         <div className="flex    ">
                             <h2 className="text-2xl font-bold mb-4  text-gray-800">{selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}</h2>
 
@@ -796,7 +809,7 @@ export default Inventory_Form;
 //         city: [],
 //         size: [],
 //         bikeCategory: [],
-//         productname: []
+//         product_name: []
 //     });
 //     const defaultCategoryKey = 'category';
 //     const [input, setinput] = useState()
@@ -846,8 +859,8 @@ export default Inventory_Form;
 //             console.log(sizeData)
 //             const bikeCategoryData = await axios.get(`${baseurl}/bikes`);
 //             console.log(bikeCategoryData)
-//             const productname = await axios.get(`${baseurl}/get/product_category`);
-//             console.log(productname)
+//             const product_name = await axios.get(`${baseurl}/get/product_category`);
+//             console.log(product_name)
 
 
 //             const fetchedCategories = {
@@ -856,7 +869,7 @@ export default Inventory_Form;
 //                 city: cityData.data.cities,
 //                 size: sizeData.data.size,
 //                 bikeCategory: bikeCategoryData.data.bikes,
-//                 productname: productname.data.products
+//                 product_name: product_name.data.products
 //             };
 
 
@@ -881,7 +894,7 @@ export default Inventory_Form;
 //         setholder(category)
 
 //         // Logic to handle creating a new item
-//         setShowModalForProduct(category === "productname")
+//         setShowModalForProduct(category === "product_name")
 
 //     };
 
@@ -907,7 +920,7 @@ export default Inventory_Form;
 //                 return item.size_name;
 //             case 'bikeCategory':
 //                 return item.bike_name;
-//             case 'productname':
+//             case 'product_name':
 //                 return item.product_name;
 //             default:
 //                 return item.item.name;
@@ -920,7 +933,7 @@ export default Inventory_Form;
 //         city: `${baseurl}/cities`,
 //         size: `${baseurl}/sizes`,
 //         bikeCategory: `${baseurl}/bikes`,
-//         productname: `${baseurl}/product_category/category`
+//         product_name: `${baseurl}/product_category/category`
 //     };
 
 
@@ -930,7 +943,7 @@ export default Inventory_Form;
 //         city: "city_name",
 //         size: "size_name",
 //         bikeCategory: "bike_name",
-//         productname: "product_name"
+//         product_name: "product_name"
 //     };
 
 

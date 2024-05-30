@@ -395,8 +395,6 @@ body {
 }
 
 
-/* 
-
 .edit-button {
   width: 40px;
   height: 40px;
@@ -536,7 +534,6 @@ body {
 
 
 
-
 .button {
  --color: #00A97F;
  padding: 0.8em 1.7em;
@@ -589,4 +586,26 @@ body {
 
 .button:active {
  filter: brightness(.8);
-} */
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Targeting Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}

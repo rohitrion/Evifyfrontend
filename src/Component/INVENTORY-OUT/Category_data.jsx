@@ -96,7 +96,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
             boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)", // Increased shadow for depth
             backgroundColor: "#f9f9f9", // Light gray for a soft background
             maxHeight: "40vh",
-            zIndex:"60"
+            zIndex: "60"
         },
         overlay: {
             background: "rgba(0, 0, 0, 0.7)", // Slightly darker overlay for more contrast
@@ -159,7 +159,8 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
             <Modal
                 isOpen={isOpen}
                 onRequestClose={closeModal}
-                style={customStyles}
+                className="bg-white rounded-lg p-6 w-80 mx-auto mt-20 shadow-lg"
+                overlayClassName="fixed inset-0 flex    items-center justify-center "
                 contentLabel="Update Quantity"
             >
                 {selectedIndex !== null && (
@@ -183,13 +184,13 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                         <div className="flex justify-between mt-4 ">
                             <button
                                 onClick={() => handleUpdateQuantity(selectedIndex, filteredData[selectedIndex])}
-                                className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+                                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
                             >
                                 Update
                             </button>
                             <button
                                 onClick={closeModal}
-                                className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+                                className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
                             >
                                 Cancel
                             </button>

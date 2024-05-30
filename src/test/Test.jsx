@@ -1,62 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import AsyncSelect from 'react-select/async';
-import axios from 'axios';
+// import React, { useState } from 'react';
+// import { FaRegEdit, FaTrashAlt } from 'react-icons/fa';
+// import Modal from 'react-modal';
+// import { ThreeDots } from 'react-loader-spinner';
+// import axios from 'axios';
+// import { useRecoilValue } from 'recoil';
+// import { BaseURLState } from '../Recoil';
+// import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer, toast } from 'react-toastify';
 
-// Function to fetch product categories from the API
-const fetchProductCategories = async () => {
-  try {
-    const response = await axios.get('http://54.237.210.197:8000/get/product_category');
-    console.log('Fetched products:', response.data.products);
-    return response.data.products;
-  } catch (error) {
-    console.error("Error fetching product categories:", error);
-    return [];
-  }
-};
+// const Singleproduct = ({ filteredData, setData, setFilteredData, onEdit }) => {
+//     const [loading, setLoading] = useState(false);
+//     const [showModalForProduct, setShowModalForProduct] = useState(null);
+//     const baseurl = useRecoilValue(BaseURLState);
 
-// Function to load and filter options based on user input
-const loadOptions = async (inputValue, callback) => {
-  try {
-    const products = await fetchProductCategories();
-    const filteredProducts = products.filter(product =>
-      product.product_name.toLowerCase().includes(inputValue.toLowerCase())
-    );
-    const options = filteredProducts.map(product => ({
-      label: product.product_name,
-      value: product.product_id
-    }));
-    callback(options);
-  } catch (error) {
-    console.error("Error loading options:", error);
-    callback([]);
-  }
-};
+//     const handleDeleteClick = (product_id) => {
+//         setShowModalForProduct(product_id);
+//     };
 
-// Component rendering the AsyncSelect dropdown
-const ProductSelect = () => {
-  const [defaultOptions, setDefaultOptions] = useState([]);
+//     const handleDeletefile = async (product_id) => {
+//         setLoading(true);
+//         try {
+//             const url = `${baseurl}/products/${product_id}`;
+//             await axios.delete(url);
+//             const updatedData = filteredData.filter((item) => item.product_id !== product_id);
+//             setFilteredData(updatedData);
+//             setData(updatedData);
+//             setShowModalForProduct(null);
+//             toast.success('Product deleted successfully!');
+//         } catch (error) {
+//             console.error('Error deleting file:', error);
+//             toast.error('Error deleting product. Please try again.');
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
 
-  useEffect(() => {
-    const loadDefaultOptions = async () => {
-      const products = await fetchProductCategories();
-      const options = products.map(product => ({
-        label: product.product_name,
-        value: product.product_id
-      }));
-      setDefaultOptions(options);
-    };
+//     const handleEditClick = (item) => {
+//         onEdit(item);
+//     };
 
-    loadDefaultOptions();
-  }, []);
+//     return (
+//         <div>
+//             {filteredData.map((item) => (
+//                 <div key={item.product_id}>
+//                     <h3>{item.name}</h3>
+//                     <FaRegEdit onClick={() => handleEditClick(item)} />
+//                     <FaTrashAlt onClick={() => handleDeleteClick(item.product_id)} />
+//                 </div>
+//             ))}
+//             {showModalForProduct && (
+//                 <Modal
+//                     isOpen={!!showModalForProduct}
+//                     onRequestClose={() => setShowModalForProduct(null)}
+//                     contentLabel="Confirm Delete"
+//                 >
+//                     <h2>Are you sure you want to delete this product?</h2>
+//                     <button onClick={() => handleDeletefile(showModalForProduct)}>Yes</button>
+//                     <button onClick={() => setShowModalForProduct(null)}>No</button>
+//                     {loading && <ThreeDots color="#00BFFF" height={80} width={80} />}
+//                 </Modal>
+//             )}
+//             <ToastContainer />
+//         </div>
+//     );
+// };
 
-  return (
-    <AsyncSelect
-      cacheOptions
-      loadOptions={loadOptions}
-      defaultOptions={defaultOptions}
-      placeholder="Search for a product..."
-    />
-  );
-};
-
-export default ProductSelect;
+// export default Singleproduct;
