@@ -187,7 +187,7 @@ const Category = ({ product, onProductSelect }) => {
       formData.append('size', selectedSize);
       formData.append('color', selectedColor);
       formData.append('city', selectedCity);
-
+// 
       if (selectedInventory) {
         const response = await axios.patch(`${baseurl}/products/${selectedInventory.product_id}`, formData, {
           headers: {

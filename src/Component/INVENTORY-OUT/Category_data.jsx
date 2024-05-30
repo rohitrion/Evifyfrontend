@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { BsThreeDotsVertical } from "react-icons/bs";
-import Modal from "react-modal";  
+import Modal from "react-modal";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -62,7 +62,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                 color: item.color,
                 size: item.size,
                 city: item.city,
-                quantity, 
+                quantity,
             });
 
             toast.success("Quantity updated successfully");
@@ -95,7 +95,8 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
             borderRadius: "10px",
             boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)", // Increased shadow for depth
             backgroundColor: "#f9f9f9", // Light gray for a soft background
-            maxHeight: "40vh"
+            maxHeight: "40vh",
+            zIndex:"60"
         },
         overlay: {
             background: "rgba(0, 0, 0, 0.7)", // Slightly darker overlay for more contrast
@@ -116,7 +117,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
             />
 
             <table className="border-separate  border-1 w-4/5 mx-auto   ">
-                <thead style={{ position: 'sticky', top: 0, zIndex: 0 }}>
+                <thead style={{ position: 'sticky', top: 0, zIndex: 3 }}>
                     <tr className="bg-[#FFB603]">
                         <th className="border px-4 text-center py-2">Category</th>
                         <th className="border text-center px-4 py-2">Bike</th>
@@ -126,12 +127,12 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                         <th className="border text-center px-4 py-2">City</th>
                         <th className="border px-4 py-2 text-center">Actions</th>
                     </tr>
-                    
+
                 </thead>
                 <tbody>
                     {filteredData.map((item, index) => (
 
-                        <tr key={index} className="hover:bg-[#A5C5C0]">
+                        <tr key={index} className="hover:bg-[#a4a5eb]">
                             <td className="border font-bold text-center px-4 py-2">{item.category}</td>
                             <td className="border font-bold text-center px-4 py-2">{item.bike_category}</td>
                             <td className="border font-bold text-center px-4 py-2">{item.product_name}</td>
@@ -140,9 +141,12 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                             <td className="border font-bold text-center px-4 py-2">{item.city}</td>
                             <td className="border px-4 py-2">
                                 <div className="flex justify-center gap-5">
-                                    <button onClick={() => openModal(index)} className="rounded-full flex   items-center justify-center p-2 bg-gray-200 hover:bg-gray-300">
-                                        <span><FaCheck className="text-green-500" /> </span>   {/* Use the FaCheck icon */}
-                                        <span className="ml-2">Use Quantity</span> {/* Add a label */}
+                                    {/* <button className="rounded-full flex   items-center justify-center p-2 bg-gray-200 hover:bg-gray-300">
+                                        <span><FaCheck className="text-green-500" /> </span>  
+                                        <span className="ml-2">Use Quantity</span> 
+                                    </button> */}
+
+                                    <button onClick={() => openModal(index)} class="button"> UpdateQunatity
                                     </button>
                                 </div>
                             </td>
@@ -168,7 +172,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                                 type="number"
                                 value={updatedQuantities[selectedIndex] || ''}
                                 onChange={(e) => handleQuantityChange(selectedIndex, e, filteredData[selectedIndex])}
-                                className="border rounded-md px-2 py-1 w-full text-center" 
+                                className="border rounded-md px-2 py-1 w-full text-center"
                                 onKeyDown={(e) => {
                                     if (e.key === '-' || e.key === '+' || e.key === 'e') {
                                         e.preventDefault();

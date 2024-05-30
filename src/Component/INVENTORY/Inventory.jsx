@@ -8,6 +8,8 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import DataInventory from './DataInventory';
 import { Circles } from 'react-loader-spinner';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ProductDetail from './ProductDetail';
 const customStyles = {
     content: {
@@ -47,7 +49,7 @@ const MyComponent = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [authState, setauthstate] = useRecoilState(AuthState)
 
-     
+
     const [inputFields, setInputFields] = useState({
         invoice_number: '',
         invoice_amount: '',
@@ -130,6 +132,7 @@ const MyComponent = () => {
         e.preventDefault();
         setIsLoading(true);
 
+ 
         try {
             const formData = new FormData(formRef.current);
             const headers = {
@@ -162,7 +165,14 @@ const MyComponent = () => {
                 });
                 console.log('Inventory updated successfully!');
                 console.log(response.data);
-
+                toast.info("Inventory updated successfully", {
+                    position: 'top-center',
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                })
                 setgetapi(prevData => prevData.map(item => (
                     item.invoice_id === selectedInventory.invoice_id ? inputFields : item
                 )));
@@ -175,6 +185,15 @@ const MyComponent = () => {
 
                 });
                 console.log(response.data)
+                toast.success("Inventory created successfully", {
+                    position: 'top-center',
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                })
+
                 setgetapi(prevData => [...prevData, response.data.invoice]);
                 console.log('Inventory created successfully!');
             }
@@ -184,7 +203,7 @@ const MyComponent = () => {
             setError(null);
         } catch (error) {
             console.error('Error:', error);
-            setError('Failed to submit form data. Please try again later.');
+            // setError('Failed to submit form data. Please try again later.');
         } finally {
             setIsLoading(false);
             closeModal();

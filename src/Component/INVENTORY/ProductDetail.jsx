@@ -9,6 +9,8 @@ import Select from 'react-select';
 import DataInventory from './DataInventory';
 import { Circles } from 'react-loader-spinner';
 import Singleproduct from './Singleproduct';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ProductDetail = ({ product, onProductSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -373,6 +375,15 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
         setFilteredData(prevData => [...prevData, response.data])
         setError(null);
+
+        toast.success("product created successfully", {
+          position: 'top-center',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+      })
       }
     } catch (error) {
       console.error('Error:', error);
@@ -452,7 +463,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
         fetchProductAndCategory(hsn);
       }
-    }, 1500);
+    }, 1000);
 
     return () => {
 
@@ -871,6 +882,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
                   <input
                     type="number"
                     id="quantity"
+                    placeholder='rate per item'
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                     value={Amount}
                     onChange={(e) => setamount(e.target.value)}

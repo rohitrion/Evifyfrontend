@@ -42,7 +42,10 @@ const Uptownfresh = () => {
     };
 
 
-    const handleCheckboxChange = (field) => {
+    const 
+    
+    
+    handleCheckboxChange = (field) => {
         setRentModal((prevData) => ({
             ...prevData,
             [field]: !prevData[field],

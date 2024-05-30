@@ -51,92 +51,93 @@ const CustomLabel = ({ viewBox, value }) => {
 };
 
   return (
-    <main className="main-container">
-      <div className="main-title">
-        {/* <h3 style={{color:'black'}}> DASHBOARD</h3> */}
-      </div>
+    <></>
+    // <main className="main-container">
+    //   <div className="main-title">
+    //     {/* <h3 style={{color:'black'}}> DASHBOARD</h3> */}
+    //   </div>
 
 
-      <div className="chart-row" style={{ textAlign: 'center' }}>
+    //   <div className="chart-row" style={{ textAlign: 'center' }}>
      
-        <div className="chart-container">
-          <h4 style={{color:'black'}} >Rider vs Month</h4>
-          <ResponsiveContainer className="chart-container" width="100%" height={300}>
-          <BarChart data={dataRiderVsMonth}>
-            <XAxis dataKey="month" />
-            <YAxis>
-              <Label value="Rider" offset={0} angle={-90} position="insideLeft" fill="#0088FE" />
-            </YAxis>
-            <Tooltip dataKey="riders" name="months" fill="#0088FE" />
-            <Legend />
-            <Bar dataKey="riders" name="Month" fill="#0088FE" />
-          </BarChart>
-        </ResponsiveContainer>
-        </div>
+    //     <div className="chart-container">
+    //       <h4 style={{color:'black'}} >Rider vs Month</h4>
+    //       <ResponsiveContainer className="chart-container" width="100%" height={300}>
+    //       <BarChart data={dataRiderVsMonth}>
+    //         <XAxis dataKey="month" />
+    //         <YAxis>
+    //           <Label value="Rider" offset={0} angle={-90} position="insideLeft" fill="#0088FE" />
+    //         </YAxis>
+    //         <Tooltip dataKey="riders" name="months" fill="#0088FE" />
+    //         <Legend />
+    //         <Bar dataKey="riders" name="Month" fill="#0088FE" />
+    //       </BarChart>
+    //     </ResponsiveContainer>
+    //     </div>
 
 
-        <div className="chart-container">
-          <h4 style={{color:'black'}}  >Rider vs Month</h4>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie data={dataPieChart1} dataKey="value" nameKey="name" label={renderLabel}>
-                {dataPieChart1.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-      </div> 
+    //     <div className="chart-container">
+    //       <h4 style={{color:'black'}}  >Rider vs Month</h4>
+    //       <ResponsiveContainer width="100%" height={300}>
+    //         <PieChart>
+    //           <Pie data={dataPieChart1} dataKey="value" nameKey="name" label={renderLabel}>
+    //             {dataPieChart1.map((entry, index) => (
+    //               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+    //             ))}
+    //           </Pie>
+    //         </PieChart>
+    //       </ResponsiveContainer>
+    //     </div>
+    //   </div> 
 
  
-     <div className="chart-row" style={{ textAlign: 'center' }}>
+    //  <div className="chart-row" style={{ textAlign: 'center' }}>
        
-        <div className="chart-container">
-        <h4 style={{color:'black'}}  >Rider vs Month</h4>
-        <ResponsiveContainer className="chart-container" width="100%" height={300}>
-          <BarChart data={dataRiderVsMonth}>
-            <XAxis dataKey="month" />
-            <YAxis>
-              <Label value="Rider" offset={0} angle={-90} position="insideLeft" fill="#0088FE" />
-            </YAxis>
-            <Tooltip dataKey="riders" name="months" fill="#0088FE" />
-            <Legend />
-            <Bar dataKey="riders" name="Month" fill="#0088FE" />
-          </BarChart>
-        </ResponsiveContainer>
-        </div>
+    //     <div className="chart-container">
+    //     <h4 style={{color:'black'}}  >Rider vs Month</h4>
+    //     <ResponsiveContainer className="chart-container" width="100%" height={300}>
+    //       <BarChart data={dataRiderVsMonth}>
+    //         <XAxis dataKey="month" />
+    //         <YAxis>
+    //           <Label value="Rider" offset={0} angle={-90} position="insideLeft" fill="#0088FE" />
+    //         </YAxis>
+    //         <Tooltip dataKey="riders" name="months" fill="#0088FE" />
+    //         <Legend />
+    //         <Bar dataKey="riders" name="Month" fill="#0088FE" />
+    //       </BarChart>
+    //     </ResponsiveContainer>
+    //     </div>
 
  
-        <div className="chart-container">
-        <h4 style={{color:'black'}}  >Rider vs Month</h4>
-        <ResponsiveContainer width="100%" height={300}>
-      <PieChart>
-        <Pie data={dataPieChart2} dataKey="value" nameKey="name" label={renderLabel}>
-          {dataPieChart2.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
+    //     <div className="chart-container">
+    //     <h4 style={{color:'black'}}  >Rider vs Month</h4>
+    //     <ResponsiveContainer width="100%" height={300}>
+    //   <PieChart>
+    //     <Pie data={dataPieChart2} dataKey="value" nameKey="name" label={renderLabel}>
+    //       {dataPieChart2.map((entry, index) => (
+    //         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+    //       ))}
        
 
          
-          <LabelList
-            dataKey="value"
-            position="inside"
-            content={({ percent }) => `${(percent * 100).toFixed(2)}%`}
-          />
+    //       <LabelList
+    //         dataKey="value"
+    //         position="inside"
+    //         content={({ percent }) => `${(percent * 100).toFixed(2)}%`}
+    //       />
 
 
-          <LabelList
-            dataKey="name"
-            position="outside"
-            content={({ value }) => value}
-          />
-        </Pie>
-      </PieChart>
-    </ResponsiveContainer>
-        </div>
-      </div>
-    </main>
+    //       <LabelList
+    //         dataKey="name"
+    //         position="outside"
+    //         content={({ value }) => value}
+    //       />
+    //     </Pie>
+    //   </PieChart>
+    // </ResponsiveContainer>
+    //     </div>
+    //   </div>
+    // </main>
   );
 };
 

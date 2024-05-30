@@ -9,6 +9,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { BaseURLState, Edit, Toggle, Toggleselectedid } from '../Recoil';
 import { FaRegEdit } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSelect }) => {
 
     const [loading, setLoading] = useState(false);
@@ -33,7 +35,16 @@ const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSel
             if (data && setdata) {
                 const updatedData = data.filter(item => item.invoice_id !== invoice_id);
                 setdata(updatedData);
-                alert("Deleted ");
+                toast.success('🦄 Deleted!', {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
             }
 
             console.log(response.data); // Assuming the response contains meaningful data
@@ -65,6 +76,7 @@ const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSel
     };
 
     return (
+        <><ToastContainer />
 
         <div className="mx-auto w-10/12" style={{ maxHeight: '800px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none', position: "fixed", }}>
 
@@ -134,6 +146,7 @@ const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSel
 
 
         </div>
+        </>
     );
 };
 

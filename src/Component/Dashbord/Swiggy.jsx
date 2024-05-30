@@ -194,49 +194,7 @@ const Swiggy = () => {
         }
     };
 
-    // const handleUpload2 = async () => {
-    //     try {
-    //         setloding(true)
-    //         const formData = new FormData();
 
-
-    //         formData.append('rentmodal', JSON.stringify(rentmodal));
-
-
-    //         Object.entries(rentmodal).forEach(([key, value]) => {
-    //             formData.append(key, value);
-    //         });
-
-
-    //         formData.append('file_key', res.file_key);
-    //         console.log(formData)
-
-    //         const response = await axios.post(`${baseurl}/surat/swiggy/rentmodel/${res.file_id}/${res.file_name}`, formData, {
-
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data',
-    //             },
-    //         });
-
-    //         console.log('Data sent successfully', response.data);
-    //         setnum(1)
-    //         console.log("api12 successfully ");
-    //         setfinal(response.data);
-
-    //     } catch (error) {
-    //         toast.error(error.response.data.detail)
-    //         console.error('Error sending data', error);
-    //         console.log('Response data:', error.response.data);
-    //         console.log('Response status:', error.response.status);
-    //         console.log('Response headers:', error.response.headers);
-
-    //     } finally {
-    //         setloding(false)
-    //     }
-    // };
-
-
-    // console.log(res.file_id + "the data from zomatao" + res.file_name)
 
 
     function handleclick(val) {
