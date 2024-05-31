@@ -82,9 +82,10 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-        // const productname = await axios.get(`${baseurl}/get/product_category${hsn}`);
-        const categoryOptions = category.data.products.map(category => ({
-          value: category.product_name,
+
+        const productname = await axios.get(`${baseurl}/get/product_category${hsn}`);
+        const categoryOptions = productname.data.products.map(category => ({
+          value: category.product_id,
           label: category.product_name,
         }));
         setproducts(categoryOptions);
@@ -137,19 +138,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-
-
-
-
-
-
         // // Fetch colors
         // const colorResponse = await axios.get(`${baseurl}/colors`);
         // setColorOptions(colorResponse.data.colors);
-
-
-
-
 
 
 
@@ -171,11 +162,6 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-
-
-
-
-
         const cityResponse = await axios.get(`${baseurl}/cities`);
         const City = cityResponse.data.cities.map(category => ({
           value: category.city_id,
@@ -186,13 +172,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-
-
         // const productname = await axios.get(`${baseurl}/get/product_category`);
         // setproducts(productname.data.products);
 
-
-  
 
 
 
@@ -205,7 +187,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
     };
 
     fetchData();
-  }, [baseurl,hsn]);
+  }, [baseurl]);
 
 
 
@@ -354,14 +336,14 @@ const ProductDetail = ({ product, onProductSelect }) => {
               product_name: productname.label,
               category: category.label,
               bike_category: bikeCategory.label,
-              quantity: parseInt(quantity), 
+              quantity: parseInt(quantity),
               size: selectedSize.label,
               color: selectedColor.label,
               city: selectedCity.label,
-              GST:Gst,
-              unit:unit,
-              amount:Amount,
-              HSN_code:hsn
+              GST: Gst,
+              unit: unit,
+              amount: Amount,
+              HSN_code: hsn
 
             };
 
@@ -459,8 +441,8 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-    
- 
+
+
 
       } else {
         // Handle the case when the products array is empty
@@ -732,9 +714,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
                   <input
                     type="number"
                     // onFocus={(e) => e.target.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })}
-                    onWheel={ event => event.currentTarget.blur() }
+                    onWheel={event => event.currentTarget.blur()}
                     placeholder='enter qunatity'
-                    id="quantity" 
+                    id="quantity"
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
@@ -743,7 +725,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
                       MozAppearance: "textfield",
                       appearance: "textfield",
                       margin: 0,
-                  }}
+                    }}
                   />
                   <span className="absolute right-0 top-0 bottom-0 flex items-center pr-3 pointer-events-none text-gray-500">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -909,7 +891,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
                   <input
                     type="number"
                     id="quantity"
-                    onWheel={ event => event.currentTarget.blur() }
+                    onWheel={event => event.currentTarget.blur()}
                     placeholder='rate per item'
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                     value={Amount}
@@ -918,7 +900,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
                       WebkitAppearance: 'none',  // For Chrome, Safari, and Opera
                       MozAppearance: 'textfield',  // For Firefox
                       appearance: 'textfield'  // For modern browsers
-                  }}
+                    }}
                   />
 
                 </div>
