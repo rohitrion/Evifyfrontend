@@ -69,12 +69,12 @@ const ProductDetail = ({ product, onProductSelect }) => {
         // setCategories(categoryResponse.data.category);
 
 
+        // response.data.products[0].category
 
-
-        const categoryResponse = await axios.get(`${baseurl}/categories`);
-        const category = categoryResponse.data.category.map(category => ({
+        const categoryResponse = await axios.get(`${baseurl}/get/product_category/${hsn}`);
+        const category = categoryResponse.data.products.map(category => ({
           value: category.category_id,
-          label: category.category_name,
+          label: category.category,
         }));
         setCategories(category);
 
@@ -82,6 +82,12 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
+        // const productname = await axios.get(`${baseurl}/get/product_category${hsn}`);
+        const categoryOptions = category.data.products.map(category => ({
+          value: category.product_name,
+          label: category.product_name,
+        }));
+        setproducts(categoryOptions);
 
 
 
@@ -186,14 +192,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
         // setproducts(productname.data.products);
 
 
-        const productname = await axios.get(`${baseurl}/get/product_category`);
-        const categoryOptions = productname.data.products.map(category => ({
-          value: category.product_id,
-          label: category.product_name,
-        }));
-        setproducts(categoryOptions);
-
-
+  
 
 
 
@@ -206,7 +205,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
     };
 
     fetchData();
-  }, [baseurl]);
+  }, [baseurl,hsn]);
 
 
 
@@ -304,7 +303,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
     Sethsn(inventory.HSN_code)
     setUnit(inventory.unit)
     setGst(inventory.GST)
-    setamount(inventory.amount)
+    setamount(inventory.total_amount)
     console.log(inventory)
   };
 
@@ -457,6 +456,12 @@ const ProductDetail = ({ product, onProductSelect }) => {
           value: response.data.products[0].product_name, // Assuming 'product_name' is the desired label
           label: response.data.products[0].product_name,
         });
+
+
+
+    
+ 
+
       } else {
         // Handle the case when the products array is empty
         setCategory({ value: '', label: '' });

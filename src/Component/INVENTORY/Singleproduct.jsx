@@ -375,7 +375,7 @@ const Singleproduct = ({ filteredData, setData, setFilteredData, onEdit }) => {
                                 <td className="border font-bold text-center px-4 py-4">{item.HSN_code}</td>
                                 <td className="border font-bold text-center px-4 py-4">{item.unit}</td>
                                 <td className="border font-bold text-center px-4 py-4">{item.quantity}</td>
-                                <td className="border font-bold text-center px-4 py-4">{item.amount}</td>
+                                <td className="border font-bold text-center px-4 py-4">{item.total_amount}</td>
                                 <td className="border px-6 py-2">
                                     <div className="flex justify-center gap-5">
                                         <button onClick={() => handleEditClick(item)} className="rounded-full p-2 bg-gray-200 hover:bg-gray-300">

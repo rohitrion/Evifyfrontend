@@ -264,7 +264,7 @@ const Inventory_Form = () => {
                 console.error('Error creating item:', error);
                 toast.error(error.response.data.detail, {
                     position: 'top-center',
-                    autoClose: 1000,
+                    autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -336,7 +336,7 @@ const Inventory_Form = () => {
                 setSelectedItems(updatedCategories[holder]);
                 toast.success("Item Added", {
                     position: 'top-center',
-                    autoClose: 1000,
+                    autoClose: 1500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -355,7 +355,7 @@ const Inventory_Form = () => {
                 console.error('Error creating item:', error);
                 toast.error(error.response.data.detail, {
                     position: 'top-center',
-                    autoClose: 1000,
+                    autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -471,7 +471,7 @@ const Inventory_Form = () => {
 
             toast.error("Item deleted", {
                 position: 'top-center',
-                autoClose: 1000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

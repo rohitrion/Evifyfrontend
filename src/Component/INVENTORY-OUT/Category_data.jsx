@@ -18,10 +18,31 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [updatedQuantities, setUpdatedQuantities] = useState({});
     const baseurl = useRecoilValue(BaseURLState);
+    const [narration, setnarration] = useState('');
+
+
+
+    const [sta, setstaic] = useState(false)
+
+
+
+
+
     // Handle opening the modal for a specific index
     const openModal = (index) => {
         setSelectedIndex(index);
         setIsOpen(true);
+
+        setstaic(false)
+    };
+
+
+
+    const openModals = (index) => {
+        setSelectedIndex(index);
+        setIsOpen(true);
+
+        setstaic(true)
     };
 
     // Handle closing the modal and resetting the state
@@ -62,7 +83,9 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                 color: item.color,
                 size: item.size,
                 city: item.city,
+                HSN_code: item.hsn_code,
                 quantity,
+                name: narration
             });
 
             toast.success("Quantity updated successfully");
@@ -109,7 +132,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
         <>
             <ToastContainer
                 position="top-center"
-                autoClose={2000}
+                autoClose={1500}
                 hideProgressBar={false}
                 closeOnClick
                 pauseOnHover
@@ -126,6 +149,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                         <th className="border text-center px-4 py-2">Quantity</th>
                         <th className="border text-center px-4 py-2">City</th>
                         <th className="border px-4 py-2 text-center">Actions</th>
+                        <th className="border px-4 py-2 text-center">Transfer</th>
                     </tr>
 
                 </thead>
@@ -146,58 +170,148 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                                         <span className="ml-2">Use Quantity</span> 
                                     </button> */}
 
-                                    <button onClick={() => openModal(index)} class="button"> UpdateQunatity
+                                    <button onClick={() => openModal(index)} class="button"> USE
                                     </button>
                                 </div>
                             </td>
+
+
+
+
+                            <td className="border px-4 py-2">
+                                <div className="flex justify-center gap-5">
+                                    {/* <button className="rounded-full flex   items-center justify-center p-2 bg-gray-200 hover:bg-gray-300">
+                                        <span><FaCheck className="text-green-500" /> </span>  
+                                        <span className="ml-2">Use Quantity</span> 
+                                    </button> */}
+
+                                    <button onClick={() => openModals(index)} class="button"> TRF
+                                    </button>
+                                </div>
+                            </td>
+
+
 
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            <Modal
-                isOpen={isOpen}
-                onRequestClose={closeModal}
-                className="bg-white rounded-lg p-6 w-80 mx-auto mt-20 shadow-lg"
-                overlayClassName="fixed inset-0 flex    items-center justify-center "
-                contentLabel="Update Quantity"
-            >
-                {selectedIndex !== null && (
-                    <div className='flex-col ' >
-                        <div>
-                            <h2 className="text-xl font-bold mb-4 ">Update Quantity</h2></div>
-                        <div className="mb-5 "  > <p> Are you sure to Update Quantity?</p></div>
-                        <div className="mb-6 " >
-                            <input
-                                type="number"
-                                value={updatedQuantities[selectedIndex] || ''}
-                                onChange={(e) => handleQuantityChange(selectedIndex, e, filteredData[selectedIndex])}
-                                className="border rounded-md px-2 py-1 w-full text-center"
-                                onKeyDown={(e) => {
-                                    if (e.key === '-' || e.key === '+' || e.key === 'e') {
-                                        e.preventDefault();
-                                    }
-                                }}
-                            />
-                        </div>
-                        <div className="flex justify-between mt-4 ">
-                            <button
-                                onClick={() => handleUpdateQuantity(selectedIndex, filteredData[selectedIndex])}
-                                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
-                            >
-                                Update
-                            </button>
-                            <button
-                                onClick={closeModal}
-                                className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                )}
-            </Modal>
+            {
+                sta ? <div>
+
+                    <Modal
+                        isOpen={isOpen}
+                        onRequestClose={closeModal}
+                        className="bg-white rounded-lg p-6 w-96 mx-auto mt-20 shadow-lg "
+                        overlayClassName="fixed inset-0 flex    items-center justify-center "
+                        contentLabel="Update Quantity"
+                    >
+                        {selectedIndex !== null && (
+                            <div className='flex-col ' >
+                                <div>
+                                    <h2 className="text-xl font-bold mb-4 ">coming soon</h2></div>
+                                <div className="mb-5 "  > <p> Are you sure to  Trasfer?</p></div>
+                                <div className="font-bold text-black"  > <p> Transfer</p></div>
+                                <div className="mb-3 " >
+                                    <input
+                                        type="number"
+                                        placeholder='Enter qunatity'
+                                        value={updatedQuantities[selectedIndex] || ''}
+                                        onChange={(e) => handleQuantityChange(selectedIndex, e, filteredData[selectedIndex])}
+                                        className="border rounded-md px-2 py-1 w-full text-center"
+                                        onKeyDown={(e) => {
+                                            if (e.key === '-' || e.key === '+' || e.key === 'e') {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                    />
+                                </div>
+
+
+
+                                <div className="flex justify-between mt-4 ">
+                                    <button
+                                        onClick={() => handleUpdateQuantity(selectedIndex, filteredData[selectedIndex])}
+                                        className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
+                                    >
+                                        Update
+                                    </button>
+                                    <button
+                                        onClick={closeModal}
+                                        className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </Modal>
+
+                </div>
+                    :
+
+
+                    <Modal
+                        isOpen={isOpen}
+                        onRequestClose={closeModal}
+                        className="bg-white rounded-lg p-6 w-96 mx-auto mt-20 shadow-lg "
+                        overlayClassName="fixed inset-0 flex    items-center justify-center "
+                        contentLabel="Update Quantity"
+                    >
+                        {selectedIndex !== null && (
+                            <div className='flex-col ' >
+                                <div>
+                                    <h2 className="text-xl font-bold mb-4 ">Update Quantity</h2></div>
+                                <div className="mb-5 "  > <p> Are you sure to Update Quantity?</p></div>
+                                <div className="font-bold text-black"  > <p> Quantity</p></div>
+                                <div className="mb-3 " >
+                                    <input
+                                        type="number"
+                                        placeholder='Enter qunatity'
+                                        value={updatedQuantities[selectedIndex] || ''}
+                                        onChange={(e) => handleQuantityChange(selectedIndex, e, filteredData[selectedIndex])}
+                                        className="border rounded-md px-2 py-1 w-full text-center"
+                                        onKeyDown={(e) => {
+                                            if (e.key === '-' || e.key === '+' || e.key === 'e') {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                    />
+                                </div>
+
+                                <div className="font-bold text-black"  > <p> Narration</p></div>
+                                <div className="mb-6 " >
+                                    <input
+                                        type="text"
+                                        required
+                                        value={narration}
+                                        placeholder='Enter reason'
+                                        onChange={(e) => setnarration(e.target.value)}
+                                        className="border rounded-md px-2 py-1 w-full text-center"
+
+                                    />
+                                </div>
+
+
+                                <div className="flex justify-between mt-4 ">
+                                    <button
+                                        onClick={() => handleUpdateQuantity(selectedIndex, filteredData[selectedIndex])}
+                                        className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
+                                    >
+                                        Update
+                                    </button>
+                                    <button
+                                        onClick={closeModal}
+                                        className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </Modal>
+            }
         </>
     );
 };
