@@ -25,6 +25,8 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
+  const [Differnce, SetDiffernce] = useState()
+
   const [Edit, SetEdit] = useState(false)
 
   const [productname, setproductname] = useState('');
@@ -73,7 +75,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
         const categoryResponse = await axios.get(`${baseurl}/get/product_category/${hsn}`);
         const category = categoryResponse.data.products.map(category => ({
-          value: category.category_id,
+          value: category.category,
           label: category.category,
         }));
         setCategories(category);
@@ -81,11 +83,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-
-
-        const productname = await axios.get(`${baseurl}/get/product_category${hsn}`);
-        const categoryOptions = productname.data.products.map(category => ({
-          value: category.product_id,
+        // const productname = await axios.get(`${baseurl}/get/product_category/${hsn}`);
+        const categoryOptions = categoryResponse.data.products.map(category => ({
+          value: category.product_name,
           label: category.product_name,
         }));
         setproducts(categoryOptions);
@@ -113,16 +113,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-
-
-
-
-
         // Fetch sizes
         // const sizeResponse = await axios.get(`${baseurl}/sizes`);
         // setSizeOptions(sizeResponse.data.size);
-
-
 
 
 
@@ -136,13 +129,9 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-
-
         // // Fetch colors
         // const colorResponse = await axios.get(`${baseurl}/colors`);
         // setColorOptions(colorResponse.data.colors);
-
-
 
 
         const colorResponse = await axios.get(`${baseurl}/colors`);
@@ -158,8 +147,6 @@ const ProductDetail = ({ product, onProductSelect }) => {
         // // Fetch cities
         // const cityResponse = await axios.get(`${baseurl}/cities`);
         // setCityOptions(cityResponse.data.cities);
-
-
 
 
         const cityResponse = await axios.get(`${baseurl}/cities`);
@@ -178,16 +165,13 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-
-
-
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, [baseurl]);
+  }, [baseurl, hsn]);
 
 
 
@@ -294,6 +278,42 @@ const ProductDetail = ({ product, onProductSelect }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+
+
+
+    const requiredFields = [
+      { name: 'productname', value: productname },
+      { name: 'category', value: category },
+      { name: 'bikeCategory', value: bikeCategory },
+      { name: 'quantity', value: quantity },
+      { name: 'Amount', value: Amount },
+      { name: 'selectedSize', value: selectedSize },
+      { name: 'selectedColor', value: selectedColor },
+      { name: 'selectedCity', value: selectedCity },
+      { name: 'Gst', value: Gst },
+      { name: 'unit', value: unit },
+      { name: 'hsn', value: hsn },
+    ];
+
+    const hasEmptyRequiredField = requiredFields.some(field => field.value === '');
+
+    if (hasEmptyRequiredField) {
+      toast.error("Please fill all the required fields", {
+        position: 'top-right',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        toastStyle: {
+          zIndex: 99999, // Highest z-index
+        },
+      });
+      setIsLoading(false);
+
+      return;
+    }
 
     try {
 
@@ -441,9 +461,6 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-
-
-
       } else {
         // Handle the case when the products array is empty
         setCategory({ value: '', label: '' });
@@ -500,6 +517,12 @@ const ProductDetail = ({ product, onProductSelect }) => {
       try {
 
         setLoading(true);
+
+        const dif = await axios.get(`${baseurl}/products/amount/sum/${product.invoice_id}`);
+        const priceDifference = dif.data["Price Difference"];
+
+        SetDiffernce(priceDifference.toFixed(2))
+
         const response = await axios.get(`${baseurl}/products/invoice/${product.invoice_id}`);
         if (response.status === 204) {
           // Handle scenario where invoice does not exist
@@ -549,7 +572,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
           </div>
         )}
 
-
+        <ToastContainer />
         <div>
 
           <div className="w-10/12 mx-auto py-4">
@@ -645,12 +668,6 @@ const ProductDetail = ({ product, onProductSelect }) => {
                 // filterOption={customFilterOption}
                 />
               </div>
-
-
-
-
-
-
 
 
 
@@ -938,7 +955,6 @@ const ProductDetail = ({ product, onProductSelect }) => {
                   />
 
 
-
                 </div>
               </div>
 
@@ -964,7 +980,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
         {
           <Singleproduct filteredData={filteredData} onProductSelect={onProductSelect}
             data={getapidata} setFilteredData={setFilteredData}
-            setdata={setgetapi} modal={openModal} onEdit={handleEdit} closemodal={closeModal} />
+            setdata={setgetapi} modal={openModal} onEdit={handleEdit} closemodal={closeModal} Differnce={Differnce} />
         }
       </div>
 

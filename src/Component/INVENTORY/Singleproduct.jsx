@@ -187,7 +187,7 @@
 
 //     return (
 
-     
+
 //         <>
 //             <div
 //                 className="fixed overflow-auto border-collapse  top-40 mt-10  w-10/12 mx-auto  " // Fixed position with overflow scroll
@@ -299,7 +299,7 @@ import { BaseURLState } from '../Recoil';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
-const Singleproduct = ({ filteredData, setData, setFilteredData, onEdit }) => {
+const Singleproduct = ({ filteredData, setData, setFilteredData, onEdit, Differnce }) => {
     const [loading, setLoading] = useState(false);
     const [showModalForProduct, setShowModalForProduct] = useState(null);
     const baseurl = useRecoilValue(BaseURLState);
@@ -320,7 +320,7 @@ const Singleproduct = ({ filteredData, setData, setFilteredData, onEdit }) => {
             toast.success('Product deleted successfully!');
         } catch (error) {
             console.error('Error deleting file:', error);
-            toast.error('product deleted',{
+            toast.error('product deleted', {
                 position: 'top-right',
                 autoClose: 1000,
                 hideProgressBar: false,
@@ -344,7 +344,10 @@ const Singleproduct = ({ filteredData, setData, setFilteredData, onEdit }) => {
                 style={{ maxHeight: '700px', overflowX: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
                 <ToastContainer />
-                <table className="border-separate font-sans border-2 w-11/12 mx-auto mt-10">
+       
+                <h5 style={{ position: 'relative', top: 20,  right:85 }} className='text-end text-black text-bold' >  Difference:  {Differnce}  </h5>
+                <table  className="border-separate font-sans border-2 w-11/12 mx-auto mt-10">
+
                     <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
                         <tr className="bg-[#FFB603]">
                             <th className="border text-center px-4 py-2">City</th>

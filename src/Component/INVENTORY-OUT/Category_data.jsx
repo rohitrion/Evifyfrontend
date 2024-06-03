@@ -203,7 +203,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                     <Modal
                         isOpen={isOpen}
                         onRequestClose={closeModal}
-                        className="bg-white rounded-lg p-6 w-96 mx-auto mt-20 shadow-lg "
+                        className="bg-white rounded-lg p-6 w-96 mx-auto mt-20 shadow-lg border border-2 border-black "
                         overlayClassName="fixed inset-0 flex    items-center justify-center "
                         contentLabel="Update Quantity"
                     >
@@ -255,8 +255,8 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                     <Modal
                         isOpen={isOpen}
                         onRequestClose={closeModal}
-                        className="bg-white rounded-lg p-6 w-96 mx-auto mt-20 shadow-lg "
-                        overlayClassName="fixed inset-0 flex    items-center justify-center "
+                        className="bg-white rounded-lg p-6 w-96 mx-auto mt-20 shadow-lg  border border-2 border-black"
+                        overlayClassName="fixed inset-0 flex  border border-2 border-black   items-center justify-center "
                         contentLabel="Update Quantity"
                     >
                         {selectedIndex !== null && (

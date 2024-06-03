@@ -87,6 +87,7 @@ const MyComponent = () => {
 
     const closeModal = () => {
         setIsOpen(false);
+        setIsLoading(false);
         setInputFields({
             invoice_number: '',
             invoice_amount: '',
@@ -129,10 +130,30 @@ const MyComponent = () => {
 
 
     const handleSubmit = async (e) => {
+      
+  
         e.preventDefault();
         setIsLoading(true);
 
- 
+        const requiredFields = ['invoice_number', 'invoice_amount', 'invoice_date', 'inventory_paydate', 'vendor'];
+
+        const hasEmptyRequiredField = requiredFields.some(field => inputFields[field] === '');
+        
+        if (hasEmptyRequiredField) {
+            toast.error("please fill all the feilds", {
+                position: 'top-center',
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            })
+            setIsLoading(false);
+          return;
+        }
+
+
+
         try {
             const formData = new FormData(formRef.current);
             const headers = {
@@ -201,8 +222,10 @@ const MyComponent = () => {
 
             formRef.current.reset();
             setError(null);
+
         } catch (error) {
             console.error('Error:', error);
+            toast.error(error)
             // setError('Failed to submit form data. Please try again later.');
         } finally {
             setIsLoading(false);
@@ -360,7 +383,7 @@ const MyComponent = () => {
                                 <label htmlFor="invoice_amount" className="block text-gray-700 text-sm font-bold mb-2">INVOICE AMOUNT</label>
                                 <div className="relative">
                                     <input
-                                        type="number"
+                                      type="number" step="0.01"
                                         min={0}
                                         name="invoice_amount"
                                         value={inputFields.invoice_amount}
