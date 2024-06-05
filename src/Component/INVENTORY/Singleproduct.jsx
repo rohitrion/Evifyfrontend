@@ -349,7 +349,7 @@ const Singleproduct = ({ filteredData, setData, setFilteredData, onEdit, Differn
                 <table  className="border-separate font-sans border-2 w-11/12 mx-auto mt-10">
 
                     <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
-                        <tr className="bg-[#FFB603]">
+                        <tr className="bg-[#FFB603] text-[#000000] ">
                             <th className="border text-center px-4 py-2">City</th>
                             <th className="border text-center px-4 py-2">Bike</th>
                             <th className="border text-center px-4 py-2">Category</th>
@@ -367,7 +367,7 @@ const Singleproduct = ({ filteredData, setData, setFilteredData, onEdit, Differn
 
                     <tbody>
                         {filteredData.map((item, index) => (
-                            <tr key={index} className="hover:bg-[#8FB7B0]">
+                            <tr key={index} className="hover:bg-[#8FB7B0]  text-[#000000]  ">
                                 <td className="border font-bold text-center px-4 py-4">{item.city}</td>
                                 <td className="border font-bold text-center px-4 py-4">{item.bike_category}</td>
                                 <td className="border font-bold text-center px-4 py-4">{item.category}</td>

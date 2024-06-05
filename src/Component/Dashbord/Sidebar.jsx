@@ -9,7 +9,7 @@ import { MdOutlineInventory2, MdOutlineInventory } from "react-icons/md";
 import { GoFile } from "react-icons/go";
 import { SiReacthookform } from "react-icons/si";
 import { FaWpforms } from "react-icons/fa";
-
+import { FaDatabase } from "react-icons/fa";
 const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }) => {
 
     const [showAboutSubmenu, setShowAboutSubmenu] = useState(false);
@@ -83,9 +83,19 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
 
                         <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('form')} >
 
-                            <FaWpforms className='icon  text-black'  /> Form
+                            <FaWpforms className='icon  text-black' /> Form
 
                         </li>
+
+
+
+                        <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('Inventory-Data')} >
+
+                            <FaDatabase className='icon  text-black' /> Inventory-Data
+
+                        </li>
+
+
 
                     </div>
                 )}

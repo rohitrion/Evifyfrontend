@@ -769,65 +769,108 @@ const Inventory_Form = () => {
     };
 
 
-    const fetchData = async () => {
+    // const fetchData = async () => {
 
+    //     setLoading(true);
+    //     try {
+    //         // const categoryData = await axios.get(`${baseurl}/categories`);
+    //         // console.log(categoryData)
+
+
+
+
+
+    //         const categoryData = await axios.get(`${baseurl}/categories`);
+    //         const category = categoryData.data.category.map(category => ({
+    //             value: category.category_id,
+    //             label: category.category_name,
+    //         }));
+    //         setsel(category);
+
+
+
+
+
+
+
+
+    //         const colorData = await axios.get(`${baseurl}/colors`);
+    //         console.log(colorData)
+    //         const cityData = await axios.get(`${baseurl}/cities`);
+    //         console.log(cityData)
+    //         const sizeData = await axios.get(`${baseurl}/sizes`);
+    //         console.log(sizeData)
+    //         const bikeCategoryData = await axios.get(`${baseurl}/bikes`);
+    //         console.log(bikeCategoryData)
+    //         const product_name = await axios.get(`${baseurl}/get/product_category`);
+    //         console.log(product_name)
+
+
+    //         const fetchedCategories = {
+    //             category: categoryData.data.category,
+    //             color: colorData.data.colors,
+    //             city: cityData.data.cities,
+    //             size: sizeData.data.size,
+    //             bikeCategory: bikeCategoryData.data.bikes,
+    //             product_name: product_name.data.products
+    //         };
+
+
+    //         setCategories(fetchedCategories);
+
+    //         setSelectedItems(fetchedCategories[defaultCategoryKey]);
+
+
+    //     } catch (error) {
+    //         console.error('Error fetching data: ', error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+
+
+    // };
+    const fetchData = async () => {
         setLoading(true);
         try {
-            // const categoryData = await axios.get(`${baseurl}/categories`);
-            // console.log(categoryData)
-
-
-
-
-
+            // Fetch category data first
             const categoryData = await axios.get(`${baseurl}/categories`);
             const category = categoryData.data.category.map(category => ({
                 value: category.category_id,
                 label: category.category_name,
             }));
             setsel(category);
+            setCategories((prevCategories) => ({
+                ...prevCategories,
+                category: categoryData.data.category,
+            }));
+            setSelectedItems(categoryData.data.category);
 
-
-
-
-
-
-
-
-            const colorData = await axios.get(`${baseurl}/colors`);
-            console.log(colorData)
-            const cityData = await axios.get(`${baseurl}/cities`);
-            console.log(cityData)
-            const sizeData = await axios.get(`${baseurl}/sizes`);
-            console.log(sizeData)
-            const bikeCategoryData = await axios.get(`${baseurl}/bikes`);
-            console.log(bikeCategoryData)
-            const product_name = await axios.get(`${baseurl}/get/product_category`);
-            console.log(product_name)
-
+            // After fetching category data, fetch remaining data in parallel
+            const [colorData, cityData, sizeData, bikeCategoryData, productNameData] = await Promise.all([
+                axios.get(`${baseurl}/colors`),
+                axios.get(`${baseurl}/cities`),
+                axios.get(`${baseurl}/sizes`),
+                axios.get(`${baseurl}/bikes`),
+                axios.get(`${baseurl}/get/product_category`),
+            ]);
 
             const fetchedCategories = {
-                category: categoryData.data.category,
                 color: colorData.data.colors,
                 city: cityData.data.cities,
                 size: sizeData.data.size,
                 bikeCategory: bikeCategoryData.data.bikes,
-                product_name: product_name.data.products
+                product_name: productNameData.data.products,
             };
 
-
-            setCategories(fetchedCategories);
-
-            setSelectedItems(fetchedCategories[defaultCategoryKey]);
-
-
+            setCategories((prevCategories) => ({
+                ...prevCategories,
+                ...fetchedCategories,
+            }));
         } catch (error) {
-            console.error('Error fetching data: ', error);
+            console.error('Error fetching data:', error);
         } finally {
             setLoading(false);
         }
-
-
     };
 
 
@@ -1386,80 +1429,83 @@ const Inventory_Form = () => {
                 </div>
 
 
-
-
-
                 {selectedCategory && selectedItems?.length > 0 && (
-                    <div className="mt-8 ml-4 p-6 border border-gray-300 rounded shadow-lg bg-white fixed   w-8/12 overflow-y-auto  max-h-96" >
-                        <div className="flex  justify-between   ">
-                            <h2 className="text-2xl font-bold mb-4  text-gray-800">{selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}</h2>
-                            <span className='' ><input placeholder="Search"
-                                value={searchQueries[selectedCategory]}
-                                onChange={(e) => handleSearchChange(selectedCategory, e.target.value)}
-                                type=' text'
-                                className='w-96 border-solid border-black border-2 px-2 py-1 rounded-md focus:border-indigo-500' /></span>
-                            {/* className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none */}
+                    <div className="mt-8 ml-4 p-6 border border-gray-300 rounded-md shadow-lg bg-white fixed w-8/12 ">
+                        <div className="flex justify-between">
+                            <h2 className="text-2xl font-bold mb-4 text-gray-800">
+                                {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}
+                            </h2>
+                            <span className="">
+                                <input
+                                    placeholder="  🔍️    Search"
+                                    value={searchQueries[selectedCategory]}
+                                    onChange={(e) => handleSearchChange(selectedCategory, e.target.value)}
+                                    type="text"
+                                    className="w-96 border border-black px-2 py-1 rounded-md focus:border-indigo-500"
+                                />
+                            </span>
                         </div>
 
-                        <table className="w-full text-left  ">
-                            <thead>
-                                <tr className="border-b border-gray-300   ">
-                                    <th className="p-2   ">Item Name</th>
-                                    {showModalForProduct && (
-                                        <>
-                                            <th className="p-2">HSN Code</th>
-                                            <th className="p-2">Category</th>
-                                        </>
-                                    )}
-                                    <th className="p-2">Edit</th>
-                                    <th className="p-2">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody className=' ' >
-
-
-
-                                {selectedItems
-                                    ?.filter((item) => renderCategoryItemName(selectedCategory, item))
-                                    .map((item) => (
-
-
-
-                                        // {selectedItems?.map(item => (
-                                        <tr key={item.id} className="border-b border-gray-200  ">
-                                            <td className="p-2">{renderCategoryItemName(selectedCategory, item)}</td>
-                                            {showModalForProduct && (
-                                                <>
-                                                    <td className="p-2">{item?.HSN_code}</td>
-                                                    <td className="p-2">{item?.category}</td>
-                                                </>
-                                            )}
-
-
-
-
-
-                                            <td className=" px-2 py-2  ">
-                                                <button onClick={() => handleEdit(item, selectedCategory)} className="rounded-full p-2 bg-gray-200 hover:bg-gray-300">
-                                                    <FaRegEdit className="h-4 w-4 text-[#5D7CF6]" />
-                                                    <span className="sr-only">Edit</span>
-                                                </button>
-                                            </td>
-                                            <td className=" px-2 py-2  ">
-                                                <button onClick={() => handleDelete(item, selectedCategory)} className="rounded-full p-2 bg-gray-200 hover:bg-gray-300">
-                                                    <FaTrashAlt className="h-4 w-4 text-gray-600" />
-                                                    <span className="sr-only ">Delete</span>
-                                                </button>
-                                            </td>
-
-
-                                        </tr>
-                                    ))}
-                            </tbody>
-                        </table>
+                        <div className="relative overflow-y-auto max-h-80 ">
+                            <table className="w-full text-left">
+                                <thead className="sticky top-0 bg-white">
+                                    <tr className="border-b border-gray-300 bg-[#008F901A]  text-[#000000]">
+                                        <th className="p-2">Item Name</th>
+                                        {showModalForProduct && (
+                                            <>
+                                                <th className="p-2">HSN Code</th>
+                                                <th className="p-2">Category</th>
+                                            </>
+                                        )}
+                                        <th className="p-2">Edit</th>
+                                        <th className="p-2">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="">
+                                    {selectedItems
+                                        ?.filter((item) => renderCategoryItemName(selectedCategory, item))
+                                        .map((item) => (
+                                            <tr
+                                                key={item.id}
+                                                className="border-b border-gray-200 hover:bg-blue-100/40 text-[#000000]"
+                                            >
+                                                <td className="p-3">
+                                                    {renderCategoryItemName(selectedCategory, item)}
+                                                </td>
+                                                {showModalForProduct && (
+                                                    <>
+                                                        <td className="p-2">{item?.HSN_code}</td>
+                                                        <td className="p-2">{item?.category}</td>
+                                                    </>
+                                                )}
+                                                <td className="px-2 py-2 text-[#000000]">
+                                                    <button
+                                                        onClick={() => handleEdit(item, selectedCategory)}
+                                                        className="rounded-full p-2 bg-gray-200 hover:bg-gray-300"
+                                                    >
+                                                        <FaRegEdit className="h-4 w-4 text-[#5D7CF6]" />
+                                                        <span className="sr-only">Edit</span>
+                                                    </button>
+                                                </td>
+                                                <td className="px-2 py-2">
+                                                    <button
+                                                        onClick={() => handleDelete(item, selectedCategory)}
+                                                        className="rounded-full p-2 bg-gray-200 hover:bg-gray-300"
+                                                    >
+                                                        <FaTrashAlt className="h-4 w-4 text-gray-600" />
+                                                        <span className="sr-only">Delete</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                )
+                }
 
-                )}
+
 
 
             </div>

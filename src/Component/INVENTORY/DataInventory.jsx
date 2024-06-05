@@ -83,7 +83,7 @@ const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSel
 
             <table className="border-separate font-sans  border-2 w-11/12 mx-auto  " >
                 <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
-                    <tr className="bg-[#FFB603]  ">
+                    <tr className="bg-[#FFB603] text-[#000000]  ">
                         <th className="border px-4  text-center py-2">Invoice Number</th> 
                         <th className="border  text-center px-4 py-2">Vendor</th>
                         <th className="border  text-center px-4 py-2">User</th>
@@ -93,7 +93,7 @@ const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSel
                 </thead>
                 <tbody>
                     {filteredData.map((item, index) => (
-                        <tr key={index} className="hover:bg-[#8FB7B0]  ">
+                        <tr key={index} className="hover:bg-[#8FB7B0] text-sm  text-[#000000]   ">
                             <td className="border font-bold cursor-pointer text-center px-4 py-2" onClick={() => handleClick(item)}>{item.invoice_number}</td>
                             <td className="border font-bold cursor-pointer text-center px-4 py-2" onClick={() => handleClick(item)}>{item.vendor}</td>
                             <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.user?.first_name}</td>

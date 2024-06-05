@@ -306,9 +306,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        toastStyle: {
-          zIndex: 99999, // Highest z-index
-        },
+      
       });
       setIsLoading(false);
 
@@ -587,7 +585,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
                   name="search"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search"
+                  placeholder=" 🔍️    Search"
                   className="border rounded px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                 />
                 <span className="absolute inset-y-0 right-0 flex items-center pr-3">

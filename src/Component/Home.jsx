@@ -14,6 +14,7 @@ import { AuthState, Filename, GloablFile, Num } from './Recoil'
 
 import Category from './INVENTORY-OUT/Category'
 import Inventory_Form from './Sub_inventory/Inventory_Form'
+import Inventory_section from './INVENTORY_DATA/Inventory_section'
 
 
 
@@ -57,7 +58,8 @@ function Home({ name, log }) {
     "File-Import": <Import />,
     "Inventory-in":<Inventory/>,
     "Inventory-out": <Category/>, 
-    "form": <Inventory_Form/>
+    "form": <Inventory_Form/>,
+    'Inventory-Data': <Inventory_section/>
 
 
   }

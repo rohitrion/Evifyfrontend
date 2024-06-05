@@ -187,7 +187,7 @@ const Category = ({ product, onProductSelect }) => {
       formData.append('size', selectedSize);
       formData.append('color', selectedColor);
       formData.append('city', selectedCity);
-// 
+ 
       if (selectedInventory) {
         const response = await axios.patch(`${baseurl}/products/${selectedInventory.product_id}`, formData, {
           headers: {
@@ -316,7 +316,7 @@ const Category = ({ product, onProductSelect }) => {
                   name="search"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search"
+                  placeholder="  🔍️    Search"
                   className="border rounded px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                 />
                 <span className="absolute inset-y-0 right-0 flex items-center pr-3">

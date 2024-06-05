@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Modal from "react-modal";
@@ -13,7 +14,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { v4 as uuidv4 } from 'uuid';
 
-const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredData, onProductSelect }) => {
+const Catdata = ({ item, data, setdata, onEdit, filteredData, setFilteredData, onProductSelect }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [updatedQuantities, setUpdatedQuantities] = useState({});
@@ -32,7 +33,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
     const openModal = (index) => {
         setSelectedIndex(index);
         setIsOpen(true);
-
+     setFilteredData("updated_at")
         setstaic(false)
     };
 
@@ -70,7 +71,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
 
     const handleUpdateQuantity = async (index, item) => {
         const quantity = updatedQuantities[index];
-        if (quantity == "" || narration == "") {
+        if (!quantity) {
             return;
         }
 
@@ -139,56 +140,57 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                 theme="dark"
             />
 
-            <table className="border-separate  border-1 w-4/5 mx-auto    ">
-                <thead style={{ position: 'sticky', top: 0, zIndex: 3 }} >
-                    <tr className="bg-[#FFB603] text-[#000000]  ">
+            <table className="border-collaspe  border-1 w-full mx-auto   ">
+                <thead style={{ position: 'sticky', top: 0, zIndex: 9999 }}>
+                    <tr className="bg-[#FFB603] text-[#000000] ">
+                        <th className="border px-4 text-center py-2">HSN_Code</th>
                         <th className="border px-4 text-center py-2">Category</th>
                         <th className="border text-center px-4 py-2">Bike</th>
                         <th className="border text-center px-4 py-2">Product</th>
                         <th className="border text-center px-4 py-2">Size</th>
+                        <th className="border text-center px-4 py-2">Color</th>
                         <th className="border text-center px-4 py-2">Quantity</th>
                         <th className="border text-center px-4 py-2">City</th>
-                        <th className="border px-4 py-2 text-center">Actions</th>
-                        <th className="border px-4 py-2 text-center">Transfer</th>
+                        <th className="border text-center px-4 py-2">User</th> 
+                        <th className="border text-center px-4 py-2">Update_At</th>  
+                        {/* <th className="border px-4 py-2 text-center">Actions</th>
+                        <th className="border px-4 py-2 text-center">Transfer</th> */}
                     </tr>
 
                 </thead>
                 <tbody>
                     {filteredData.map((item, index) => (
 
-                        <tr key={index} className="hover:bg-blue-100/40 text-sm text-[#000000]  ">
+                        <tr key={index} className="hover:bg-blue-100/40 text-sm  text-[#000000]  ">
+                            <td className="border font-bold text-center px-4 py-2">{item.HSN_code}</td>
                             <td className="border font-bold text-center px-4 py-2">{item.category}</td>
                             <td className="border font-bold text-center px-4 py-2">{item.bike_category}</td>
                             <td className="border font-bold text-center px-4 py-2">{item.product_name}</td>
                             <td className="border font-bold text-center px-4 py-2">{item.size}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.remaining_quantity}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item.color}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item.quntity}</td>
                             <td className="border font-bold text-center px-4 py-2">{item.city}</td>
-                            <td className="border px-4 py-2">
+                            <td className="border font-bold text-center px-4 py-2">{item.user}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item.updated_at.toString().substring(0, 10)}</td>
+                            {/* <td className="border px-4 py-2">
                                 <div className="flex justify-center gap-5">
-                                    {/* <button className="rounded-full flex   items-center justify-center p-2 bg-gray-200 hover:bg-gray-300">
-                                        <span><FaCheck className="text-green-500" /> </span>  
-                                        <span className="ml-2">Use Quantity</span> 
-                                    </button> */}
+                                  
 
                                     <button onClick={() => openModal(index)} class="button"> USE
                                     </button>
                                 </div>
-                            </td>
+                            </td> */}
 
 
 
-
+{/* 
                             <td className="border px-4 py-2">
                                 <div className="flex justify-center gap-5">
-                                    {/* <button className="rounded-full flex   items-center justify-center p-2 bg-gray-200 hover:bg-gray-300">
-                                        <span><FaCheck className="text-green-500" /> </span>  
-                                        <span className="ml-2">Use Quantity</span> 
-                                    </button> */}
-
+                           
                                     <button onClick={() => openModals(index)} class="button"> TRF
                                     </button>
                                 </div>
-                            </td>
+                            </td> */}
 
 
 
@@ -213,7 +215,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                                     <h2 className="text-xl font-bold mb-4 ">coming soon</h2></div>
                                 <div className="mb-5 "  > <p> Are you sure to  Trasfer?</p></div>
                                 <div className="font-bold text-black"  > <p> Transfer</p></div>
-                                {/* <div className="mb-3 " >
+                                <div className="mb-3 " >
                                     <input
                                         type="number"
                                         placeholder='Enter qunatity'
@@ -226,7 +228,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                                             }
                                         }}
                                     />
-                                </div> */}
+                                </div>
 
 
 
@@ -268,7 +270,6 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                                 <div className="mb-3 " >
                                     <input
                                         type="number"
-                                        required
                                         placeholder='Enter qunatity'
                                         value={updatedQuantities[selectedIndex] || ''}
                                         onChange={(e) => handleQuantityChange(selectedIndex, e, filteredData[selectedIndex])}
@@ -317,4 +318,4 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
     );
 };
 
-export default Category_data;
+export default Catdata;
