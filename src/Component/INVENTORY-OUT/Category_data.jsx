@@ -26,8 +26,6 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
 
 
 
-
-
     // Handle opening the modal for a specific index
     const openModal = (index) => {
         setSelectedIndex(index);

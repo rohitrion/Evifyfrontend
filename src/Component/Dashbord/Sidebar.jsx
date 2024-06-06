@@ -10,6 +10,8 @@ import { GoFile } from "react-icons/go";
 import { SiReacthookform } from "react-icons/si";
 import { FaWpforms } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
+import { TbReport } from "react-icons/tb";
+
 const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }) => {
 
     const [showAboutSubmenu, setShowAboutSubmenu] = useState(false);
@@ -117,6 +119,14 @@ const Sidebar = ({ openSidebarToggle, OpenSidebar, onSidebarItemClick, onClick }
         </li>
     </div>
 )} */}
+
+                <li className='sidebar-list-item s-col text-black' onClick={() => onSidebarItemClick('Report')}>
+
+
+                    <TbReport className='icon' /> Report
+
+
+                </li>
 
                 <li className='sidebar-list-item s-col text-black'>
 
