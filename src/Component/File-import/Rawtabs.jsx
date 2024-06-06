@@ -66,14 +66,6 @@ const Rawtabs = ({ activetab, item, val, data, setdata }) => {
 
 
 
-
-
-
-
-
-
-
-
   const handleDeletefile = async (file_key) => {
     setloading(true);
     try {
