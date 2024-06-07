@@ -209,17 +209,19 @@ const Ahzomato = () => {
       toast.error('Cannot delete the only slab', { autoClose: 1000 }); // Display an error if there's only one slab
     }
   };
-  // useEffect(() => {
-  //   const savedInputValues = localStorage.getItem('inputValuesahzomato');
-  //   if (savedInputValues) {
-  //     setRentModal(JSON.parse(savedInputValues));
-  //   }
-  // }, []);
 
-  // // Effect to save inputValues to localStorage whenever it changes
-  // useEffect(() => {
-  //   localStorage.setItem('inputValuesahzomato', JSON.stringify(rentmodal));
-  // }, [rentmodal]);
+  
+  useEffect(() => {
+    const savedInputValues = localStorage.getItem('inputValuesahzomato');
+    if (savedInputValues) {
+      setRentModal(JSON.parse(savedInputValues));
+    }
+  }, []);
+
+  // Effect to save inputValues to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('inputValuesahzomato', JSON.stringify(rentmodal));
+  }, [rentmodal]);
 
 
 
