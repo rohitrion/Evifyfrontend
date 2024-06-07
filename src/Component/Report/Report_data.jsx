@@ -94,8 +94,8 @@ const Report_data = ({ item, data, setdata, onEdit, filteredData, onProductSelec
                 <tbody>
                     {filteredData.map((item, index) => (
                         <tr key={index} className="hover:bg-[#8FB7B0] text-sm  text-[#000000]   ">
-                            <td className="border font-bold cursor-pointer text-center px-4 py-2" onClick={() => handleClick(item)}>{item.invoice_number}</td>
-                            <td className="border font-bold cursor-pointer text-center px-4 py-2" onClick={() => handleClick(item)}>{item.vendor}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.invoice_number}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2" >{item.vendor}</td>
                             <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.user?.first_name}</td>
                             <td className="border font-bold text-center px-4 py-2" >{item.updated_at}</td>
                             <td className="border px-4 py-2">

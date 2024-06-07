@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { BaseURLState, Edit, Toggle, Toggleselectedid } from '../Recoil';
+import { AuthState, BaseURLState, Edit, Toggle, Toggleselectedid } from '../Recoil';
 import { FaRegEdit } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCheck } from 'react-icons/fa';
@@ -20,7 +20,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
     const baseurl = useRecoilValue(BaseURLState);
     const [narration, setnarration] = useState('');
 
-
+    const [authState, setauthstate] = useRecoilState(AuthState)
 
     const [sta, setstaic] = useState(false)
 
@@ -47,6 +47,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
     const closeModal = () => {
         setIsOpen(false);
         // setSelectedIndex(null);
+        setnarration('')
         setUpdatedQuantities({})
     };
 
@@ -68,11 +69,23 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
 
     const handleUpdateQuantity = async (index, item) => {
         const quantity = updatedQuantities[index];
-        if (quantity == "" || narration == "") {
+        if ((quantity === "" || quantity === undefined) || narration === '') {
+            // Either quantity or narration is empty, so return without making the API call
+            toast.error("Please enter both quantity and narration");
             return;
         }
 
         try {
+
+
+
+
+            const headers = {
+                'Authorization': `Bearer ${authState.token}`,
+            };
+
+
+
             const url = `${baseurl}/inventory/use`;
             await axios.post(url, {
                 product_name: item.product_name,
@@ -84,6 +97,8 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                 HSN_code: item.hsn_code,
                 quantity,
                 name: narration
+            },{
+                headers: headers 
             });
 
             toast.success("Quantity updated successfully");

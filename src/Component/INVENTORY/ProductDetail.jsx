@@ -874,7 +874,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
                     placeholder="Select a City name"
                     isClearable
                   // filterOption={customFilterOption}
-                  /> */}
+                  /> */} 
 
 
 

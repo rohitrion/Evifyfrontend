@@ -33,7 +33,7 @@ const Catdata = ({ item, data, setdata, onEdit, filteredData, setFilteredData, o
     const openModal = (index) => {
         setSelectedIndex(index);
         setIsOpen(true);
-     setFilteredData("updated_at")
+        setFilteredData("updated_at")
         setstaic(false)
     };
 
@@ -151,8 +151,8 @@ const Catdata = ({ item, data, setdata, onEdit, filteredData, setFilteredData, o
                         <th className="border text-center px-4 py-2">Color</th>
                         <th className="border text-center px-4 py-2">Quantity</th>
                         <th className="border text-center px-4 py-2">City</th>
-                        <th className="border text-center px-4 py-2">User</th> 
-                        <th className="border text-center px-4 py-2">Update_At</th>  
+                        <th className="border text-center px-4 py-2">User</th>
+                        <th className="border text-center px-4 py-2">Update_At</th>
                         {/* <th className="border px-4 py-2 text-center">Actions</th>
                         <th className="border px-4 py-2 text-center">Transfer</th> */}
                     </tr>
@@ -162,15 +162,18 @@ const Catdata = ({ item, data, setdata, onEdit, filteredData, setFilteredData, o
                     {filteredData.map((item, index) => (
 
                         <tr key={index} className="hover:bg-blue-100/40 text-sm  text-[#000000]  ">
-                            <td className="border font-bold text-center px-4 py-2">{item.HSN_code}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.category}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.bike_category}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.product_name}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.size}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.color}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.quntity}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.city}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.user}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item?.HSN_code}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item?.category}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item?.bike_category}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item?.product_name}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item?.size}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item?.color}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item?.quntity}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item?.city}</td>
+                            <td className="border font-bold text-center px-4 py-2">{item?.user?.first_name || 'N/A'}</td>
+
+
+
                             <td className="border font-bold text-center px-4 py-2">{item.updated_at.toString().substring(0, 10)}</td>
                             {/* <td className="border px-4 py-2">
                                 <div className="flex justify-center gap-5">
@@ -183,7 +186,7 @@ const Catdata = ({ item, data, setdata, onEdit, filteredData, setFilteredData, o
 
 
 
-{/* 
+                            {/* 
                             <td className="border px-4 py-2">
                                 <div className="flex justify-center gap-5">
                            

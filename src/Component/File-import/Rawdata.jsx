@@ -74,6 +74,9 @@ function Rawdata({ activetab }) {
                             data={data}
                             val={key}
                             setData={setData}
+                            filteredData={filteredData}
+                            setFilteredData={setFilteredData}
+
                         />
                     ))
                 ) : (

@@ -5,10 +5,10 @@ import { useRecoilState } from "recoil";
 import { BaseURLState, Search } from "../Recoil";
 import Modal from "react-modal";
 import { ThreeDots } from "react-loader-spinner";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import toast, { Toaster } from 'react-hot-toast';
-const Rawtabs = ({ activetab, item, val, data, setdata }) => {
+
+const Rawtabs = ({ activetab, item, val, data, setData, filteredData, setFilteredData }) => {
 
   const [globalurl, setglobalurl] = useRecoilState(BaseURLState)
   const [showModal, setShowModal] = useState(false);
@@ -84,12 +84,23 @@ const Rawtabs = ({ activetab, item, val, data, setdata }) => {
         }
       });
 
-      if (data && setdata) {
-        const filteredData = data.filter(item => item.filekey !== file_key);
-        setdata(filteredData);
-        alert("Deleted ")
-      }
 
+
+
+      const filterData = filteredData.filter(item => item.filekey !== file_key);
+      setData(filterData);
+      setFilteredData(filterData)
+
+
+
+      toast.error("Item deleted", {
+        position: 'top-center',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
 
       console.log(response.data); // Assuming the response contains meaningful data
 
@@ -124,7 +135,7 @@ const Rawtabs = ({ activetab, item, val, data, setdata }) => {
     <>
 
       <div className=" border rounded p-4 m-4 relative flex items-center shadow-lg  hover:bg-gray-200 justify-between   h-[30px]  scrollbar ">
-
+        <ToastContainer />
         <div className="flex items-center  hover:grey   ">
           <p><b>{item.file_name}</b></p>
 
