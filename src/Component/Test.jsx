@@ -87,6 +87,7 @@ const Test = () => {
             <td className="px-4 py-3">
               <Input placeholder="Enter name" />
             </td>
+            <h1>teh direction of its membrane and it s sstaus thatwhy it is good called as the ration aspects </h1>
             <td className="px-4 py-3">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -126,11 +127,11 @@ const Test = () => {
               </div>
             </td>
           </tr>
+  
         </tbody>
       </table>
     </div>
 
   )
 }
-
 export default Test

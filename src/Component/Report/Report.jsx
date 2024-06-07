@@ -17,9 +17,9 @@ const customStyles = {
         bottom: 'auto',
         // marginRight: '-690%',
         transform: 'translate(-50%, -50%)',
-        maxWidth: '60%', // Adjusted width for responsiveness
+        maxWidth: '50%', // Adjusted width for responsiveness
         width: 'auto', // Set to auto for responsiveness
-        maxHeight: '85vh', // Limit height for small screens
+        maxHeight: '80vh', // Limit height for small screens
         overflow: 'auto', // Enable scrolling if content overflows
         background: '#fff',
         borderRadius: '8px',
@@ -1238,7 +1238,7 @@ const Report = () => {
                                 <div className="w-1/4 px-2 mb-4">
                                     <label htmlFor="MONTH*
 " className="block text-[#000000] font-bold mb-2">
-                                        MONTH*
+                                        MONTH
 
 
                                     </label>

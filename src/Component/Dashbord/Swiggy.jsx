@@ -221,18 +221,18 @@ const Swiggy = () => {
         }
     };
 
-    // useEffect(() => {
-    //     const savedInputValues = localStorage.getItem('suratswiggy');
-    //     if (savedInputValues) {
-    //         setRentModal(JSON.parse(savedInputValues));
-    //     }
-    // }, []);
+    useEffect(() => {
+        const savedInputValues = localStorage.getItem('suratswiggy');
+        if (savedInputValues) {
+            setRentModal(JSON.parse(savedInputValues));
+        }
+    }, []);
 
-    // // Effect to save inputValues to localStorage whenever it changes
-    // useEffect(() => {
-    //     console.log('bava');
-    //     localStorage.setItem('suratswiggy', JSON.stringify(rentmodal));
-    // }, [rentmodal]);
+    // Effect to save inputValues to localStorage whenever it changes
+    useEffect(() => {
+       
+        localStorage.setItem('suratswiggy', JSON.stringify(rentmodal));
+    }, [rentmodal]);
 
     return (
 
