@@ -63,7 +63,7 @@ const Ahzomato = () => {
     bad_orders_amount: 20
   }
 
-
+ 
   const [rentmodal, setRentModal] = useState(initialData)
 
 

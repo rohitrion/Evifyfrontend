@@ -257,7 +257,8 @@ const Category = ({ product, onProductSelect }) => {
       try {
 
         setLoading(true);
-        const response = await axios.get(`${baseurl}/product/category`);
+ 
+        const response = await axios.get(`${baseurl}/product/category/v2`);
         if (response.status === 204) {
           // Handle scenario where invoice does not exist
           console.log('Invoice not found.');

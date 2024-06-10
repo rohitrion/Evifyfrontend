@@ -1,8 +1,5 @@
 
 
-
-
-
 import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -144,7 +141,7 @@ const Ahbigbasket = () => {
         localStorage.setItem('inputValuesahbigbasket', JSON.stringify(rentmodal));
     }, [rentmodal]);
 
-
+ 
     return (
     
 

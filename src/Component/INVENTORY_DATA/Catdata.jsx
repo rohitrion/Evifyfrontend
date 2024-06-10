@@ -22,7 +22,6 @@ const Catdata = ({ item, data, setdata, onEdit, filteredData, setFilteredData, o
     const [narration, setnarration] = useState('');
 
 
-
     const [sta, setstaic] = useState(false)
 
 
