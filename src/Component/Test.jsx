@@ -62,19 +62,20 @@
 
 
 // export default Table;
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from 'recoil'
 
 const Test = () => {
-
+ 
+  
    const [test,settest]=useRecoilBridgeAcrossReactRoots_UNSTABLE
    const[data,setdata]=useState(direction(""))
-
-   
-
+    
+    
+     
   return (
 
 
@@ -84,7 +85,7 @@ const Test = () => {
       <table className="w-full max-w-4xl border rounded-lg overflow-hidden">
         <thead>
           <tr className="bg-gray-100 dark:bg-gray-800">
-            <th className="px-4 py-3 text-left font-medium">Name</th>
+            <th className="px-4 py-3 text-left font-medium">Name data  </th>
             <th className="px-4 py-3 text-left font-medium">Status</th>
             <th className="px-4 py-3 text-left font-medium">Start Date</th>
             <th className="px-4 py-3 text-left font-medium">End Date  teh study of it   </th>
@@ -96,7 +97,7 @@ const Test = () => {
             <td className="px-4 py-3">
               <Input placeholder="Enter name" />
             </td>
-            <h1>the  direction of its membrane and it s sstaus thatwhy it is good called as the ration aspects </h1>
+            <h1>the  direction of its membrane and   react frost werty iopsh vcf  it s sstaus thatwhy it is good called as the ration aspects </h1>
             <td className="px-4 py-3">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -118,13 +119,16 @@ const Test = () => {
             </td>
             <td className="px-4 py-3">
               <Input type="date" />
-            </td>
+              <section>
+              </section>
+            </td>    
+              
             <td className="px-4 py-3">
               <div>
                 <div>
                   <Button size="sm" variant="outline">
                     Select assignees teh direction of asign values of it calleds tension gropes
-                    
+                
                   </Button>
                 </div>
                 <div>
@@ -133,7 +137,9 @@ const Test = () => {
                   <div>Jane Smith</div>
                   <div>Bob Johnson</div>
                   <div>Alice Williams</div>
-                  <div>Alice Williams  </div>
+                  <div>Alice Williams   </div>
+                  <div>saurav  </div>
+                
                 </div>
               </div>
             </td>

@@ -306,7 +306,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-      
+
       });
       setIsLoading(false);
 
@@ -501,7 +501,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
   useEffect(() => {
 
     const filteredResults = getapidata.filter(item =>
-      item?.product_name && item.product_name.toLowerCase().includes(search.toLowerCase())
+      item?.product_name && item.product_name.toLowerCase().includes(search.toLowerCase()) || item?.HSN_code && item.HSN_code.toLowerCase().includes(search.toLowerCase())
     );
 
     setFilteredData(filteredResults);
@@ -874,7 +874,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
                     placeholder="Select a City name"
                     isClearable
                   // filterOption={customFilterOption}
-                  /> */} 
+                  /> */}
 
 
 

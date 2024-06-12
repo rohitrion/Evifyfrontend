@@ -239,7 +239,7 @@ const MyComponent = () => {
     useEffect(() => {
 
         const filteredResults = getapidata.filter(item =>
-            item?.vendor && item.vendor.toLowerCase().includes(search.toLowerCase())
+            item?.vendor && item.vendor.toLowerCase().includes(search.toLowerCase()) ||  item.invoice_number.toLowerCase().includes(search.toLowerCase())
         );
 
         setFilteredData(filteredResults);

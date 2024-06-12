@@ -204,8 +204,8 @@ const Inventory_Form = () => {
     const handleCategoryClick = (categoryKey) => {
         setkey(categoryKey)
         if (categoryKey === selectedCategory) {
-            setSelectedCategory(null);
-            setSelectedItems([]);
+            // setSelectedCategory(null);
+            // setSelectedItems([]);
         } else {
             setShowModalForProduct(categoryKey === "product_name")
             //   alert(categoryKey)
