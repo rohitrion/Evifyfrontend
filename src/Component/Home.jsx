@@ -16,6 +16,8 @@ import Category from './INVENTORY-OUT/Category'
 import Inventory_Form from './Sub_inventory/Inventory_Form'
 import Inventory_section from './INVENTORY_DATA/Inventory_section'
 import Report from './Report/Report'
+import FatakFileUpload from './FATAK-PAY/FatakFileUpload'
+import Fatak_data from './FATAK-PAY/Fatak_data'
 
 
 
@@ -29,47 +31,49 @@ function Home({ name, log }) {
 
   const [currentFileUploadStep, setCurrentFileUploadStep] = useState(1);
 
-  const [num,setnum] =useRecoilState(Num)
+  const [num, setnum] = useRecoilState(Num)
 
- const[auth,setAuth]=useRecoilState(AuthState)
- const [gfile,setgfile]=useRecoilState(GloablFile)
- const [fileName, setFileName] = useRecoilState(Filename)
+  const [auth, setAuth] = useRecoilState(AuthState)
+  const [gfile, setgfile] = useRecoilState(GloablFile)
+  const [fileName, setFileName] = useRecoilState(Filename)
 
   const handleSidebarItemClick = (content) => {
     setSelectedContent(content);
     // setCurrentFileUploadStep(1);
-     setnum(0)
-     setgfile(null)
-     setFileName(null)
+    setnum(0)
+    setgfile(null)
+    setFileName(null)
   };
- 
+
 
   const handleFileUploadNext = () => {
     // setCurrentFileUploadStep(currentFileUploadStep + 1);
-  
+
   };
 
- 
+
   const contentComponents = {
     Dashboard: <Main />,
-    "File-upload": <File   
-    currentStep={num}
+    "File-upload": <File
+      currentStep={num}
     // onNext={handleFileUploadNext}
     />,
     "File-Import": <Import />,
-    "Inventory-in":<Inventory/>,
-    "Inventory-out": <Category/>, 
-    "form": <Inventory_Form/>,
-    'Inventory-Data': <Inventory_section/>,
-    'Report' : <Report/>
+    "Inventory-in": <Inventory />,
+    "Inventory-out": <Category />,
+    'Fatak-File_UPLOAD': <FatakFileUpload />,
+    "FATAK_FILE_DATA": <Fatak_data />,
+    "form": <Inventory_Form />,
+    'Inventory-Data': <Inventory_section />,
+    'Report': <Report />
 
 
   }
 
   // const [show,setshow]=useState(true)
-   
+
   // const handleButtonClick = () => {
- 
+
   //   setshow(false);
   // };
 
@@ -103,13 +107,13 @@ function Home({ name, log }) {
       <div className='grid-container'>
 
 
-        <Header  onClick={handleLogout}   selectedContent={selectedContent} />
-        <Sidebar  onClick={handleLogout}  onSidebarItemClick={handleSidebarItemClick} />
+        <Header onClick={handleLogout} selectedContent={selectedContent} />
+        <Sidebar onClick={handleLogout} onSidebarItemClick={handleSidebarItemClick} />
         {/* { show && log ?  <Main   /> :  <File/>
 
         }
   */}
-                {contentComponents[selectedContent]}
+        {contentComponents[selectedContent]}
 
       </div>
     </>

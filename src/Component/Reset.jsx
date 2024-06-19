@@ -20,7 +20,7 @@
 //     const navigate = useNavigate()
 //     const handleResetPassword = async (e) => {
 //         e.preventDefault();
-
+           //this is what i called by it 
 //         try {
 //             await sendPasswordResetEmail(auth, email);
 //             toast.success('Password reset email sent. Please check your inbox for further instructions.', { position: "top-center", });
@@ -29,6 +29,7 @@
 //             setError(err.message);
 //         }
 //     };
+//      
 
 //     return (
 //         <>

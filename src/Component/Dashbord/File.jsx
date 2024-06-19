@@ -55,7 +55,7 @@ const File = ({ currentStep, onNext }) => {
   const [filerespose, setfileresponse] = useRecoilState(FileUploadresponse)
   const [authState, setauthstate] = useRecoilState(AuthState)
 
-  // console.log(num)
+
 
   console.log(Gfile + "data")
 

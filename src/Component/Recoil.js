@@ -66,7 +66,7 @@ export const Finalresponse = atom({
 
 
 
-
+ 
 
 
 
@@ -144,4 +144,12 @@ export const FileUploadresponse = atom({
 
 
  
+
+
+
+export const Fatakfileresponse = atom({
+  key: "Fatakfileresponse",
+  default: ''
+})
+
 

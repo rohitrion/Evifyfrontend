@@ -222,18 +222,18 @@ const Salary = () => {
 
 
 
-  useEffect(() => {
-    const savedInputValues = localStorage.getItem('inputValuezomatosurat');
-    if (savedInputValues) {
-        setRentModal(JSON.parse(savedInputValues));
-    }
-}, []);
+//   useEffect(() => {
+//     const savedInputValues = localStorage.getItem('inputValuezomatosurat');
+//     if (savedInputValues) {
+//         setRentModal(JSON.parse(savedInputValues));
+//     }
+// }, []);
 
-// Effect to save inputValues to localStorage whenever it changes
-useEffect(() => {
+// // Effect to save inputValues to localStorage whenever it changes
+// useEffect(() => {
   
-    localStorage.setItem('inputValuezomatosurat', JSON.stringify(rentmodal));
-}, [rentmodal]);
+//     localStorage.setItem('inputValuezomatosurat', JSON.stringify(rentmodal));
+// }, [rentmodal]);
 
 
   return (

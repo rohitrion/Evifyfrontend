@@ -97,8 +97,8 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                 HSN_code: item.hsn_code,
                 quantity,
                 name: narration
-            },{
-                headers: headers 
+            }, {
+                headers: headers
             });
 
             toast.success("Quantity updated successfully");
@@ -142,7 +142,7 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
 
 
     return (
-        <>
+        <> 
             <ToastContainer
                 position="top-center"
                 autoClose={1500}
@@ -151,64 +151,71 @@ const Category_data = ({ item, data, setdata, onEdit, filteredData, setFilteredD
                 pauseOnHover
                 theme="dark"
             />
-
-            <table className="border-separate  border-1 w-4/5 mx-auto    ">
-                <thead style={{ position: 'sticky', top: 0, zIndex: 3 }} >
-                    <tr className="bg-[#FFB603] text-[#000000]  ">
-                        <th className="border px-4 text-center py-2">Category</th>
-                        <th className="border text-center px-4 py-2">Bike</th>
-                        <th className="border text-center px-4 py-2">Product</th>
-                        <th className="border text-center px-4 py-2">Size</th>
-                        <th className="border text-center px-4 py-2">Quantity</th>
-                        <th className="border text-center px-4 py-2">City</th>
-                        <th className="border px-4 py-2 text-center">Actions</th>
-                        <th className="border px-4 py-2 text-center">Transfer</th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    {filteredData.map((item, index) => (
-
-                        <tr key={index} className="hover:bg-blue-100/40 text-sm text-[#000000]  ">
-                            <td className="border font-bold text-center px-4 py-2">{item.category}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.bike_category}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.product_name}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.size}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.remaining_quantity}</td>
-                            <td className="border font-bold text-center px-4 py-2">{item.city}</td>
-                            <td className="border px-4 py-2">
-                                <div className="flex justify-center gap-5">
-                                    {/* <button className="rounded-full flex   items-center justify-center p-2 bg-gray-200 hover:bg-gray-300">
-                                        <span><FaCheck className="text-green-500" /> </span>  
-                                        <span className="ml-2">Use Quantity</span> 
-                                    </button> */}
-
-                                    <button onClick={() => openModal(index)} class="button"> USE
-                                    </button>
-                                </div>
-                            </td>
-
-
-
-
-                            <td className="border px-4 py-2">
-                                <div className="flex justify-center gap-5">
-                                    {/* <button className="rounded-full flex   items-center justify-center p-2 bg-gray-200 hover:bg-gray-300">
-                                        <span><FaCheck className="text-green-500" /> </span>  
-                                        <span className="ml-2">Use Quantity</span> 
-                                    </button> */}
-
-                                    <button onClick={() => openModals(index)} class="button"> TRF
-                                    </button>
-                                </div>
-                            </td>
-
-
-
+            {filteredData.length === 0 ? (
+                <div className="flex justify-center items-center h-screen">
+                    <div className="text-center">
+                        <h2 className="text-3xl font-bold mb-4">No Data Found</h2>
+                        {/* <p className="text-lg text-gray-600">Create Product  , to display Data.</p> */}
+                    </div>
+                </div>
+            ) : (
+                <table className="border-separate  border-1 w-4/5 mx-auto    ">
+                    <thead style={{ position: 'sticky', top: 0, zIndex: 3 }} >
+                        <tr className="bg-[#FFB603] text-[#000000]  ">
+                            <th className="border px-4 text-center py-2">Category</th>
+                            <th className="border text-center px-4 py-2">Bike</th>
+                            <th className="border text-center px-4 py-2">Product</th>
+                            <th className="border text-center px-4 py-2">Size</th>
+                            <th className="border text-center px-4 py-2">Quantity</th>
+                            <th className="border text-center px-4 py-2">City</th>
+                            <th className="border px-4 py-2 text-center">Actions</th>
+                            <th className="border px-4 py-2 text-center">Transfer</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+
+                    </thead>
+                    <tbody>
+                        {filteredData.map((item, index) => (
+
+                            <tr key={index} className="hover:bg-blue-100/40 text-sm text-[#000000]  ">
+                                <td className="border font-bold text-center px-4 py-2">{item.category}</td>
+                                <td className="border font-bold text-center px-4 py-2">{item.bike_category}</td>
+                                <td className="border font-bold text-center px-4 py-2">{item.product_name}</td>
+                                <td className="border font-bold text-center px-4 py-2">{item.size}</td>
+                                <td className="border font-bold text-center px-4 py-2">{item.remaining_quantity}</td>
+                                <td className="border font-bold text-center px-4 py-2">{item.city}</td>
+                                <td className="border px-4 py-2">
+                                    <div className="flex justify-center gap-5">
+                                        {/* <button className="rounded-full flex   items-center justify-center p-2 bg-gray-200 hover:bg-gray-300">
+                                        <span><FaCheck className="text-green-500" /> </span>  
+                                        <span className="ml-2">Use Quantity</span> 
+                                    </button> */}
+
+                                        <button onClick={() => openModal(index)} class="button"> USE
+                                        </button>
+                                    </div>
+                                </td>
+
+
+
+
+                                <td className="border px-4 py-2">
+                                    <div className="flex justify-center gap-5">
+                                        {/* <button className="rounded-full flex   items-center justify-center p-2 bg-gray-200 hover:bg-gray-300">
+                                        <span><FaCheck className="text-green-500" /> </span>  
+                                        <span className="ml-2">Use Quantity</span> 
+                                    </button> */}
+
+                                        <button onClick={() => openModals(index)} class="button"> TRF
+                                        </button>
+                                    </div>
+                                </td>
+
+
+
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>)}
 
             {
                 sta ? <div>
