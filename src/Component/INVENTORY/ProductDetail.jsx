@@ -887,7 +887,7 @@ const ProductDetail = ({ product, onProductSelect }) => {
                     <option value="Select">Select </option>
                     <option value="NOS">NOS </option>
                     <option value="PACKET">PACKET</option>
-
+                    <option value="SET">SET</option>
 
                   </select>
 

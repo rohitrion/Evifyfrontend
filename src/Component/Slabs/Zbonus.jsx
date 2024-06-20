@@ -390,11 +390,11 @@ const Zbonus = () => {
             <tr>
               <th className="border px-4 py-2">Name</th>
               <th className="border px-4 py-2  ">Client</th>
-              <th className="border px-4 py-2">Date to</th>
               <th className="border px-4 py-2">Date from</th>
+              <th className="border px-4 py-2">Date to</th>
               <th className="border px-4 py-2">Days</th>
-              <th className="border px-4 py-2">Order To</th>
               <th className="border px-4 py-2">Order From</th>
+              <th className="border px-4 py-2">Order to</th>
               <th className="border px-4 py-2">Present</th>
               <th className="border px-4 py-2">Incentive</th>
               <th className="border px-4 py-2">Penalty</th>

@@ -269,8 +269,8 @@ const Ahzomato = () => {
                       <table className="border border-gray-300 text-center mt-4">
                         <thead>
                           <tr className="text-center">
-                            <th className="border border-gray-300 p-2">ORDER-TO</th>
                             <th className="border border-gray-300 p-2">ORDER-FROM</th>
+                            <th className="border border-gray-300 p-2">ORDER-TO</th>
                             <th className="border border-gray-300 p-2">MON-FRI</th>
                             <th className="border border-gray-300 p-2">SAT-SUN</th>
                           </tr>

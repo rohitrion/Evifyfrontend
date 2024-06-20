@@ -161,8 +161,8 @@ const ECOM = () => {
 
                                 <thead>
                                     <tr>
-                                        <th className="border border-gray-300 p-2"> ORDERS TO</th>
-                                        <th className="border border-gray-300 p-2">ORDERS FROM</th>
+                                        <th className="border border-gray-300 p-2"> ORDERS FROM </th>
+                                        <th className="border border-gray-300 p-2">ORDERS TO</th>
                                         <th className="border border-gray-300 p-2">MON-SUN</th>
 
                                     </tr>

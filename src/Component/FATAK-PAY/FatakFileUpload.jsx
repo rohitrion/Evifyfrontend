@@ -424,6 +424,10 @@ const FatakFileUpload = () => {
   const [filefiltreData, setFilefiltreData] = useState([]);
 
 
+  const [active, setactive] = useState("rawfiles")
+
+
+
   const handleFileChange = (e) => {
     const selectedfile = e.target.files[0];
 
@@ -507,7 +511,7 @@ const FatakFileUpload = () => {
   };
 
 
-
+  
 
 
 
@@ -518,15 +522,25 @@ const FatakFileUpload = () => {
 
   const handleDeletefile = async (file_key) => {
     setloding(true);
+
+
+
+
+
     try {
-      let url = `${baseurl}/weekly/rawfile/${file_key}`;
+      let url;
+      if (active === "rawfiles") {
+        url = `${baseurl}/weekly/rawfile/${file_key}`;
+      } else if (active === "salaryfiles") {
+        url = `${baseurl}/weekly/salaryfile/${file_key}`;
+      }
       const response = await axios.delete(url, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
 
-
+      console.log(response.data)
       let updatedata = filefiltreData.filter((item) => item.filekey !== file_key)
       setFilefiltreData(updatedata)
 
@@ -542,7 +556,7 @@ const FatakFileUpload = () => {
       });
 
 
-      // console.log(response.data); // Assuming the response contains meaningful data
+
 
     } catch (error) {
       console.error('Error deleting file:', error);
@@ -590,10 +604,24 @@ const FatakFileUpload = () => {
 
 
   useEffect(() => {
+
+
     const fetchData = async () => {
+
+
+
+      let url;
+      if (active === "rawfiles") {
+        url = `${baseurl}/get/weekly/rawfiles`;
+      } else if (active === "salaryfiles") {
+        url = `${baseurl}/get/weekly/salaryfiles`;
+      }
+
+         
+
       try {
         setloding(true);
-        const response = await axios.get(`${baseurl}/get/weekly/rawfiles`)
+        const response = await axios.get(url)
         // setData(response.data.data);
         setFilteredData(response.data.files);
         console.log(response.data.files)
@@ -605,7 +633,7 @@ const FatakFileUpload = () => {
     };
 
     fetchData();
-  }, []);
+  }, [active]);
 
 
 
@@ -620,7 +648,7 @@ const FatakFileUpload = () => {
 
       <div className="flex flex-col">
         <ToastContainer />
-        <div className="p-8 rounded shadow-lg">
+        <div className="p-8 rounded h-screen shadow-lg">
           <div className="mb-6">
             <label className="flex flex-col items-center px-4 py-6 bg-[#dbbdff] text-indigo-600 rounded-lg shadow-md tracking-wide uppercase cursor-pointer border border-indigo-600 hover:bg-indigo-400">
               <svg
@@ -648,12 +676,36 @@ const FatakFileUpload = () => {
             </label>
           </div>
           <div className="flex justify-between mb-6">
+
+
+
             <button
-              className="bg-[#EFEFEF] text-black px-8 py-2 rounded-lg shadow-lg hover:bg-blue-500 font-bold transition duration-300 ease-in-out transform hover:scale-105"
+              className={`px-8 py-2 rounded-lg shadow-lg font-bold transition duration-300 ease-in-out transform hover:scale-105 ${active === "rawfiles"
+                ? "bg-blue-500 text-white"
+                : "bg-[#EFEFEF] text-black hover:bg-blue-500"
+                }`}
+              onClick={() => setactive("rawfiles")}
+            >
+              Raw Data
+            </button>
+            <button
+              className={`px-8 py-2 rounded-lg shadow-lg font-bold transition duration-300 ease-in-out transform hover:scale-105 ${active === "salaryfiles"
+                ? "bg-blue-500 text-white"
+                : "bg-[#EFEFEF] text-black hover:bg-blue-500"
+                }`}
+              onClick={() => setactive("salaryfiles")}
+            >
+              Salary Data
+            </button>
+
+
+            <button
+              className="bg-[#DBBDFF] text-black px-8 py-2 rounded-lg shadow-lg hover:bg-blue-500 font-bold transition duration-300 ease-in-out transform hover:scale-105"
               onClick={handleUpload}
             >
               Upload & Calculate
             </button>
+
             <input
               type="text"
               placeholder="🔍️   Search by File name"
@@ -674,16 +726,16 @@ const FatakFileUpload = () => {
           ) : (
             ""
           )}
-          <div className="border rounded p-4 m-4 relative flex flex-col  items-center shadow-lg hover:bg-gray-200 justify-between max-h-[30rem] overflow-auto scrollbar">
+          <div className="border rounded p-4  relative flex flex-col  items-center shadow-lg hover:bg-gray-200 justify-between max-h-[30rem] overflow-auto scrollbar">
             {filefiltreData.map((item, index) => (
               <div
                 key={index}
-                className="w-full border rounded p-4 mb-2 flex justify-between items-center bg-white hover:bg-gray-100"
+                className="w-full border  rounded p-4 mb-2 flex justify-between items-center bg-white hover:bg-gray-100"
               >
                 <p>
                   <b>{item.file_name}</b>
                 </p>
-                <div className='flex gap-6'>
+                <div className='flex gap-8'>
                   <button className="bg-green-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-green-600">
                     Download
                   </button>

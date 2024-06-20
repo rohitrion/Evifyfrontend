@@ -69,15 +69,15 @@ import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, Dropdown
 import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from 'recoil'
 
 const Test = () => {
- 
-  
-   const [test,settest]=useRecoilBridgeAcrossReactRoots_UNSTABLE
-   const[data,setdata]=useState(direction(""))
-    
-    
-     
+
+
+  const [test, settest] = useRecoilBridgeAcrossReactRoots_UNSTABLE
+  const [data, setdata] = useState(direction(""))
+
+
+
   return (
- 
+
 
 
 
@@ -85,7 +85,7 @@ const Test = () => {
       <table className="w-full max-w-4xl border rounded-lg overflow-hidden">
         <thead>
           <tr className="bg-gray-100 dark:bg-gray-800">
-            <th className="px-4 py-3 text-left font-medium">Name data  </th>
+            <th className="px-4 py-3 text-left font-medium">what is mean by section they it is  </th>
             <th className="px-4 py-3 text-left font-medium">Status</th>
             <th className="px-4 py-3 text-left font-medium">Start Date</th>
             <th className="px-4 py-3 text-left font-medium">End Date  teh study of it   </th>
@@ -108,9 +108,9 @@ const Test = () => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Status</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuCheckboxItem>Pending data is  </DropdownMenuCheckboxItem>
+                  <DropdownMenuCheckboxItem>Pending data is section curve and it is   </DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem>In Progress</DropdownMenuCheckboxItem>
-                  <DropdownMenuCheckboxItem>Completed</DropdownMenuCheckboxItem>
+                  <DropdownMenuCheckboxItem>Completed section an dit section called  </DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </td>
@@ -121,30 +121,30 @@ const Test = () => {
               <Input type="date" />
               <section>
               </section>
-            </td>    
-              
+            </td>
+
             <td className="px-4 py-3">
               <div>
                 <div>
                   <Button size="sm" variant="outline">
-                    Select assignees teh direction of asign values of it calleds tension gropes
-                
+                    Select assignees teh direction of asign values ,section curve  
+                    what is mean by survey it is called multi form section and it is driven by its space that why they called
                   </Button>
                 </div>
                 <div>
-                  <div>Assignees</div>
+                  <div>Assignees draw tyre is caled</div>
                   <div>John Doe</div>
                   <div>Jane Smith</div>
                   <div>Bob Johnson</div>
                   <div>Alice Williams</div>
                   <div>Alice Williams   </div>
-                  <div>saurav  </div>
-                
+                  <div>alice williams    </div>
+
                 </div>
               </div>
             </td>
           </tr>
-  
+
         </tbody>
       </table>
     </div>

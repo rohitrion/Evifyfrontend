@@ -178,11 +178,11 @@ const Inventory_Form = () => {
     };
 
 
-// Logic to handle creating a new item
+    // Logic to handle creating a new item
     const handleCreate = (category) => {
         if (key == category) {
             setIsOpen(true);
-            setholder(category) 
+            setholder(category)
             setShowModalForProduct(category === "product_name")
             setselectvalue('')
             sethsn('')
@@ -219,23 +219,6 @@ const Inventory_Form = () => {
 
 
 
-    // const renderCategoryItemName = (categoryKey, item) => {
-    //     const searchQuery = searchQueries[categoryKey].toLowerCase();
-    //     const itemName = item[categorynamess[categoryKey]].toLowerCase();
-
-    //     if (itemName.includes(searchQuery)) {
-    //         switch (categoryKey) {
-    //             case 'category':
-    //                 return item.category_name;
-    //             case 'color':
-    //                 return item.color_name;
-    //             // ... (add cases for other categories)
-    //             default:
-    //                 return item.item.name;
-    //         }
-    //     }
-    //     return null;
-    // };
 
 
     const renderCategoryItemName = (categoryKey, item) => {
