@@ -74,6 +74,9 @@ const Report_data = ({ item, data, setdata, onEdit, filteredData, onProductSelec
     const handleClick = (product) => {
         onProductSelect(product);
     };
+   
+
+
 
     return (
         <><ToastContainer />
@@ -84,20 +87,48 @@ const Report_data = ({ item, data, setdata, onEdit, filteredData, onProductSelec
             <table className="border-separate font-sans  border-2 w-11/12 mx-auto  " >
                 <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
                     <tr className="bg-[#FFB603] text-[#000000]  ">
-                        <th className="border px-4  text-center py-2">Invoice Number</th> 
-                        <th className="border  text-center px-4 py-2">Vendor</th>
-                        <th className="border  text-center px-4 py-2">User</th>
-                        <th className="border  text-center px-4 py-2">Last-updated</th>
-                        <th className="border px-4  text-center py-2">Actions</th>
+                        <th className="border px-4  text-center py-2">Month</th> 
+                        <th className="border  text-center px-4 py-2">Average_Rider</th>
+                        <th className="border  text-center px-4 py-2">Sales_with_gst</th>
+                        <th className="border  text-center px-4 py-2">Vehicle_Deploy</th>
+                        <th className="border px-4  text-center py-2">Carry_Forward</th>
+                        <th className="border px-4  text-center py-2">sales_without_gst</th>
+                        <th className="border px-4  text-center py-2">Vehicle_under_repair</th>
+                        <th className="border px-4  text-center py-2">New_Join_Rider</th>
+                        <th className="border px-4  text-center py-2">payout_with_gst</th>
+                        <th className="border px-4  text-center py-2">fulltime_rider</th>
+                        <th className="border px-4  text-center py-2">left_rider</th>
+                        <th className="border px-4  text-center py-2">payout_without_gst</th>
+                        <th className="border px-4  text-center py-2">city</th>
+                        <th className="border px-4  text-center py-2">year</th>
+                        <th className="border px-4  text-center py-2">fulltime_order</th>
+                        <th className="border px-4  text-center py-2">client</th>
+                        <th className="border px-4  text-center py-2">partime_rider</th>
+                        <th className="border px-4  text-center py-2">shift_1</th>
+                        <th className="border px-4  text-center py-2">shift_2</th>
+                        <th className="border px-4  text-center py-2">shift_3</th>
+                        <th className="border px-4  text-center py-2">shift_4</th>
+                        <th className="border px-4  text-center py-2">partime_order</th> 
+                         <th className="border px-4  text-center py-2">vehicles_added</th>
+                        <th className="border px-4  text-center py-2">vehicles_remove</th>
+                        <th className="border px-4  text-center py-2">active_vehicles</th> 
+                        <th className="border px-4  text-center py-2">Action</th> 
                     </tr>
                 </thead>
                 <tbody>
                     {filteredData.map((item, index) => (
                         <tr key={index} className="hover:bg-[#8FB7B0] text-sm  text-[#000000]   ">
-                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.invoice_number}</td>
-                            <td className="border font-bold cursor-pointer text-center px-4 py-2" >{item.vendor}</td>
-                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.user?.first_name}</td>
-                            <td className="border font-bold text-center px-4 py-2" >{item.updated_at}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.month}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2" >{item.average_rider}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.sales_with_gst}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.vehicle_deploy}</td>
+
+
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.carry_forward}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.sales_without_gst}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.vehicle_under_repair}</td>
+                            <td className="border font-bold cursor-pointer text-center px-4 py-2">{item.new_join_rider}</td>
+                            {/* <td className="border font-bold text-center px-4 py-2" >{item.updated_at}</td> */}
                             <td className="border px-4 py-2">
 
                                 <td className=" px-4 py-2 flex justify-center gap-5">

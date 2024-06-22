@@ -402,7 +402,7 @@ const Inventory_Form = () => {
                 is_deleted: false,
                 hsn_code: hsn,
                 category: selectVal.label
-            };
+            }; 
 
 
 
@@ -517,7 +517,7 @@ const Inventory_Form = () => {
     //     setinput(e.target.value)
     //     sethsn(e.target.value)
     //     setproductcategory(e.target.value)
-    // }
+    // } 
 
 
     const handleInputChange = (e) => {

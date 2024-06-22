@@ -120,7 +120,7 @@ function Fatak_data() {
                                     <option value="2030">2030</option>
                                 </select>
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-2">     
                                 <input
                                     type="text"
                                     placeholder=" 🔍️   Search by driver name"

@@ -161,3 +161,4 @@ const DataInventory = ({ item, data, setdata, onEdit, filteredData, onProductSel
 };
 
 export default DataInventory;
+ 

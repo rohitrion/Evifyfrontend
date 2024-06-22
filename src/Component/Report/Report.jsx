@@ -48,28 +48,83 @@ const Report = () => {
     const [authState, setauthstate] = useRecoilState(AuthState)
 
 
+
+    const [year, setyear] = useState('');
+    const [month, setmonth] = useState('');
+    const [client, setclient] = useState();
+    const [city, setcity] = useState('');
+
+
+
+
+
+
     const [inputFields, setInputFields] = useState({
-        invoice_number: '',
-        invoice_amount: '',
-        invoice_date: '',
-        inventory_paydate: '',
-        vendor: '',
-        invoice_image_id: '',
-        invoice_id: ""
+        year: year,
+        client: client,
+        city: city,
+        month: month,
+        fulltime_rider: 0,
+        fulltime_order: 0,
+        partime_rider: 0,
+        partime_order: 0,
+        average_rider: 0,
+        carry_forward: 0,
+        new_join_rider: 0,
+        left_rider: 0,
+        shift_1: 0,
+        shift_1: 0,
+        shift_2: 0,
+        shift_3: 0,
+        shift_4: 0,
+        sales_with_gst: 0,
+        sales_without_gst: 0,
+        payout_with_gst: 0,
+        payout_without_gst: 0,
+        opening_vehicles: 0,
+        vehicles_added: 0,
+        vehicles_remove: 0,
+        active_vehicle: 0,
+        vehicle_deploy: 0,
+        vehicle_under_repair: 0
     });
-    const formRef = useRef(null);
+
+
 
 
 
     const openModal = () => {
         setIsOpen(true);
         setInputFields({
-            invoice_number: '',
-            invoice_amount: '',
-            invoice_date: '',
-            inventory_paydate: '',
-            vendor: '',
-            invoice_image_id: ''
+            year: '',
+            client: '',
+            city: '',
+            month: '',
+            fulltime_order: '',
+            partime_rider: '',
+            fulltime_rider: '',
+            partime_order: '',
+            average_rider: '',
+            carry_forward: '',
+            new_join_rider: '',
+            left_rider: '',
+            shift_1: '',
+            shift_1: '',
+            shift_2: '',
+            shift_3: '',
+            shift_4: '',
+            sales_with_gst: '',
+            sales_without_gst: '',
+            payout_with_gst: '',
+            payout_without_gst: '',
+            opening_vehicles: '',
+            vehicles_added: '',
+            vehicles_remove: '',
+            invoice_id: '',
+            active_vehicle: '',
+            invoice_id: '',
+            vehicle_deploy: '',
+            vehicle_under_repair: ''
         });
         setSelectedInventory(null);
     };
@@ -97,9 +152,7 @@ const Report = () => {
 
     };
 
-    const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
-    };
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -133,12 +186,63 @@ const Report = () => {
         e.preventDefault();
         setIsLoading(true);
 
-        const requiredFields = ['invoice_number', 'invoice_amount', 'invoice_date', 'inventory_paydate', 'vendor'];
+        // const requiredFields = ['invoice_number', 'invoice_amount', 'invoice_date', 'inventory_paydate', 'vendor'];
 
-        const hasEmptyRequiredField = requiredFields.some(field => inputFields[field] === '');
+        // const hasEmptyRequiredField = requiredFields.some(field => inputFields[field] === '');
 
-        if (hasEmptyRequiredField) {
-            toast.error("please fill all the feilds", {
+        // if (hasEmptyRequiredField) {
+        //     toast.error("please fill all the feilds", {
+        //         position: 'top-center',
+        //         autoClose: 1000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //     })
+        //     setIsLoading(false);
+        //     return;
+        // }
+
+
+
+        try {
+            // const formData = new FormData(formRef.current);
+            const headers = {
+                'Authorization': `Bearer ${authState.token}`,
+            };
+
+
+
+
+            // if (selectedInventory) {
+            //     const response = await axios.patch(`${baseurl}/inventories/${selectedInventory.invoice_id}`, formData, {
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         }
+            //     });
+            //     console.log('Inventory updated successfully!');
+            //     console.log(response.data);
+            //     toast.info("Inventory updated successfully", {
+            //         position: 'top-center',
+            //         autoClose: 1000,
+            //         hideProgressBar: false,
+            //         closeOnClick: true,
+            //         pauseOnHover: true,
+            //         draggable: true,
+            //     })
+            //     setgetapi(prevData => prevData.map(item => (
+            //         item.invoice_id === selectedInventory.invoice_id ? inputFields : item
+            //     )));
+            // } else {
+            const response = await axios.post(`${baseurl}/sales`, inputFields, {
+                headers: {
+                    ...headers,
+                    'Content-Type': 'application/json', // Important for file uploads
+                },
+
+            });
+            console.log(response.data)
+            toast.success("Sales data created successfully", {
                 position: 'top-center',
                 autoClose: 1000,
                 hideProgressBar: false,
@@ -146,79 +250,11 @@ const Report = () => {
                 pauseOnHover: true,
                 draggable: true,
             })
-            setIsLoading(false);
-            return;
-        }
 
+            setgetapi(prevData => [...prevData, response.data.invoice]);
+            console.log('Inventory created successfully!');
+            // }
 
-
-        try {
-            const formData = new FormData(formRef.current);
-            const headers = {
-                'Authorization': `Bearer ${authState.token}`,
-            };
-
-            // If an image is uploaded, use the response image URL as the invoice_image_id
-            if (image) {
-                const imageData = new FormData();
-                imageData.append('file', image);
-
-                const responseImage = await axios.post(`${baseurl}/inventories/upload/image`, imageData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-
-                // Set the uploaded image URL as the invoice_image_id
-                formData.append('invoice_image_id', responseImage.data.image_url);
-            } else {
-                // If no new image is uploaded, use the existing invoice_image_id
-                formData.append('invoice_image_id', inputFields.invoice_image_id);
-            }
-
-            if (selectedInventory) {
-                const response = await axios.patch(`${baseurl}/inventories/${selectedInventory.invoice_id}`, formData, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                console.log('Inventory updated successfully!');
-                console.log(response.data);
-                toast.info("Inventory updated successfully", {
-                    position: 'top-center',
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                })
-                setgetapi(prevData => prevData.map(item => (
-                    item.invoice_id === selectedInventory.invoice_id ? inputFields : item
-                )));
-            } else {
-                const response = await axios.post(`${baseurl}/inventories`, formData, {
-                    headers: {
-                        ...headers,
-                        'Content-Type': 'application/json', // Important for file uploads
-                    },
-
-                });
-                console.log(response.data)
-                toast.success("Inventory created successfully", {
-                    position: 'top-center',
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                })
-
-                setgetapi(prevData => [...prevData, response.data.invoice]);
-                console.log('Inventory created successfully!');
-            }
-
-
-            formRef.current.reset();
             setError(null);
 
         } catch (error) {
@@ -234,10 +270,12 @@ const Report = () => {
 
 
 
+
+
     useEffect(() => {
 
         const filteredResults = getapidata.filter(item =>
-            item?.vendor && item.vendor.toLowerCase().includes(search.toLowerCase())
+            item?.month && item.client.toLowerCase().includes(search.toLowerCase())
         );
 
         setFilteredData(filteredResults);
@@ -249,11 +287,11 @@ const Report = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`${baseurl}/inventories`);
+                const response = await axios.get(`${baseurl}/sales`);
 
-                setgetapi(response.data);
-                console.log(response.data)
-                setFilteredData(response.data);
+                setgetapi(response.data.sales);
+                console.log(response.data.sales,"the report data ")
+                setFilteredData(response.data.sales);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setError('Failed to fetch data from the API.');
@@ -264,6 +302,9 @@ const Report = () => {
 
         fetchData();
     }, [baseurl]);
+
+
+    // console.log(inputFields)
 
     return (
         <div>
@@ -1162,7 +1203,7 @@ const Report = () => {
 
                         </form> */}
 
-                        <form onSubmit={handleSubmit} ref={formRef} className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             <h3 className="text-lg font-bold  text-[#000000] mb-4">CLIENT & DATE DETAILS</h3>
                             <div className="flex flex-wrap -mx-2 border-black border-2 rounded p-6">
                                 <div className="w-1/4 px-2 mb-4">
@@ -1171,8 +1212,12 @@ const Report = () => {
                                     </label>
                                     <div className="relative">
                                         <select
+
                                             id="year"
+                                            name="year"
                                             className="w-full px-4 py-2 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            value={inputFields.year}
+                                            onChange={handleChange}
                                         >
                                             <option value="Select">Select</option>
                                             <option value="2021">2021</option>
@@ -1191,77 +1236,83 @@ const Report = () => {
                                 </div>
 
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="CLIENT" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="client" className="block text-[#000000] font-bold mb-2">
                                         CLIENT
                                     </label>
                                     <div className="relative">
                                         <select
-                                            id="CLIENT"
+                                            id="client"
+                                            name="client"
                                             className="w-full px-4 py-2 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            value={inputFields.client}
+                                            onChange={handleChange}
                                         >
                                             <option value="Select">Select</option>
 
-                                            <option value="SWIGGY">SWIGGY</option>
-                                            <option value="BB">BB</option>
-                                            <option value="NOW">NOW</option>
-                                            <option value="BIGBASKET">BIGBASKET</option>
-                                            <option value="BLUDART VAN">BLUDART VAN</option>
-                                            <option value="BLUDART BIKE">BLUDART BIKE</option>
-                                            <option value="RUPTOWN">RUPTOWN</option>
-                                            <option value="FRESH">FRESH</option>
-                                            <option value="BLINKIT">BLINKIT</option>
-                                            <option value="FLIPKART">FLIPKART</option>
+                                            <option value="Bigbasket">Bigbasket</option>
+                                            <option value="BB Now"> BB Now </option>
+                                            <option value="Bluedart">Bluedart</option>
+                                            <option value="E-Com ">E-Com </option>
+                                            <option value="Flipkart">Flipkart</option>
+                                            <option value="Swiggy">Swiggy</option>
+                                            <option value="Blinkit">Blinkit</option>
+                                            <option value="Uptown Fresh"> Uptown Fresh</option>
+                                            <option value="Zomato">Zomato</option>
+
                                         </select>
                                     </div>
                                 </div>
 
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="CITY" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="city" className="block text-[#000000] font-bold mb-2">
                                         CITY
 
                                     </label>
                                     <div className="relative">
                                         <select
-                                            id="CITY*
-                                            "
+                                            id="city"
+                                            name="city"
                                             className="w-full px-4 py-2 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            value={inputFields.city}
+                                            onChange={handleChange}
                                         >
                                             <option value="Select">Select</option>
-                                            <option value="SURAT">SURAT</option>
-                                            <option value="VADODARA">VADODARA</option>
-                                            <option value="AHMEDABAD">AHMEDABAD</option>
+                                            <option value="Surat">Surat</option>
+                                            <option value="Vadodara">Vadodara</option>
+                                            <option value="Ahmedabad">Ahmedabad</option>
                                         </select>
                                     </div>
                                 </div>
 
 
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="MONTH*
-" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="month*
+                               " className="block text-[#000000] font-bold mb-2">
                                         MONTH
 
 
                                     </label>
                                     <div className="relative">
                                         <select
-                                            id="MONTH
-                                            
-                                            "
+                                            id="month"
+                                            name="month"
                                             className="w-full px-4 py-2 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            value={inputFields.month}
+                                            onChange={handleChange}
                                         >
                                             <option value="Select">Select</option>
-                                            <option value="January">January</option>
-                                            <option value="February">February</option>
-                                            <option value="March">March</option>
-                                            <option value="April">April</option>
+                                            <option value="Jan">January</option>
+                                            <option value="Feb">February</option>
+                                            <option value="Mar">March</option>
+                                            <option value="Apr">April</option>
                                             <option value="May">May</option>
-                                            <option value="June">June</option>
-                                            <option value="July">July</option>
-                                            <option value="August">August</option>
-                                            <option value="September">September</option>
-                                            <option value="October">October</option>
-                                            <option value="November">November</option>
-                                            <option value="December">December</option>
+                                            <option value="Jun">June</option>
+                                            <option value="Jul">July</option>
+                                            <option value="Aug">August</option>
+                                            <option value="Sep">September</option>
+                                            <option value="Oct">October</option>
+                                            <option value="Nov">November</option>
+                                            <option value="Dec">December</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1280,8 +1331,11 @@ const Report = () => {
 
                                         </label>
                                         <input
-                                            id="FULL TIME RIDER
-                                        "
+                                            id="fulltime_rider       "
+
+                                            name="fulltime_rider"
+                                            value={inputFields.fulltime_rider}
+                                            onChange={handleChange}
                                             type="number"
                                             step="0.01"
                                             min={0}
@@ -1290,44 +1344,53 @@ const Report = () => {
                                         />
                                     </div>
                                     <div className="w-1/4 px-2 mb-4">
-                                        <label htmlFor="avg-rider" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="fulltime_order" className="block text-[#000000] font-bold mb-2">
                                             FULL TIME ORDER
 
                                         </label>
                                         <input
-                                            id="avg-rider"
+                                            id="fulltime_rider"
                                             type="number"
                                             step="0.01"
                                             min={0}
+                                            name="fulltime_order"
+                                            value={inputFields.fulltime_order}
+                                            onChange={handleChange}
                                             placeholder="Enter AVG_RIDER Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
                                     <div className="w-1/4 px-2 mb-4">
-                                        <label htmlFor="avg-rider" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="partime_rider" className="block text-[#000000] font-bold mb-2">
                                             PART TIME RIDER
 
                                         </label>
                                         <input
-                                            id="avg-rider"
+                                            id="partime_rider"
                                             type="number"
                                             step="0.01"
+                                            name="partime_rider"
+                                            value={inputFields.partime_rider}
+                                            onChange={handleChange}
                                             min={0}
-                                            placeholder="Enter AVG_RIDER Amount"
+                                            placeholder="Enter partime_rider Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
                                     <div className="w-1/4 px-2 mb-4">
-                                        <label htmlFor="avg-rider" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="partime_order" className="block text-[#000000] font-bold mb-2">
                                             PART TIME ORDER
 
                                         </label>
                                         <input
-                                            id="avg-rider"
+                                            id="partime_order"
                                             type="number"
                                             step="0.01"
+                                            name="partime_order"
+                                            value={inputFields.partime_order}
+                                            onChange={handleChange}
                                             min={0}
-                                            placeholder="Enter AVG_RIDER Amount"
+                                            placeholder="Enter partime_order Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
@@ -1338,12 +1401,15 @@ const Report = () => {
                                 <div className="flex flex-wrap -mx-2">
                                     {/* AVG_RIDER */}
                                     <div className="w-1/4 px-2 mb-4">
-                                        <label htmlFor="avg-rider" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="average_rider" className="block text-[#000000] font-bold mb-2">
                                             AVG RIDER
                                         </label>
                                         <input
-                                            id="avg-rider"
+                                            id="average_rider"
                                             type="number"
+                                            name="average_rider"
+                                            value={inputFields.average_rider}
+                                            onChange={handleChange}
                                             step="0.01"
                                             min={0}
                                             placeholder="Enter AVG RIDER Amount"
@@ -1353,12 +1419,15 @@ const Report = () => {
 
                                     {/* Carry forward */}
                                     <div className="w-1/4 px-2 mb-4">
-                                        <label htmlFor="carry-forward" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="carry_forward" className="block text-[#000000] font-bold mb-2">
                                             Carry forward
                                         </label>
                                         <input
-                                            id="carry-forward"
+                                            id="carry_forward"
                                             type="number"
+                                            name="carry_forward"
+                                            value={inputFields.carry_forward}
+                                            onChange={handleChange}
                                             step="0.01"
                                             min={0}
                                             placeholder="Enter Carry forward Amount"
@@ -1368,12 +1437,15 @@ const Report = () => {
 
                                     {/* NEW JOIN RIDER */}
                                     <div className="w-1/4 px-2 mb-4">
-                                        <label htmlFor="new-join-rider" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="new_join_rider" className="block text-[#000000] font-bold mb-2">
                                             NEW JOIN RIDER
                                         </label>
                                         <input
-                                            id="new-join-rider"
+                                            id="new_join_rider"
                                             type="number"
+                                            name="new_join_rider"
+                                            value={inputFields.new_join_rider}
+                                            onChange={handleChange}
                                             step="0.01"
                                             min={0}
                                             placeholder="Enter NEW JOIN RIDER Amount"
@@ -1383,13 +1455,16 @@ const Report = () => {
 
                                     {/* LEFT RIDER */}
                                     <div className="w-1/4 px-2 mb-4">
-                                        <label htmlFor="left-rider" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="left_rider" className="block text-[#000000] font-bold mb-2">
                                             LEFT RIDER
                                         </label>
                                         <input
-                                            id="left-rider"
+                                            id="left_rider"
                                             type="number"
                                             step="0.01"
+                                            name="left_rider"
+                                            value={inputFields.left_rider}
+                                            onChange={handleChange}
                                             min={0}
                                             placeholder="Enter LEFT RIDER Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1402,12 +1477,15 @@ const Report = () => {
                             <div className="flex flex-wrap -mx-2  border-black border-2 p-6">
                                 {/* Repeat the input field structure for Shift-1, Shift-2, Shift-3, and Shift-4 */}
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="shift-1" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="shift_1" className="block text-[#000000] font-bold mb-2">
                                         Shift-1
                                     </label>
                                     <input
-                                        id="shift-1"
+                                        id="shift_1"
                                         type="number"
+                                        name="shift_1"
+                                        value={inputFields.shift_1}
+                                        onChange={handleChange}
                                         step="0.01"
                                         min={0}
                                         placeholder="Enter Shift-1 Amount"
@@ -1415,41 +1493,50 @@ const Report = () => {
                                     />
                                 </div>
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="shift-1" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="shift_2" className="block text-[#000000] font-bold mb-2">
                                         Shift-2
                                     </label>
                                     <input
-                                        id="shift-1"
+                                        id="shift_2"
                                         type="number"
                                         step="0.01"
+                                        name="shift_2"
+                                        value={inputFields.shift_2}
+                                        onChange={handleChange}
                                         min={0}
                                         placeholder="Enter Shift-1 Amount"
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
                                 </div>
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="shift-1" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="shift_3-1" className="block text-[#000000] font-bold mb-2">
                                         Shift-3
                                     </label>
                                     <input
-                                        id="shift-1"
+                                        id="shift_3"
                                         type="number"
                                         step="0.01"
+                                        name="shift_3"
+                                        value={inputFields.shift_3}
+                                        onChange={handleChange}
                                         min={0}
-                                        placeholder="Enter Shift-1 Amount"
+                                        placeholder="Enter Shift-3 Amount"
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
                                 </div>
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="shift-1" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="shift_4" className="block text-[#000000] font-bold mb-2">
                                         Shift-4
                                     </label>
                                     <input
-                                        id="shift-1"
+                                        id="shift_4"
                                         type="number"
                                         step="0.01"
+                                        name="shift_4"
+                                        value={inputFields.shift_4}
+                                        onChange={handleChange}
                                         min={0}
-                                        placeholder="Enter Shift-1 Amount"
+                                        placeholder="Enter Shift-4 Amount"
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
                                 </div>
@@ -1459,58 +1546,70 @@ const Report = () => {
                             <div className="flex flex-wrap -mx-2  border-black border-2 p-6">
                                 {/* Repeat the input field structure for SALES WITH GST, SALES WITHOUT GST, PAYOUT WITH GST, and PAYOUT WITHOUT GST */}
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="sales-with-gst" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="sales_with_gst" className="block text-[#000000] font-bold mb-2">
                                         SALES WITH GST
 
                                     </label>
                                     <input
-                                        id="sales-with-gst"
+                                        id="sales_with_gst"
                                         type="number"
                                         step="0.01"
+                                        name="sales_with_gst"
+                                        value={inputFields.sales_with_gst}
+                                        onChange={handleChange}
                                         min={0}
                                         placeholder="Enter SALES WITH GST Amount"
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
                                 </div>
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="sales-with-gst" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="sales_without_gst" className="block text-[#000000] font-bold mb-2">
                                         SALES WITHOUT GST
 
                                     </label>
                                     <input
-                                        id="sales-with-gst"
+                                        id="sales_without_gst"
                                         type="number"
                                         step="0.01"
+                                        name="sales_without_gst"
+                                        value={inputFields.sales_without_gst}
+                                        onChange={handleChange}
                                         min={0}
-                                        placeholder="Enter SALES WITH GST Amount"
+                                        placeholder="Enter Sales Without GST Amount"
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
                                 </div>
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="sales-with-gst" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="payout_with_gst" className="block text-[#000000] font-bold mb-2">
                                         PAYOUT WITH GST
 
                                     </label>
                                     <input
-                                        id="sales-with-gst"
+                                        id="payout_with_gst"
                                         type="number"
                                         step="0.01"
+                                        name="payout_with_gst"
+                                        value={inputFields.payout_with_gst}
+                                        onChange={handleChange}
                                         min={0}
-                                        placeholder="Enter SALES WITH GST Amount"
+                                        placeholder="Enter Payout WITH GST Amount"
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
                                 </div>
                                 <div className="w-1/4 px-2 mb-4">
-                                    <label htmlFor="sales-with-gst" className="block text-[#000000] font-bold mb-2">
+                                    <label htmlFor="payout_without_gst" className="block text-[#000000] font-bold mb-2">
                                         PAYOUT WITHOUT GST
 
                                     </label>
                                     <input
-                                        id="sales-with-gst"
+                                        id="payout_without_gst"
                                         type="number"
+                                        name="payout_without_gst"
+                                        value={inputFields.payout_without_gst}
+                                        onChange={handleChange}
                                         step="0.01"
                                         min={0}
-                                        placeholder="Enter SALES WITH GST Amount"
+                                        placeholder="Enter Pay Without GST Amount"
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
                                 </div>
@@ -1522,43 +1621,52 @@ const Report = () => {
                                 <div className="flex flex-wrap -mx-2 my-4">
                                     {/* Repeat the input field structure for Opening Vehicles, Vehicles Added, Vehicles Remove, Active Vehicles, Vehicle Deployee, and Vehicles Under Repair */}
                                     <div className="w-1/3 px-2 mb-4">
-                                        <label htmlFor="opening-vehicles" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="opening_vehicles" className="block text-[#000000] font-bold mb-2">
                                             Opening Vehicles
                                         </label>
                                         <input
                                             id="opening-vehicles"
                                             type="number"
                                             step="0.01"
+                                            name="opening_vehicles"
+                                            value={inputFields.opening_vehicles}
+                                            onChange={handleChange}
                                             min={0}
                                             placeholder="Enter Opening Vehicles Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
                                     <div className="w-1/3 px-2 mb-4">
-                                        <label htmlFor="opening-vehicles" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="vehicles_added" className="block text-[#000000] font-bold mb-2">
                                             Vehicles Added
 
                                         </label>
                                         <input
-                                            id="opening-vehicles"
+                                            id="vehicles_added"
                                             type="number"
+                                            name="vehicles_added"
+                                            value={inputFields.vehicles_added}
+                                            onChange={handleChange}
                                             step="0.01"
                                             min={0}
-                                            placeholder="Enter Opening Vehicles Amount"
+                                            placeholder="Enter  Vehicles Added Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
                                     <div className="w-1/3 px-2 mb-4">
-                                        <label htmlFor="opening-vehicles" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="vehicles_remove" className="block text-[#000000] font-bold mb-2">
                                             Vehicles remove
 
                                         </label>
                                         <input
-                                            id="opening-vehicles"
+                                            id="vehicles_remove"
                                             type="number"
                                             step="0.01"
+                                            name="vehicles_remove"
+                                            value={inputFields.vehicles_remove}
+                                            onChange={handleChange}
                                             min={0}
-                                            placeholder="Enter Opening Vehicles Amount"
+                                            placeholder="Enter   Vehicles remove Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
@@ -1566,44 +1674,53 @@ const Report = () => {
                                 <div className="flex flex-wrap -mx-2">
                                     {/* Repeat the input field structure for Opening Vehicles, Vehicles Added, Vehicles Remove, Active Vehicles, Vehicle Deployee, and Vehicles Under Repair */}
                                     <div className="w-1/3 px-2 mb-4">
-                                        <label htmlFor="opening-vehicles" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="active_vehicle" className="block text-[#000000] font-bold mb-2">
                                             Active Vehicles
 
                                         </label>
                                         <input
-                                            id="opening-vehicles"
+                                            id="active_vehicle"
                                             type="number"
+                                            name="active_vehicle"
+                                            value={inputFields.active_vehicle}
+                                            onChange={handleChange}
                                             step="0.01"
                                             min={0}
-                                            placeholder="Enter Opening Vehicles Amount"
+                                            placeholder="Enter  Active Vehicles Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
                                     <div className="w-1/3 px-2 mb-4">
-                                        <label htmlFor="opening-vehicles" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="vehicle_deploy" className="block text-[#000000] font-bold mb-2">
                                             Vehicle Deployee
 
                                         </label>
                                         <input
-                                            id="opening-vehicles"
+                                            id="vehicle_deploy"
                                             type="number"
                                             step="0.01"
+                                            name="vehicle_deploy"
+                                            value={inputFields.vehicle_deploy}
+                                            onChange={handleChange}
                                             min={0}
-                                            placeholder="Enter Opening Vehicles Amount"
+                                            placeholder="Enter    Vehicle Deployee Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
                                     <div className="w-1/3 px-2 mb-4">
-                                        <label htmlFor="opening-vehicles" className="block text-[#000000] font-bold mb-2">
+                                        <label htmlFor="vehicle_under_repair" className="block text-[#000000] font-bold mb-2">
                                             Vehicles Under Repair
 
                                         </label>
                                         <input
-                                            id="opening-vehicles"
+                                            id="vehicle_under_repair"
                                             type="number"
+                                            name="vehicle_under_repair"
+                                            value={inputFields.vehicle_under_repair}
+                                            onChange={handleChange}
                                             step="0.01"
                                             min={0}
-                                            placeholder="Enter Opening Vehicles Amount"
+                                            placeholder="Enter  Vehicles Under Repair Amount"
                                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
@@ -1655,7 +1772,6 @@ const Report = () => {
 };
 
 export default Report;
-
 
 
 

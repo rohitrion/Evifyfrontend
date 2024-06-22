@@ -70,11 +70,12 @@ import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from 'recoil'
 
 const Test = () => {
 
-
+  
   const [test, settest] = useRecoilBridgeAcrossReactRoots_UNSTABLE
   const [data, setdata] = useState(direction(""))
+   
 
-
+   
 
   return (
 
@@ -100,17 +101,19 @@ const Test = () => {
             <h1>the  direction of its membrane and   react frost werty iopsh vcf  it s sstaus thatwhy it is good called as the ration aspects </h1>
             <td className="px-4 py-3">
               <DropdownMenu>
+                 copnsdgt leyt 
                 <DropdownMenuTrigger asChild>
                   <Button size="sm" variant="outline">
-                    Select status
+                    Select status what is mean of it and why it 
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuLabel>Status</DropdownMenuLabel>
+                  <DropdownMenuLabel>Status</DropdownMenuLabel> 
                   <DropdownMenuSeparator />
                   <DropdownMenuCheckboxItem>Pending data is section curve and it is   </DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem>In Progress</DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem>Completed section an dit section called  </DropdownMenuCheckboxItem>
+              
                 </DropdownMenuContent>
               </DropdownMenu>
             </td>
@@ -127,7 +130,7 @@ const Test = () => {
               <div>
                 <div>
                   <Button size="sm" variant="outline">
-                    Select assignees teh direction of asign values ,section curve  
+                    Select assignees teh direction of asign values ,section curve   section  curve called 
                     what is mean by survey it is called multi form section and it is driven by its space that why they called
                   </Button>
                 </div>

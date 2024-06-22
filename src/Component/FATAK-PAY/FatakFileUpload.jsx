@@ -410,7 +410,7 @@ const FatakFileUpload = () => {
   const baseurl = useRecoilValue(BaseURLState)
   const [error, seterror] = useRecoilState(Error);
   const [authState, setauthstate] = useRecoilState(AuthState)
-  const [uploadresponse, setfileuploadresponse] = useState('')
+  // const [uploadresponse, setfileuploadresponse] = useState('')
   const [fileName, setFileName] = useRecoilState(Filename)
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -465,8 +465,6 @@ const FatakFileUpload = () => {
       console.log('File uploaded successfully', response.data);
 
 
-      setfileuploadresponse(response.data.file.file_key)
-
       const fileKey = response.data.file.file_key;
 
       const calcutekey = new FormData();
@@ -497,9 +495,9 @@ const FatakFileUpload = () => {
 
     } catch (error) {
       handleError(error.response.data.detail);
-
-      console.error('Error uploading file', error);
-      console.log('Response data:', error.response.data);
+ 
+      console.error('Error uploading  file', error);
+      console.log('Response data:', error.response.detail);
 
     } finally {
       setloding(false); // Set loading to false regardless of success or error
@@ -511,7 +509,7 @@ const FatakFileUpload = () => {
   };
 
 
-  
+
 
 
 
@@ -556,8 +554,6 @@ const FatakFileUpload = () => {
       });
 
 
-
-
     } catch (error) {
       console.error('Error deleting file:', error);
       // Handle error
@@ -567,11 +563,7 @@ const FatakFileUpload = () => {
       setShowModalForProduct(false)
     }
 
-
-
   };
-
-
 
 
   const cancelLogout = () => {
@@ -589,6 +581,38 @@ const FatakFileUpload = () => {
       seterror('');
     }, 3000);
   };
+
+
+
+  const handleDownload = async (file_key) => {
+
+
+
+    try {
+
+      let url;
+
+      if (active === "rawfiles") {
+        url = `${baseurl}/weekly/rawfile/download/${file_key}`;
+      } else if (active === "salaryfiles") {
+        url = `${baseurl}/weekly/salaryfile/download/${file_key}`;
+      }
+
+
+      const urls = url
+
+      const link = document.createElement("a");
+      link.href = urls;
+      link.setAttribute("download", "download.xlsx");
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading file:", error.message);
+    }
+
+  }
 
 
   useEffect(() => {
@@ -617,7 +641,7 @@ const FatakFileUpload = () => {
         url = `${baseurl}/get/weekly/salaryfiles`;
       }
 
-         
+
 
       try {
         setloding(true);
@@ -634,9 +658,6 @@ const FatakFileUpload = () => {
 
     fetchData();
   }, [active]);
-
-
-
 
 
 
@@ -730,13 +751,13 @@ const FatakFileUpload = () => {
             {filefiltreData.map((item, index) => (
               <div
                 key={index}
-                className="w-full border  rounded p-4 mb-2 flex justify-between items-center bg-white hover:bg-gray-100"
+                className="w-full border  rounded p-3 mb-2 flex justify-between items-center bg-white hover:bg-gray-100"
               >
                 <p>
                   <b>{item.file_name}</b>
                 </p>
                 <div className='flex gap-8'>
-                  <button className="bg-green-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-green-600">
+                  <button onClick={() => handleDownload(item.filekey)} className="bg-green-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-green-600">
                     Download
                   </button>
 

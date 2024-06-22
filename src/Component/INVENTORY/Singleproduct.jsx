@@ -435,3 +435,4 @@ const Singleproduct = ({ filteredData, setData, setFilteredData, onEdit, Differn
 };
 
 export default Singleproduct;
+

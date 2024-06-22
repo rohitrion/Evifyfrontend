@@ -66,3 +66,14 @@
 // };
 
 // export default Singleproduct;
+
+
+
+
+
+
+
+
+
+
+
