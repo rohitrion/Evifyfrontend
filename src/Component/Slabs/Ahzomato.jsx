@@ -837,7 +837,7 @@ const Ahzomato = () => {
 
 
 
-                <h3 className="text-3xl text-center pt-4 font-bold">Rejection ORDER</h3>
+                <h3 className="text-3xl text-center pt-4 font-bold">Rejection Order</h3>
                 <input
                   type="checkbox"
                   checked={rentmodal.include_rejection}
@@ -887,8 +887,56 @@ const Ahzomato = () => {
 
 
 
+                <h3  style={{color:'red'}} className="text-3xl  mt-6 text-center pt-6 font-bold">Ren Order</h3>
+                <input
+                  type="checkbox"
+                  checked={rentmodal.include_rejection}
+                  onChange={() => handleCheckboxChange('include_rejection')}
+                />
+                <table className="min-w-full  border border-gray-300 mt-4 text-center">
 
-                <h3 className="text-3xl text-center pt-4 font-bold">BAD ORDER</h3>
+                  <thead>
+                    <tr>
+                      <th className="border border-gray-300 p-2">ORDER-GRETHER-THAN-EQUAL-TO</th>
+                      <th className="border border-gray-300 p-2">AMOUNT</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value='10'
+                          onChange={(e) => handleInputChange('rejection_orders', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        <input
+                          type="number"
+                          value='10'
+                          onChange={(e) => handleInputChange('rejection_amount', e.target.value)}
+                          className='text-center'
+                          onKeyDown={handleInputKeyDown}
+                          min={0}
+                        />
+                      </td>
+                    </tr>
+                    {/* ... Repeat for other input fields */}
+                  </tbody>
+                </table>
+
+
+
+
+
+
+
+                <h3 className="text-3xl text-center pt-4 mt-4 font-bold">BAD ORDER</h3>
                 <input
                   type="checkbox"
                   checked={rentmodal.include_bad_order}

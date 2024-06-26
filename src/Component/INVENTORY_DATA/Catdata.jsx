@@ -18,6 +18,7 @@ const Catdata = ({ item, data, setdata, onEdit, filteredData, setFilteredData, o
     const [isOpen, setIsOpen] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [updatedQuantities, setUpdatedQuantities] = useState({});
+    
     const baseurl = useRecoilValue(BaseURLState);
     const [narration, setnarration] = useState('');
 
@@ -261,7 +262,7 @@ const Catdata = ({ item, data, setdata, onEdit, filteredData, setFilteredData, o
                     <Modal
                         isOpen={isOpen}
                         onRequestClose={closeModal}
-                        className="bg-white rounded-lg p-6 w-96 mx-auto mt-20 shadow-lg  border border-2 border-black"
+                        className="bg-white rounded-lg p-6 w-96 mx-auto mt-20 shadow-lg   border-2 border-black"
                         overlayClassName="fixed inset-0 flex  border border-2 border-black   items-center justify-center "
                         contentLabel="Update Quantity"
                     >

@@ -67,15 +67,53 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from 'recoil'
+import { useScroll } from 'framer-motion'
+import { useStateManager } from 'react-select'
 
 const Test = () => {
 
-  
+
   const [test, settest] = useRecoilBridgeAcrossReactRoots_UNSTABLE
   const [data, setdata] = useState(direction(""))
-   
+  const [section, satesection] = useScroll(45)
 
+  const [tyre, settyere] = useStateManager()
+
+  const obj = {
+    name: rivised,
+    account: section,
+    id: uuid,
+    inevnrtory: UNSAFE_NavigationContext,
+    setcion: NavItem.section,
+    year: year,
+    client: client,
+    shift: item.sfit1,
+    shift2: item.shift2,
+    sfit3: item.shift3,
+    sales_with_gst: item.sales_with_gst,
+    payout_with_gst: 0,
+    payout_without_gst: item.payout_without_gst,
+    opening_vechile: item_opening_vechile,
+    vechile_deploy: item_vechile_deploy,
+    active_vechile: item.active_vechile,
+    vechile_under_repair: item.vechile_under_repair,
+    fulltime_rider: item_fulltime_rider,
+    avrage_rider: item_average_rider,
+    parttime_rider: item.parttime_rider,
+    carry_forward: item.carry_forward,
+    left_rider: item.left_rider,
+    new_join_rider: item.new_join_rider,
+    vechile_depoly: item.vechile.deploy,
+    active_vechile: item_active_vechile,
+    new_join_rider: item.new_join.rider,
+    fulltime_order: item.fulltime_order,
+    section_item_fullfile: item.section_dose_till,
+    direction: item.direction,
+    left_rider:item.left_rider
+    
    
+  }
+
 
   return (
 
@@ -101,19 +139,19 @@ const Test = () => {
             <h1>the  direction of its membrane and   react frost werty iopsh vcf  it s sstaus thatwhy it is good called as the ration aspects </h1>
             <td className="px-4 py-3">
               <DropdownMenu>
-                 copnsdgt leyt 
+                copnsdgt leyt
                 <DropdownMenuTrigger asChild>
                   <Button size="sm" variant="outline">
-                    Select status what is mean of it and why it 
+                    Select status what is mean of it and why it
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuLabel>Status</DropdownMenuLabel> 
+                  <DropdownMenuLabel>Status</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuCheckboxItem>Pending data is section curve and it is   </DropdownMenuCheckboxItem>
-                  <DropdownMenuCheckboxItem>In Progress</DropdownMenuCheckboxItem>
+                  <DropdownMenuCheckboxItem>In Progress the staic </DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem>Completed section an dit section called  </DropdownMenuCheckboxItem>
-              
+
                 </DropdownMenuContent>
               </DropdownMenu>
             </td>
@@ -130,8 +168,9 @@ const Test = () => {
               <div>
                 <div>
                   <Button size="sm" variant="outline">
-                    Select assignees teh direction of asign values ,section curve   section  curve called 
+                    Select assignees teh direction of asign values ,section curve   section  curve called
                     what is mean by survey it is called multi form section and it is driven by its space that why they called
+                    teh
                   </Button>
                 </div>
                 <div>
@@ -141,7 +180,7 @@ const Test = () => {
                   <div>Bob Johnson</div>
                   <div>Alice Williams</div>
                   <div>Alice Williams   </div>
-                  <div>alice williams    </div>
+                  <div> section pie  </div>
 
                 </div>
               </div>

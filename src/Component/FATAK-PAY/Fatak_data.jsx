@@ -12,6 +12,9 @@ import { Circles } from 'react-loader-spinner';
 function Fatak_data() {
     const [month, setMonth] = useState("");
     const [year, setYear] = useState("");
+    const [week, setweek] = useState("")
+
+
     const [data, setData] = useState([]);
     const [authState, setauthstate] = useRecoilState(AuthState);
     const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +22,7 @@ function Fatak_data() {
     const [searchTerm, setSearchTerm] = useState('');
 
     const [showTable, setShowTable] = useState(false);
-    
+
 
     const handleSubmit = async (e) => {
 
@@ -30,7 +33,8 @@ function Fatak_data() {
         setIsLoading(true);
 
         try {
-            const response = await axios.post(`${baseurl}/date-by-month?month=${month}&year=${year}`, {
+            ;
+            const response = await axios.post(`${baseurl}/date-by-month/${week}?month=${month}&year=${year}`, {
                 headers: {
                     'Authorization': `Bearer ${authState.token}`,
                 }
@@ -50,9 +54,10 @@ function Fatak_data() {
 
 
 
-  
+
     const filteredData = data.filter(item =>
-        item.DRIVER_NAME.toLowerCase().includes(searchTerm.toLowerCase())
+        item.DRIVER_NAME.toLowerCase().includes(searchTerm.toLowerCase()) || item.CLIENT_NAME.toLowerCase().includes(searchTerm.toLowerCase()) || item.DRIVER_ID.toLowerCase().includes(searchTerm.toLowerCase()) || item.AADHAR_NUMBER.toLowerCase().includes(searchTerm.toLowerCase()) || item.CLIENT_NAME.toLowerCase().includes(searchTerm.toLowerCase())
+
     );
 
     return (
@@ -76,14 +81,30 @@ function Fatak_data() {
             <div className="flex max-h-[56rem]  bg-gray-100">
                 <div className="bg-white dark:bg-gray-950 shadow-lg rounded-lg p-8   max-w-screen-2xl  mx-auto my-8">
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="flex w-full justify-end items-end text-center gap-8">
+                        <div className="flex w-full justify-between	 items-end text-center gap-8">
                             <h2 className="text-4xl text-[#000000] font-bold mr-32">Off-Role Fatak Pay Data</h2>
+                            <div className="space-y-2">
+                                <select
+                                    id="week"
+                                    value={week}
+                                    onChange={(e) => setweek(e.target.value)}
+                                    className="block w-full mt-1 py-2 px-6 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                >
+                                    <option value="">Select Week</option>
+                                    <option value="weekone">weekone</option>
+                                    <option value="weektwo">weektwo</option>
+                                    <option value="weekthree">weekthree</option>
+                                    <option value="weekfour">weekfour</option>
+                                    <option value="weekfive">weekfive</option>
+
+                                </select>
+                            </div>
                             <div className="space-y-2">
                                 <select
                                     id="month"
                                     value={month}
                                     onChange={(e) => setMonth(e.target.value)}
-                                    className="block w-full mt-1 py-2 px-12 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    className="block w-full mt-1 py-2 px-6 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 >
                                     <option value="">Select month</option>
                                     <option value="01">01</option>
@@ -105,7 +126,7 @@ function Fatak_data() {
                                     id="year"
                                     value={year}
                                     onChange={(e) => setYear(e.target.value)}
-                                    className="block w-full mt-1 py-2 px-12 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    className="block w-full mt-1 py-2 px-6 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 >
                                     <option value="">Select year</option>
                                     <option value="2021">2021</option>
@@ -120,10 +141,10 @@ function Fatak_data() {
                                     <option value="2030">2030</option>
                                 </select>
                             </div>
-                            <div className="space-y-2">     
+                            <div className="space-y-2">
                                 <input
                                     type="text"
-                                    placeholder=" 🔍️   Search by driver name"
+                                    placeholder=" 🔍️   Search  driver details"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     className="block w-full mt-1 py-2 px-4 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -136,70 +157,53 @@ function Fatak_data() {
                     </form>
                     {showTable && (
                         <div className="overflow-auto mt-12 max-h-[38rem] ">
-                            <table className="border-separate border-2 w-full mx-auto">
+                            <table className="border-collapse border-2 w-full mx-auto">
                                 <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
                                     <tr className="bg-[#FFB603] text-[#000000]">
-                                        <th className="border px-4 text-center py-2">AADHAR_NUMBER</th>
-                                        <th className="border text-center px-4 py-2">ATTENDANCE</th>
-                                        <th className="border text-center px-4 py-2">BAD_ORDER</th>
-                                        <th className="border text-center px-4 py-2">CASH_COLLECTED</th>
-                                        <th className="border px-4 text-center py-2">CASH_DEPOSITED</th>
-                                        <th className="border px-4 text-center py-2">CITY_NAME</th>
-                                        <th className="border px-4 text-center py-2">CLIENT_NAME</th>
-                                        <th className="border px-4 text-center py-2">COMPANY</th>
                                         <th className="border px-4 text-center py-2">DATE</th>
-                                        <th className="border px-4 text-center py-2">DONE_BIKER_ORDERS</th>
-                                        <th className="border px-4 text-center py-2">DONE_DOCUMENT_ORDERS</th>
-                                        <th className="border px-4 text-center py-2">DONE_MICRO_ORDERS</th>
-                                        <th className="border px-4 text-center py-2">DONE_PARCEL_ORDERS</th>
+                                        <th className="border px-4 text-center py-2">WEEK_NAME</th>
+                                        <th className="border px-4 text-center py-2">STATUS</th>
+                                        <th className="border px-4 text-center py-2">COMPANY</th>
+                                        <th className="border px-4 text-center py-2">SALARY_DAY</th>
+                                        <th className="border text-center px-4 py-2">JOINING_DATE</th>
+                                        <th className="border text-center px-4 py-2">CITY_NAME</th>
+                                        <th className="border text-center px-4 py-2">CLIENT_NAME</th>
+                                        <th className="border px-4 text-center py-2">EXIT_DATE</th>
+                                        <th className="border px-4 text-center py-2">AADHAR_NUMBER</th>
+                                        <th className="border px-4 text-center py-2">PHONE_NUMBER</th>
+
+
+                                        <th className="border px-4 text-center py-2">DESIGNATION_NAME</th>
                                         <th className="border px-4 text-center py-2">DRIVER_ID</th>
                                         <th className="border px-4 text-center py-2">DRIVER_NAME</th>
                                         <th className="border px-4 text-center py-2">FINAL_AMOUNT</th>
-                                        <th className="border px-4 text-center py-2">ID</th>
-                                        <th className="border px-4 text-center py-2">JOINING_DATE</th>
-                                        <th className="border px-4 text-center py-2">OTHER_PANALTY</th>
-                                        <th className="border px-4 text-center py-2">PAYMENT_SENT_ONLINE</th>
-                                        <th className="border px-4 text-center py-2">PHONE_NUMBER</th>
-                                        <th className="border px-4 text-center py-2">POCKET_WITHDRAWAL</th>
-                                        <th className="border px-4 text-center py-2">RAIN_ORDER</th>
-                                        <th className="border px-4 text-center py-2">REJECTION</th>
-                                        <th className="border px-4 text-center py-2">SALARY_DATE</th>
-                                        <th className="border px-4 text-center py-2">STATUS</th>
-                                        <th className="border px-4 text-center py-2">WEEK_NAME</th>
-                                        <th className="border px-4 text-center py-2">WORK_TYPE</th>
+
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {filteredData.map((item, index) => (
                                         <tr key={index} className="hover:bg-blue-100/40 text-sm text-[#000000]">
-                                            <td className="border font-bold text-center px-4 py-2">{item?.AADHAR_NUMBER}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.ATTENDANCE}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.BAD_ORDER}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.CASH_COLLECTED}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.CASH_DEPOSITED}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.DATE}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.WEEK_NAME}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.STATUS}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.COMPANY}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.SALARY_DAY}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.JOINING_DATE}</td>
                                             <td className="border font-bold text-center px-4 py-2">{item?.CITY_NAME}</td>
                                             <td className="border font-bold text-center px-4 py-2">{item?.CLIENT_NAME}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.COMPANY}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.DATE}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.DONE_BIKER_ORDERS}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.DONE_DOCUMENT_ORDERS}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.DONE_MICRO_ORDERS}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.DONE_PARCEL_ORDERS}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.DRIVER_ID}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.DRIVER_NAME}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.FINAL_AMOUNT}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.ID}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.JOINING_DATE}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.OTHER_PANALTY}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.PAYMENT_SENT_ONLINE}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.EXIT_DATE}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.AADHAR_NUMBER}</td>
                                             <td className="border font-bold text-center px-4 py-2">{item?.PHONE_NUMBER}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.POCKET_WITHDRAWAL}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.RAIN_ORDER}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.REJECTION}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.SALARY_DATE}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.STATUS}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.WEEK_NAME}</td>
-                                            <td className="border font-bold text-center px-4 py-2">{item?.WORK_TYPE}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.DESIGNATION_NAME}</td>
+                                            <td className="border font-bold text-center px-4 py-2">{item?.DRIVER_ID}</td>
+
+                                            <td className="border font-bold text-center px-4 py-2">{item?.DRIVER_NAME}</td>
+
+                                            <td className="border font-bold text-center px-4 py-2">{item?.FINAL_AMOUNT}</td>
+
+
                                         </tr>
                                     ))}
                                 </tbody>

@@ -60,8 +60,7 @@ const CustomLabel = ({ viewBox, value }) => {
 
     //   <div className="chart-row" style={{ textAlign: 'center' }}>
      
-    //     <div className="chart-container">
-    //       <h4 style={{color:'black'}} >Rider vs Month</h4>
+    //     <div className="chart-container">    <h4 style={{color:'black'}} >Rider vs Month</h4>
     //       <ResponsiveContainer className="chart-container" width="100%" height={300}>
     //       <BarChart data={dataRiderVsMonth}>
     //         <XAxis dataKey="month" />

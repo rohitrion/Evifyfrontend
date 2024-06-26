@@ -142,12 +142,35 @@ const Report = () => {
         setIsOpen(false);
         setIsLoading(false);
         setInputFields({
-            invoice_number: '',
-            invoice_amount: '',
-            invoice_date: '',
-            inventory_paydate: '',
-            vendor: '',
-            invoice_image_id: ''
+            year: '',
+            client: '',
+            city: '',
+            month: '',
+            fulltime_order: '',
+            partime_rider: '',
+            fulltime_rider: '',
+            partime_order: '',
+            average_rider: '',
+            carry_forward: '',
+            new_join_rider: '',
+            left_rider: '',
+            shift_1: '',
+            shift_1: '',
+            shift_2: '',
+            shift_3: '',
+            shift_4: '',
+            sales_with_gst: '',
+            sales_without_gst: '',
+            payout_with_gst: '',
+            payout_without_gst: '',
+            opening_vehicles: '',
+            vehicles_added: '',
+            vehicles_remove: '',
+            invoice_id: '',
+            active_vehicle: '',
+            invoice_id: '',
+            vehicle_deploy: '',
+            vehicle_under_repair: ''
         });
 
     };
@@ -166,13 +189,36 @@ const Report = () => {
         setSelectedInventory(inventory);
         setIsOpen(true);
         setInputFields({
-            invoice_number: inventory.invoice_number,
-            invoice_amount: inventory.invoice_amount,
-            invoice_date: inventory.invoice_date,
-            inventory_paydate: inventory.inventory_paydate,
-            vendor: inventory.vendor,
-            invoice_image_id: inventory.invoice_image_id,
-            invoice_id: inventory.invoice_id
+
+            year: inventory.year,
+            client: inventory.client,
+            city: inventory.city,
+            month: inventory.month,
+            fulltime_order: inventory.fulltime_order,
+            partime_rider: inventory.partime_rider,
+            fulltime_rider: inventory.fulltime_rider,
+            partime_order: inventory.partime_order,
+            average_rider: inventory.average_rider,
+            
+            carry_forward: inventory.carry_forward,
+            new_join_rider: inventory.new_join_rider,
+            left_rider: inventory.left_rider,
+            shift_1: inventory.shift_1,
+            shift_2: inventory.shift_2,
+            shift_3: inventory.shift_3,
+            shift_4: inventory.shift_4,
+            sales_with_gst: inventory.sales_with_gst,
+            sales_without_gst: inventory.sales_without_gst,
+            payout_with_gst: inventory.payout_with_gst,
+            payout_without_gst: inventory.payout_without_gst,
+            opening_vehicles: inventory.opening_vehicles,
+            vehicles_added: inventory.vehicles_added,
+            vehicles_remove: inventory.vehicles_remove,
+            invoice_id: inventory.invoice_id,
+            active_vehicle: inventory.active_vehicle,
+            vehicle_deploy: inventory.vehicle_deploy,
+            vehicle_under_repair: inventory.vehicle_under_repair
+
 
         });
         console.log(inventory)
@@ -214,26 +260,26 @@ const Report = () => {
 
 
 
-            // if (selectedInventory) {
-            //     const response = await axios.patch(`${baseurl}/inventories/${selectedInventory.invoice_id}`, formData, {
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         }
-            //     });
-            //     console.log('Inventory updated successfully!');
-            //     console.log(response.data);
-            //     toast.info("Inventory updated successfully", {
-            //         position: 'top-center',
-            //         autoClose: 1000,
-            //         hideProgressBar: false,
-            //         closeOnClick: true,
-            //         pauseOnHover: true,
-            //         draggable: true,
-            //     })
-            //     setgetapi(prevData => prevData.map(item => (
-            //         item.invoice_id === selectedInventory.invoice_id ? inputFields : item
-            //     )));
-            // } else {
+            if (selectedInventory) {
+                const response = await axios.patch(`${baseurl}/sales/${selectedInventory.id}`, inputFields, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                console.log('Inventory updated successfully!');
+                console.log(response.data);
+                toast.info("Inventory updated successfully", {
+                    position: 'top-center',
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                })
+                setgetapi(prevData => prevData.map(item => (
+                    item.id === selectedInventory.id ? inputFields : item
+                )));
+            } else {
             const response = await axios.post(`${baseurl}/sales`, inputFields, {
                 headers: {
                     ...headers,
@@ -257,7 +303,7 @@ const Report = () => {
 
             setError(null);
 
-        } catch (error) {
+        } }catch (error) {
             console.error('Error:', error);
             toast.error(error)
             // setError('Failed to submit form data. Please try again later.');
@@ -275,7 +321,7 @@ const Report = () => {
     useEffect(() => {
 
         const filteredResults = getapidata.filter(item =>
-            item?.month && item.client.toLowerCase().includes(search.toLowerCase())
+            item?.month.toLowerCase().includes(search.toLowerCase()) || item.client.toLowerCase().includes(search.toLowerCase())
         );
 
         setFilteredData(filteredResults);
@@ -290,7 +336,7 @@ const Report = () => {
                 const response = await axios.get(`${baseurl}/sales`);
 
                 setgetapi(response.data.sales);
-                console.log(response.data.sales,"the report data ")
+                console.log(response.data.sales, "the report data ")
                 setFilteredData(response.data.sales);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -1772,14 +1818,6 @@ const Report = () => {
 };
 
 export default Report;
-
-
-
-
-
-
-
-
 
 
 

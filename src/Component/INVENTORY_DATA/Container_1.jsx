@@ -203,7 +203,7 @@ const Container_1 = ({ product, onProductSelect }) => {
 
                 setLoading(true);
                 const response = await axios.get(`${baseurl}/get/inventory/used`);
-                console.log(response.data.products, "the durgesh shau photo garphy")
+                console.log(response.data.products, "the data of products")
                 if (response.status === 204) {
                     // Handle scenario where invoice does not exist
                     console.log('Invoice not found.');

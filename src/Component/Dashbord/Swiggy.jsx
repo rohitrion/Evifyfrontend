@@ -887,6 +887,49 @@ const Swiggy = () => {
 
 
 
+                            <h3 className="text-3xl text-center pt-4 mt-4 font-bold">Ren ORDER</h3>
+                            <input
+                                type="checkbox"
+                                checked={rentmodal.include_rejection}
+                                onChange={() => handleCheckboxChange('include_rejection')}
+                            />
+                            <table className="min-w-full border border-gray-300 mt-3 text-center">
+
+                                <thead>
+                                    <tr>
+                                        <th className="border border-gray-300 p-2">ORDER-GRETHER-THAN-EQUAL-TO</th>
+                                        <th className="border border-gray-300 p-2">AMOUNT</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number"
+                                                value={rentmodal.rejection_orders}
+                                                onChange={(e) => handleInputChange('rejection_orders', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                                className='text-center'
+                                            />
+
+                                        </td>
+                                        <td className="border border-gray-300 p-2">
+                                            <input
+                                                type="number"
+                                                value={rentmodal.rejection_amount}
+                                                onChange={(e) => handleInputChange('rejection_amount', e.target.value)}
+                                                onKeyDown={handleInputKeyDown}
+                                                min={0}
+                                                className='text-center'
+                                            />
+                                        </td>
+                                    </tr>
+                                    {/* ... Repeat for other input fields */}
+                                </tbody>
+                            </table>
+
 
 
                             <h3 className="text-3xl text-center pt-4 mt-4 font-bold">BAD ORDER</h3>

@@ -403,7 +403,7 @@ import { ThreeDots } from "react-loader-spinner";
 const FatakFileUpload = () => {
 
 
-  const [file, setfile] = useState(null)
+  const [file, setfile] = useState('')
 
   const [loading, setloding] = useState(false)
   const [filerespose, setfileresponse] = useRecoilState(Fatakfileresponse)
@@ -440,8 +440,8 @@ const FatakFileUpload = () => {
 
 
   const handleUpload = async () => {
-    if (!file) {
-      return;
+    if (file==='') {
+      return
     }
     try {
       const headers = {
@@ -495,14 +495,14 @@ const FatakFileUpload = () => {
 
     } catch (error) {
       handleError(error.response.data.detail);
- 
+
       console.error('Error uploading  file', error);
       console.log('Response data:', error.response.detail);
 
     } finally {
       setloding(false); // Set loading to false regardless of success or error
       setFileName('')
-
+      setfile('')
     }
 
 
@@ -542,7 +542,7 @@ const FatakFileUpload = () => {
       let updatedata = filefiltreData.filter((item) => item.filekey !== file_key)
       setFilefiltreData(updatedata)
 
-      toast.success('🦄 Deleted!', {
+      toast.success('🦄Deleted!', {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -586,8 +586,18 @@ const FatakFileUpload = () => {
 
   const handleDownload = async (file_key) => {
 
+    setloding(true);
 
-
+    toast.success('File Downloading... ', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     try {
 
       let url;
@@ -610,6 +620,8 @@ const FatakFileUpload = () => {
       document.body.removeChild(link);
     } catch (error) {
       console.error("Error downloading file:", error.message);
+    } finally {
+      setloding(false)
     }
 
   }
@@ -665,7 +677,22 @@ const FatakFileUpload = () => {
 
   return (
     <>
+      {loading && (
+        <div className="flex items-center justify-center fixed top-0 left-0 w-full h-full bg-opacity-60 z-2 bg-gray-300">
+          <div className="ml-40">
+            <Circles
+              height="80"
+              width="80"
+              color="#4fa94d"
+              ariaLabel="circles-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
 
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-col">
         <ToastContainer />
@@ -748,7 +775,7 @@ const FatakFileUpload = () => {
             ""
           )}
           <div className="border rounded p-4  relative flex flex-col  items-center shadow-lg hover:bg-gray-200 justify-between max-h-[30rem] overflow-auto scrollbar">
-            {filefiltreData.map((item, index) => (
+            {filefiltreData?.map((item, index) => (
               <div
                 key={index}
                 className="w-full border  rounded p-3 mb-2 flex justify-between items-center bg-white hover:bg-gray-100"
