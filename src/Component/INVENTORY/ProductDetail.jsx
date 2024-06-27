@@ -750,6 +750,30 @@ const ProductDetail = ({ product, onProductSelect }) => {
                 </div>
               </div>
 
+
+
+              <div className="mb-4">
+                <label htmlFor="invoice_amount" className="block  text-black text-boldtext-sm font-bold mb-2">Amount</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    id="quantity"
+                    onWheel={event => event.currentTarget.blur()}
+                    placeholder='rate per item'
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                    value={Amount}
+                    onChange={(e) => setamount(e.target.value)}
+                    style={{
+                      WebkitAppearance: 'none',  // For Chrome, Safari, and Opera
+                      MozAppearance: 'textfield',  // For Firefox
+                      appearance: 'textfield'  // For modern browsers
+                    }}
+                  />
+
+                </div>
+              </div>
+
+
               <div className="mb-4">
                 <label htmlFor="invoice_date" className="block  text-black  text-sm font-bold mb-2">SIZE</label>
                 <div className="relative">
@@ -900,26 +924,6 @@ const ProductDetail = ({ product, onProductSelect }) => {
 
 
 
-              <div className="mb-4">
-                <label htmlFor="invoice_amount" className="block  text-black text-boldtext-sm font-bold mb-2">Amount</label>
-                <div className="relative">
-                  <input
-                    type="number"
-                    id="quantity"
-                    onWheel={event => event.currentTarget.blur()}
-                    placeholder='rate per item'
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-                    value={Amount}
-                    onChange={(e) => setamount(e.target.value)}
-                    style={{
-                      WebkitAppearance: 'none',  // For Chrome, Safari, and Opera
-                      MozAppearance: 'textfield',  // For Firefox
-                      appearance: 'textfield'  // For modern browsers
-                    }}
-                  />
-
-                </div>
-              </div>
 
 
 
